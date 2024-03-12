@@ -4,7 +4,7 @@ const MallSelectDropdownButton = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none">
             <g filter="url(#a)">
-                <path stroke="#000" stroke-width="1.5" d="M8.375 6.687 11 9.312l2.625-2.625" />
+                <path stroke="#000" strokeWidth="1.5" d="M8.375 6.687 11 9.312l2.625-2.625" />
                 <circle cx="11" cy="8" r="6.5" stroke="#FAFAFA" />
             </g>
             <defs>
