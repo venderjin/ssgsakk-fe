@@ -3,3 +3,9 @@ export interface HomeHeaderNavigationType {
     title: string;
     url: string;
 }
+
+export interface FooterNavigationType {
+    id: number;
+    title: string;
+    url: string;
+}
