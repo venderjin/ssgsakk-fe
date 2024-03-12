@@ -9,11 +9,11 @@ const Footer = () => {
         <div className="w-full">
             <div className="w-full bg-[#717178] flex flex-row px-[15px] py-[12px] justify-between">
                 <div className="flex flex-row">
-                    <FooterCallcenterLogo />
+                    <div className="mr-[10px] w-[29px] h-[27px] bg-footerCallcenter bg-no-repeat bg-[position:0px_0px] bg-[length:50px_150px]"></div>
                     <div>
                         <p className="text-white font-Pretendard text-[10px]">SSG.COM 고객센터 / 전자금융거래 분쟁처리</p>
                         <div className="flex flex-row items-center">
-                            <p className="text-white font-Pretendard text-[12px]">1577-3419 /</p>
+                            <p className="text-white font-Pretendard text-[12px]">1577-3419 / </p>
                             <p className="text-white font-Pretendard text-[10px]"> ssg@ssg.com</p>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ const Footer = () => {
                 <div className="flex flex-wrap justify-start mb-[10px]">
                     <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">회사소개</p>
                     <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">이용약관</p>
-                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#FF5452]">개인정보처리방침</p>
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#FF5452] font-bold">개인정보처리방침</p>
                     <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">청소년보호방침</p>
                     <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">소비자분쟁해결기준</p>
                     <p className="whitespace-nowrap px-[5px] font-Pretendard text-[10px] text-[#414141]">입점상담</p>

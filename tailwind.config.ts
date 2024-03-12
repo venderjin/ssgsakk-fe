@@ -12,6 +12,7 @@ const config: Config = {
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                footerCallcenter: "url('https://sui.ssgcdn.com/ui/m_ssg/img/v2/sp_footer.png')",
             },
             fontFamily: {
                 Pretendard: ["Pretendard"],
