@@ -54,13 +54,24 @@ const Footer = () => {
                     <p className="font-Pretendard text-[10px] text-[#888888]">당사는 고객님이 현금 결제한 금액에 대해 우리은행과</p>
                     <p className="font-Pretendard text-[10px] text-[#888888]">채무지급 보증 계약을 체결하여 안전거래를 보장하고 있습니다.</p>
                 </div>
-                <div className="flex flex-row justify-center">
-                    <p className="px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">회사소개</p>
-                    <p className="px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">이용약관</p>
-                    <p className="px-[5px] border-r-2 font-Pretendard text-[10px] text-[#FF5452]">개인정보처리방침</p>
-                    <p className="px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">청소년보호방침</p>
-                    <p className="px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">소비자분쟁해결기준</p>
-                    <p className="px-[5px] font-Pretendard text-[10px] text-[#414141]">입점상담</p>
+                <div className="flex flex-wrap justify-start mb-[10px]">
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">회사소개</p>
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">이용약관</p>
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#FF5452]">개인정보처리방침</p>
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">청소년보호방침</p>
+                    <p className="whitespace-nowrap px-[5px] border-r-2 font-Pretendard text-[10px] text-[#414141]">소비자분쟁해결기준</p>
+                    <p className="whitespace-nowrap px-[5px] font-Pretendard text-[10px] text-[#414141]">입점상담</p>
+                </div>
+                <div className="pr-[40px]">
+                    <p className="font-Pretendard text-[10px] text-[#888888]">
+                        ㈜에스에스지닷컴은 SSG.COM 실시간 항공권 서비스의 통신판매중개자로서 거래 당사자가 아니며, 입점 판매사가 등록한 상품 정보 및 거래에 대해
+                        책임을 지지 않습니다.
+                    </p>
+                    <p className="font-Pretendard text-[10px] text-[#888888]">
+                        ㈜에스에스지닷컴 사이트의 상품/판매자/쇼핑정보, 컨텐츠, UI 등에 대한 무단 복제, 전송, 배포, 스크래핑 등의 행위는 저작권법, 콘텐츠사업
+                        진흥법 등에 의하여 엄격히 금지됩니다.
+                    </p>
+                    <p className="font-Pretendard text-[10px] text-[#888888] mt-[4px]">Copyright ⓒ SSG.COM Corp. All rights reserved.</p>
                 </div>
             </div>
         </div>
