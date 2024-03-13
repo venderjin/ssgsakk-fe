@@ -6,18 +6,18 @@ import LoginForm from "@/components/forms/LoginForm";
 import Footer from "@/components/layouts/Footer";
 
 export default function Page() {
-  const [saveIdCheck, setSaveIdCheck] = useState(false);
+    const [saveIdCheck, setSaveIdCheck] = useState(false);
 
-  const onChangeSaveIdCheck = (data: boolean) => {
-    setSaveIdCheck(data);
-    console.log(saveIdCheck);
-  };
+    const onChangeSaveIdCheck = (data: boolean) => {
+        setSaveIdCheck(data);
+        console.log(saveIdCheck);
+    };
 
-  return (
-    <Modal>
-      <ModalHeader title={"로그인"} />
-      <LoginForm onChangeSaveIdCheck={onChangeSaveIdCheck} />
-      <Footer />
-    </Modal>
-  );
+    return (
+        <Modal>
+            <ModalHeader title={"로그인"} />
+            <LoginForm onChangeSaveIdCheck={onChangeSaveIdCheck} />
+            <Footer />
+        </Modal>
+    );
 }

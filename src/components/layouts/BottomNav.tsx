@@ -9,9 +9,9 @@ const BottomNav = () => {
         <div className="w-full h-[50px] sticky bottom-0 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.07)] bg-white flex flex-row justify-around items-center">
             {mainNavigationData.map((category: MainNavigationType) => {
                 return (
-                    <div key={category.id} className="flex flex-col items-center">
-                        <Image src={category.icon} alt={category.title} width={28} height={28} />
-                        <Link href={category.url} className="font-Pretendard text-[#777777] text-[11px]">
+                    <div key={category.id}>
+                        <Link href={category.url} className="font-Pretendard text-[#777777] flex-col text-[11px] flex items-center">
+                            <Image src={category.icon} alt={category.title} width={28} height={28} />
                             {category.title}
                         </Link>
                     </div>

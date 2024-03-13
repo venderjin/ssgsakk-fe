@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const TopHeader = () => {
     return (
-        <div>
+        <header className="w-full bg-white">
             <div className="w-full flex justify-between items-center py-[8px] pl-[16px] pr-[10px] gap-2">
                 <div className="flex gap-[3px] items-center w-[113px] h-[14px]">
                     <Image src="/images/home/ssgLogo.svg" alt="SSG" width={86} height={40} />
@@ -18,7 +18,7 @@ const TopHeader = () => {
                     <Image src="/images/home/cartLogo.png" alt="Cart" width={26} height={26} />
                 </div>
             </div>
-        </div>
+        </header>
     );
 };
 
