@@ -3,7 +3,7 @@ import { FooterNavigationType } from "../types/navigationType";
 export const footerNavigationData: FooterNavigationType[] = [
     {
         id: 1,
-        title: "로그인이야",
+        title: "로그인",
         url: "/login",
     },
     {

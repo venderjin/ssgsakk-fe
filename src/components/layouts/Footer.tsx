@@ -1,12 +1,11 @@
 import React from "react";
-import FooterCallcenterLogo from "@/images/svgs/FooterCallcenterLogo";
 import { FooterNavigationType } from "@/types/navigationType";
 import { footerNavigationData } from "@/libs/footerNavigationData";
 import Link from "next/link";
 
 const Footer = () => {
     return (
-        <div className="w-full">
+        <div className="w-full pb-[50px]">
             <div className="w-full bg-[#717178] flex flex-row px-[15px] py-[12px] justify-between">
                 <div className="flex flex-row">
                     <div className="mr-[10px] w-[29px] h-[27px] bg-footerCallcenter bg-no-repeat bg-[position:0px_0px] bg-[length:50px_150px]"></div>
