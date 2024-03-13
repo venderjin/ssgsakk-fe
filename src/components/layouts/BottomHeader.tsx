@@ -1,26 +1,29 @@
 import React from "react";
 import { HomeHeaderNavigationType } from "@/types/navigationType";
 import { homeHeaderCategoryData } from "@/libs/homeHeaderCategoryData";
-import SsgTVLogo from "@/images/svgs/SsgTVLogo";
 
+import Image from "next/image";
 import Link from "next/link";
 
 const BottomHeader = () => {
     return (
-        <div className="flex flex-row justify-center overflow-x-auto">
-            {homeHeaderCategoryData.map((category: HomeHeaderNavigationType) => (
-                <div key={category.id} className="flex-grow py-[14px] px-[9px]">
-                    {category.id === 7 ? (
-                        <p className="whitespace-nowrap overflow-hidden bg-slate-200">{category.title}로고오는자리</p>
-                    ) : (
-                        <Link href={category.url} className="font-Pretendard whitespace-nowrap bg-slate-300">
-                            {category.title}
-                        </Link>
-                    )}
-                </div>
-            ))}
-            {/* <SsgTVLogo /> */}
-        </div>
+        <nav className="flex flex-row overflow-x-auto sticky top-0 z-50 drop-shadow-md bg-white">
+            <ul className="w-full flex flex-row items-center">
+                {homeHeaderCategoryData.map((category: HomeHeaderNavigationType) => {
+                    return (
+                        <li key={category.id} className="px-[12px] ">
+                            {category.id === 7 ? (
+                                <Image src="/images/home/ssgTVLogo.png" alt="ssgtvlogo" width={60} height={46} className="px-[4px] min-w-[60px] h-auto"></Image>
+                            ) : (
+                                <Link href={category.url} className="font-Pretendardd text-[14px] whitespace-nowrap px-[4px] h-auto ">
+                                    {category.title}
+                                </Link>
+                            )}
+                        </li>
+                    );
+                })}
+            </ul>
+        </nav>
     );
 };
 
