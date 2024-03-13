@@ -10,4 +10,9 @@ export interface FooterNavigationType {
     url: string;
 }
 
-//sdf
+export interface MainNavigationType {
+    id: number;
+    title: string;
+    url: string;
+    icon: string;
+}

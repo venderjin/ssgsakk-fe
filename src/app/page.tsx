@@ -1,9 +1,11 @@
-import Image from "next/image";
+import HomeAdCarousel from "@/components/layouts/HomeAdCarousel";
+import Footer from "../components/layouts/Footer";
 
 export default function Home() {
     return (
         <div>
-            <h1>Home</h1>
+            <HomeAdCarousel />
+            <Footer />
         </div>
     );
 }
