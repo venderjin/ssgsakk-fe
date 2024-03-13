@@ -1,11 +1,26 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NotFound() {
     return (
-        <div>
-            <h2>Not Found</h2>
-            <p>Could not find requested resource</p>
-            <Link href="/">Return Home</Link>
+        <div className="bg-white w-full h-screen justify-center items-center flex flex-col">
+            <Image src="/images/etc/notFound.png" alt="404" width={140} height={140} />
+            <p className="font-Pretendard font-bold text-[20px] mt-[30px] text-center">
+                원하셨던
+                <br />
+                페이지가 아닌가요?
+            </p>
+            <p className="font-Pretendard text-[#969696] text-[15px] mt-[15px] text-center">
+                방문하신 페이지가
+                <br />
+                변경 혹은 삭제되었을 수 있어요.
+                <br />
+                이전 페이지에서 다시 한번 시도해 주세요.
+            </p>
+
+            <Link href="/" className="mt-[30px] justify-center flex">
+                <button className="text-white px-[50px] py-[20px] bg-[#000000] text-[15px] rounded-lg font-Pretendard">홈으로 돌아가기</button>
+            </Link>
         </div>
     );
 }
