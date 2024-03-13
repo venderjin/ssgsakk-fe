@@ -1,4 +1,67 @@
-import { topCategoryType, categoryType } from "@/types/categoryType";
+import { topCategoryType, themeType } from "@/types/categoryType";
+
+export const themeData: themeType[] = [
+  {
+    id: 1,
+    name: "SHINSEGAE GOLF",
+    img: "golf",
+    url: "https://m-shinsegaemall.ssg.com/page/dept/golf_shop",
+  },
+  {
+    id: 2,
+    name: "SSG 랜더스",
+    img: "landers",
+    url: "https://ssglanders.mfamily.ssg.com/",
+  },
+  {
+    id: 3,
+    name: "갤러리",
+    img: "gallery",
+    url: "https://m.ssg.com/disp/category.ssg?dispCtgId=6000237091",
+  },
+  {
+    id: 4,
+    name: "건강식품전문관 BIOPULBLIC",
+    img: "biobuplic",
+    url: "https://biopublic.mblossom.ssg.com/",
+  },
+  {
+    id: 5,
+    name: "와인픽업",
+    img: "winePickup",
+    url: "https://m.ssg.com/page/winepickup.ssg",
+  },
+  {
+    id: 6,
+    name: "신선직송",
+    img: "farmersMarket",
+    url: "https://m.ssg.com/page/farmersmarket",
+  },
+  {
+    id: 7,
+    name: "중소상공인 상생관",
+    img: "sbMarket",
+    url: "https://m.ssg.com/page/sbmarket.ssg",
+  },
+  {
+    id: 8,
+    name: "라이프매거진",
+    img: "lifeMagazine",
+    url: "https://m.ssg.com/contents/lifeMagazineMain.ssg",
+  },
+  {
+    id: 9,
+    name: "유아동 LITTLE SSG",
+    img: "ssgBaby",
+    url: "https://m.ssg.com/page/ssgbaby/main.ssg",
+  },
+  {
+    id: 10,
+    name: "반려동물 Molly's SSG",
+    img: "ssgPet",
+    url: "https://m.ssg.com/page/ssgpet/main.ssg",
+  },
+];
 
 export const categoryData: topCategoryType[] = [
   {

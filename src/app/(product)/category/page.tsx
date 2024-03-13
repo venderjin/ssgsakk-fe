@@ -4,7 +4,7 @@ import React from "react";
 
 const CategoryPage = () => {
   return (
-    <div className="w-full">
+    <div>
       <CategoryList />
       <ThemeList />
     </div>
