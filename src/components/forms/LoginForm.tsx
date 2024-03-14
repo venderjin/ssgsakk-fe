@@ -10,8 +10,18 @@ type Props = {
   onChangeSaveIdCheck: (data: boolean) => void;
 };
 
+type loginType = {
+  loginId: string;
+  password: string;
+};
+
 export default function LoginForm({ onChangeSaveIdCheck }: Props) {
   const [saveIdCheck, setCheck] = useState(false);
+  const [loginData, setLoginData] = useState<loginType>({
+    loginId: "",
+    password: "",
+  });
+
   const onInputCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -20,45 +30,68 @@ export default function LoginForm({ onChangeSaveIdCheck }: Props) {
   };
 
   const { data: session } = useSession();
-  console.log("session:", session);
+  //console.log("session:", session);
+
+  const loginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!loginData.loginId || !loginData.password) {
+      return alert("아이디와 비밀번호를 입력해주세요.");
+    }
+
+    console.log(loginData);
+  };
+
+  const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="p-[20px] pt-[40px]">
-      <div>
+      <form onSubmit={loginSubmit}>
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px]"
-          type="text"
           placeholder="아이디"
+          type="text"
+          name="loginId"
+          onChange={onChangeLoginData}
         />
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] border-t-0 px-[15px] py-[12px] text-[15px]"
-          type="password"
           placeholder="비밀번호"
+          type="password"
+          name="password"
+          onChange={onChangeLoginData}
         />
-      </div>
 
-      <div className="flex w-full mt-[10px] px-[15px]">
-        <span className="flex content-center items-center">
-          <input
-            checked={saveIdCheck}
-            onChange={(e) => onInputCheckboxChange(e)}
-            type="checkBox"
-            id="keep_id"
-            className={`w-[22px] h-[22px] appearance-none mr-[5px] bg-login-icon bg-no-repeat ${
-              saveIdCheck
-                ? "bg-[position:0px_-18px]"
-                : "bg-[position:-24px_-18px]"
-            } bg-[length:250px_250px]`}
-          />
-          <label htmlFor="keep_id" className="text-[14px] text-[#222222]">
-            아이디 저장
-          </label>
-        </span>
-      </div>
+        <div className="flex w-full mt-[10px] px-[15px]">
+          <span className="flex content-center items-center">
+            <input
+              checked={saveIdCheck}
+              onChange={(e) => onInputCheckboxChange(e)}
+              type="checkBox"
+              id="keep_id"
+              className={`w-[22px] h-[22px] appearance-none mr-[5px] bg-login-icon bg-no-repeat ${
+                saveIdCheck
+                  ? "bg-[position:0px_-18px]"
+                  : "bg-[position:-24px_-18px]"
+              } bg-[length:250px_250px]`}
+            />
+            <label htmlFor="keep_id" className="text-[14px] text-[#222222]">
+              아이디 저장
+            </label>
+          </span>
+        </div>
 
-      <button className="login-btn bg-[#FF5452] text-white text-[15px]  mt-[30px] font-semibold">
-        로그인
-      </button>
+        <button
+          type="submit"
+          className="login-btn bg-[#FF5452] text-white text-[15px]  mt-[30px] font-semibold"
+        >
+          로그인
+        </button>
+      </form>
 
       <div className="mt-[13px] w-full h-[19.5px] flex justify-center">
         <Link className="px-[8px] text-[13px] text-[#4A4A4A]" href="">
@@ -85,7 +118,8 @@ export default function LoginForm({ onChangeSaveIdCheck }: Props) {
               }
             >
               <Image
-                src={sns.icon}
+                src={`/images/login/${sns.type}.svg`}
+                priority
                 alt={sns.type}
                 width={51}
                 height={51}
