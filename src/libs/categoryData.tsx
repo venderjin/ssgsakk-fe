@@ -481,7 +481,7 @@ export const categoryData: topCategoryType[] = [
   {
     id: 11,
     name: "신선식품",
-    height: 298,
+    height: 184,
     subCategories: [
       {
         id: 11,
@@ -520,7 +520,7 @@ export const categoryData: topCategoryType[] = [
   {
     id: 12,
     name: "가공/건강식품",
-    height: 184,
+    height: 298,
     subCategories: [
       {
         id: 12,
