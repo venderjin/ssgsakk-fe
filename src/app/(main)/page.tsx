@@ -1,5 +1,5 @@
 import React from "react";
-import HomeAdCarousel from "@/components/layouts/HomeAdCarousel";
+import HomeAdCarousel from "@/components/home/HomeAdCarousel";
 
 export default function Home() {
     return (
