@@ -1,4 +1,28 @@
 import { topCategoryType, themeType } from "@/types/categoryType";
+import { FooterNavigationType } from "@/types/navigationType";
+
+export const footerData: FooterNavigationType[] = [
+  {
+    id: 1,
+    title: "고객센터",
+    url: "https://m.ssg.com/customer/main.ssg?aplSiteNo=6005&_mpop=new",
+  },
+  {
+    id: 2,
+    title: "공지사항",
+    url: "https://m.ssg.com/customer/noticeList.ssg?_mpop=new&siteNo=6005",
+  },
+  {
+    id: 3,
+    title: "입점상담",
+    url: "https://partners.ssgadm.com/;jsessionid=36A6C46718A1FB6CA39F42A4220F7FEE",
+  },
+  {
+    id: 4,
+    title: "로그인",
+    url: "/login",
+  },
+];
 
 export const themeData: themeType[] = [
   {
@@ -21,8 +45,8 @@ export const themeData: themeType[] = [
   },
   {
     id: 4,
-    name: "건강식품전문관 BIOPULBLIC",
-    img: "biobuplic",
+    name: "건강식품전문관 BIOPUBLIC",
+    img: "bioPublic",
     url: "https://biopublic.mblossom.ssg.com/",
   },
   {
