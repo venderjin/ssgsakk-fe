@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { homeMainAdvertisementCarouselData } from "@/libs/homeMainAdvertisementCarouselData";
-import { HomeMainAdvertisementCarouselType } from "@/types/carouselType";
+import { HomeMainAdvertisementCarouselType } from "@/types/homeResourceType";
 
 const HomeAdCarousel = () => {
     const [currentAdIndex, setCurrentAdIndex] = useState<number>(0);
