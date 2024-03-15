@@ -1,7 +1,7 @@
 import React from "react";
-import HomeAdCarousel from "@/components/home/HomeAdCarousel";
+import HomeAdCarousel from "@/components/pages/home/HomeAdCarousel";
 import WhiteSpace from "@/components/common/WhiteSpace";
-import HomeGridItems from "@/components/home/HomeGridItems";
+import HomeGridItems from "@/components/pages/home/HomeGridItems";
 
 export default function Home() {
     return (
