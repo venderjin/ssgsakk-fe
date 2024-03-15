@@ -5,14 +5,14 @@ import FloatingLeft from "@/components/common/FloatingLeft";
 import React from "react";
 
 const CategoryPage = () => {
-  return (
-    <div>
-      <CategoryList />
-      <ThemeList />
-      <CategoryFooter />
-      <FloatingLeft />
-    </div>
-  );
+    return (
+        <div>
+            <CategoryList />
+            <ThemeList />
+            <CategoryFooter />
+            <FloatingLeft />
+        </div>
+    );
 };
 
 export default CategoryPage;
