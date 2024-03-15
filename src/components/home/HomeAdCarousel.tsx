@@ -23,7 +23,7 @@ const HomeAdCarousel = () => {
         if (adPlay) {
             const interval = setInterval(() => {
                 setCurrentAdIndex((prevIndex) => (prevIndex === totalAdLength - 1 ? 0 : prevIndex + 1));
-            }, 1000);
+            }, 3000);
             return () => clearInterval(interval);
         }
     }, [adPlayString, adPlay]);
