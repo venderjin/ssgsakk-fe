@@ -13,6 +13,6 @@ export interface HomeGridItemsType {
         id: number;
         title: string;
         url: string;
-        imgPath: string;
+        imgsrc: string;
     }[];
 }
