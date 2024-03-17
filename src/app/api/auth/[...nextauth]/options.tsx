@@ -22,6 +22,24 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (profile) {
+        const accessToken = account?.access_token;
+
+        const data = await (
+          await fetch(`https://kapi.kakao.com/v2/user/me`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+            },
+          })
+        ).json();
+
+        console.log(data);
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
