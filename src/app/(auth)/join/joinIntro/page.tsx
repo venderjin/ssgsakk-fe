@@ -1,13 +1,13 @@
 "use client";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
-import LoginForm from "@/components/forms/LoginForm";
+import JoinIntroCard from "@/components/pages/join/joinIntro/JoinIntroCard";
 import React from "react";
 
 export default function Page() {
   return (
     <>
-      <BackArrowHeader title="로그인" />
-      <LoginForm />
+      <BackArrowHeader title="회원가입" />
+      <JoinIntroCard />
     </>
   );
 }

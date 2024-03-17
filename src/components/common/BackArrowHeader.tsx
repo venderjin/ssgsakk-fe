@@ -5,7 +5,7 @@ type Props = {
   title: string;
 };
 
-export const BackArrowHeader = ({ title }: Props) => {
+const BackArrowHeader = ({ title }: Props) => {
   const router = useRouter();
   const handleBack = () => {
     router.back();
@@ -26,3 +26,5 @@ export const BackArrowHeader = ({ title }: Props) => {
     </div>
   );
 };
+
+export default BackArrowHeader;
