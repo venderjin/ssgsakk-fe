@@ -96,3 +96,12 @@ body {
       format("truetype");
   font-display: swap;
 }
+
+.swiper-pagination-fraction {
+  width: 50px !important;
+  height: 22px !important;
+  border-radius: 11px;
+  background-color: rgba(34, 34, 34, 0.15);
+  color: white !important;
+  font-size: 12px !important;
+}
