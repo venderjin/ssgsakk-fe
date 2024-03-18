@@ -36,8 +36,22 @@ const HomeAdCarousel = () => {
         <div className="w-full h-[50vh] bg-white relative">
             {homeMainAdvertisementCarouselData.map((ad: HomeMainAdvertisementCarouselType, index: number) => (
                 <div key={ad.id} className={`absolute inset-0 pb-[40px] px-[40px] overflow-hidden ${index === currentAdIndex ? "block" : "hidden"}`}>
-                    <Image src={ad.imgPath} alt="ad_backgorund" fill={true} className="blur-sm z-100 pb-[40px]" />
-                    <Image src={ad.imgPath} alt="ad_main" fill={true} className="absolute inset-0 z-101 mt-[20px] px-[20px]" />
+                    <Image
+                        src={ad.imgPath}
+                        alt="ad_backgorund"
+                        fill={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={true}
+                        className="blur-sm z-100 pb-[40px]"
+                    />
+                    <Image
+                        src={ad.imgPath}
+                        alt="ad_main"
+                        fill={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={true}
+                        className="absolute inset-0 z-101 mt-[20px] px-[20px]"
+                    />
                     <div className="absolute inset-0 z-102 h-fit mt-[300px]">
                         {ad.title.split("\n").map((line, index) => (
                             <p className="font-Pretendard text-white text-[25px] font-extrabold text-center" key={index}>
