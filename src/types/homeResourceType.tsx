@@ -16,3 +16,14 @@ export interface HomeGridItemsType {
         imgsrc: string;
     }[];
 }
+
+export interface HomeCreditCardEventBannerType {
+    id: number;
+    discountRate?: string;
+    discountUnit?: string;
+    imgPath: string;
+    title: string;
+    subtitle: string;
+    firstGradientColor: string;
+    secondGradientColor: string;
+}
