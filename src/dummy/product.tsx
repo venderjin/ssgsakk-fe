@@ -4,7 +4,7 @@ export const productDummy: productType = {
   id: 1,
   productName: "니트 배색 원피스(LC31CXOP567X)",
   productPrice: 55900,
-  vendor: "레코드",
+  vendor: "레코브",
   productDetail: `<div class="mndtl_detail_cont type_1800 ty_grocery">
             <div class="blind" id="itemNutritionGrid">
 </div>
@@ -382,24 +382,57 @@ export const productDummy: productType = {
   discountPercent: 18,
   averageRating: 4.5,
   reviewCount: 12,
+  reviewList: [
+    {
+      reviewId: 1,
+      writerId: "pdg03092",
+      content:
+        "상품명이 너무 좋아 구매하게된 원피스! 163에 50인데 길이도 품도 넉넉해서 답답하지않고 편해요~ 강추강추",
+      rating: 4.5,
+      createdDate: "2024.03.01",
+      images: [
+        {
+          id: 1,
+          priority: 1,
+          url: "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202310/20231019191939_1206816677_0_1.jpg&w=500&h=500&autoOrient=true&t=1e7f78bce1c1ea862b77640ba149f5825ac14c24",
+        },
+        {
+          id: 2,
+          priority: 2,
+          url: "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99",
+        },
+      ],
+    },
+    {
+      reviewId: 2,
+      writerId: "syj0726",
+      content: "좋아좋아",
+      rating: 5,
+      createdDate: "2024.03.01",
+      images: [
+        {
+          id: 1,
+          priority: 1,
+          url: "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99",
+        },
+      ],
+    },
+  ],
   images: [
     {
       id: 1,
       priority: 1,
       url: "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i1_750.jpg",
-      alt: "상품이미지1",
     },
     {
       id: 2,
       priority: 2,
       url: "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i3_750.jpg",
-      alt: "상품이미지2",
     },
     {
       id: 3,
       priority: 3,
       url: "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i4_750.jpg",
-      alt: "상품이미지3",
     },
   ],
 };

@@ -1,8 +1,7 @@
-export type productImage = {
+export type ImageType = {
   id: number;
   priority: number;
   url: string;
-  alt: string;
 };
 
 export type productType = {
@@ -14,5 +13,15 @@ export type productType = {
   discountPercent: number;
   averageRating: number;
   reviewCount: number;
-  images: productImage[];
+  images: ImageType[];
+  reviewList: reviewType[];
 };
+
+export interface reviewType {
+  reviewId: number;
+  writerId: string;
+  content: string;
+  rating: number;
+  createdDate: string;
+  images: ImageType[];
+}
