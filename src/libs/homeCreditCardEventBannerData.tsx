@@ -1,0 +1,51 @@
+import { HomeCreditCardEventBannerType } from "@/types/homeResourceType";
+
+export const homeCreditCardEventBannerData: HomeCreditCardEventBannerType[] = [
+    {
+        id: 1,
+        discountRate: "~6.5",
+        discountUnit: "만원",
+        imgPath: "https://simg.ssgcdn.com/trans.ssg?src=/ui/m_ssg/img/common/cmitem_card_bi76.png&w=40&h=0",
+        title: "멤버십가입 3만원 할인",
+        subtitle: "SSG.COM카드 Edition",
+        firstGradientColor: "rgb(252, 51, 109)",
+        secondGradientColor: "rgba(252, 51, 109, 0.7)",
+    },
+    {
+        id: 2,
+        discountRate: "5%",
+        imgPath: "https://simg.ssgcdn.com/trans.ssg?src=/ui/m_ssg/img/common/cmitem_card_bi07.png&w=40&h=0",
+        title: "SSGPAY 청구할인",
+        subtitle: "신한카드",
+        firstGradientColor: "rgb(11, 25, 102)",
+        secondGradientColor: "rgba(11, 25, 102, 0.7)",
+    },
+    {
+        id: 3,
+        discountRate: "5%",
+        imgPath: "https://simg.ssgcdn.com/trans.ssg?src=/ui/m_ssg/img/common/cmitem_card_bi01.png&w=40&h=0",
+        title: "SSGPAY 청구할인",
+        subtitle: "비씨카드",
+        firstGradientColor: "rgb(232, 62, 69)",
+        secondGradientColor: "rgba(232, 62, 69,0.7)",
+    },
+    {
+        id: 4,
+        discountUnit: "SSG머니 적립",
+        imgPath: "https://simg.ssgcdn.com/trans.ssg?src=/ui/m_ssg/img/common/cmitem_card_bi75.png&w=40&h=0",
+        title: "~10% 적립 혜택",
+        subtitle: "SSG.COM 삼성카드",
+        firstGradientColor: "rgb(0, 107, 255)",
+        secondGradientColor: "rgba(0, 107, 255, 0.7)",
+    },
+    {
+        id: 5,
+        discountRate: "10",
+        discountUnit: "만원",
+        imgPath: "https://simg.ssgcdn.com/trans.ssg?src=/ui/m_ssg/img/common/cmitem_card_bi07.png&w=40&h=0",
+        title: "캐시백 혜택",
+        subtitle: "신세계아울렛 신한카드",
+        firstGradientColor: "rgb(11, 25, 102)",
+        secondGradientColor: "rgb(11, 25, 102, 0.7)",
+    },
+];
