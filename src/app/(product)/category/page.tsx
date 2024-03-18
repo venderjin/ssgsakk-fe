@@ -1,8 +1,9 @@
-import CategoryFooter from "@/components/pages/category/categoryFooter";
-import CategoryList from "@/components/pages/category/categoryList";
-import ThemeList from "@/components/pages/category/themeList";
-import FloatingLeft from "@/components/common/FloatingLeft";
 import React from "react";
+
+import FloatingLeft from "@/components/common/FloatingLeft";
+import CategoryFooter from "@/components/pages/category/CategoryFooter";
+import CategoryList from "@/components/pages/category/CategoryList";
+import ThemeList from "@/components/pages/category/ThemeList";
 
 const CategoryPage = () => {
     return (
