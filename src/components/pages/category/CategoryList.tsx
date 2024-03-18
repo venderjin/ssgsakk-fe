@@ -11,13 +11,13 @@ export default function CategoryList() {
     };
 
     return (
-        <div className="bg-gradient-to-r from-[#FF5352] via-[#F43479] to-[#BF3FF9]  pt-[2px]">
-            {/* <div className="bg-white w-full h-full"> */}
+        <div>
+            <div className="bg-gradient-to-r from-[#FF5352] via-[#F43479] to-[#BF3FF9]" style={{ height: "1.5px" }}></div>
             <ul className="grid grid-cols-5 px-[10px] pt-[15px] pb-[25px] bg-white">
                 {categoryData.map((category) => (
                     <li key={category.id}>
                         <a onClick={() => handleClick(category.id)} className="flex flex-col justify-center items-center p-[5px]">
-                            <Image src={`/images/category/${category.id}.png`} alt={category.name} width={64} height={64}></Image>
+                            <Image src={category.imgUrl} alt={category.name} width={64} height={64}></Image>
                             <p className="line-clamp-1 mt-[5px] text-[12px] text-[#424242] font-Pretendard whitespace-pre-wrap tracking-tighter leading-tight  text-center">
                                 {category.name}
                             </p>
@@ -41,7 +41,6 @@ export default function CategoryList() {
                     </li>
                 ))}
             </ul>
-            {/* </div> */}
         </div>
     );
 }

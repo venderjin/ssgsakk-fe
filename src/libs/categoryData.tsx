@@ -28,61 +28,71 @@ export const themeData: themeType[] = [
   {
     id: 1,
     name: "SHINSEGAE GOLF",
-    img: "golf",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714133944674672161567_122.png",
     url: "https://m-shinsegaemall.ssg.com/page/dept/golf_shop",
   },
   {
     id: 2,
     name: "SSG 랜더스",
-    img: "landers",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202308/2023083101191656208092398809_329.jpg",
     url: "https://ssglanders.mfamily.ssg.com/",
   },
   {
     id: 3,
     name: "갤러리",
-    img: "gallery",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202305/2023050412514694202124345212_399.png",
     url: "https://m.ssg.com/disp/category.ssg?dispCtgId=6000237091",
   },
   {
     id: 4,
     name: "건강식품전문관 BIOPUBLIC",
-    img: "bioPublic",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714150647969219240031_515.jpg",
     url: "https://biopublic.mblossom.ssg.com/",
   },
   {
     id: 5,
     name: "와인픽업",
-    img: "winePickup",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714160577133110627311_24.jpg",
     url: "https://m.ssg.com/page/winepickup.ssg",
   },
   {
     id: 6,
     name: "신선직송",
-    img: "farmersMarket",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202402/2024022808572677154449748444_929.jpg",
     url: "https://m.ssg.com/page/farmersmarket",
   },
   {
     id: 7,
     name: "중소상공인 상생관",
-    img: "sbMarket",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714172941527942395794_424.jpg",
     url: "https://m.ssg.com/page/sbmarket.ssg",
   },
   {
     id: 8,
     name: "라이프매거진",
-    img: "lifeMagazine",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714170439572783411378_395.jpg",
     url: "https://m.ssg.com/contents/lifeMagazineMain.ssg",
   },
   {
     id: 9,
     name: "유아동 LITTLE SSG",
-    img: "ssgBaby",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714152471760495859049_100.jpg",
     url: "https://m.ssg.com/page/ssgbaby/main.ssg",
   },
   {
     id: 10,
     name: "반려동물 Molly's SSG",
-    img: "ssgPet",
+    imgUrl:
+      "https://sui.ssgcdn.com/cmpt/banner/202304/2023040714154330783174712417_872.jpg",
     url: "https://m.ssg.com/page/ssgpet/main.ssg",
   },
 ];
@@ -92,6 +102,8 @@ export const categoryData: topCategoryType[] = [
     id: 1,
     name: "패션의류",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202205/2022052715323630486875175787_152.jpg&w=150&h=150&edit=c&t=2888160467dd529e49963b1f2c4a99bd9efbe707",
     subCategories: [
       {
         id: 1,
@@ -127,6 +139,8 @@ export const categoryData: topCategoryType[] = [
     id: 2,
     name: "패션잡화",
     height: 146,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202007/2020072114393459688641690964_438.jpg&w=150&h=150&edit=c&t=d7fb37600f15e8a0a36f961d254a8862b9a6959b",
     subCategories: [
       {
         id: 2,
@@ -154,6 +168,8 @@ export const categoryData: topCategoryType[] = [
     id: 3,
     name: "명품",
     height: 108,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202309/2023091316533605979685806078_770.jpg&w=150&h=150&edit=c&t=4f9b786539288882a8bdb0cc6979d96795d7b32c",
     subCategories: [
       {
         id: 3,
@@ -173,6 +189,8 @@ export const categoryData: topCategoryType[] = [
     id: 4,
     name: "뷰티",
     height: 222,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202007/2020072114395544822427384242_240.jpg&w=150&h=150&edit=c&t=df8dd9e4b45f7bc2c94b689dfbd3de0990289ce2",
     subCategories: [
       {
         id: 4,
@@ -216,6 +234,8 @@ export const categoryData: topCategoryType[] = [
     id: 5,
     name: "스포츠/레저",
     height: 222,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202007/2020072114401652224140854414_993.jpg&w=150&h=150&edit=c&t=b307d1d0853bd6662c614d783ef6b2991cb0023b",
     subCategories: [
       {
         id: 5,
@@ -263,6 +283,8 @@ export const categoryData: topCategoryType[] = [
     id: 6,
     name: "생활/주방",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202108/2021082715571416016294783629_536.jpg&w=150&h=150&edit=c&t=f80e3a0be52c0cc1905df05132b922fc8a679bb4",
     subCategories: [
       {
         id: 6,
@@ -302,6 +324,8 @@ export const categoryData: topCategoryType[] = [
     id: 7,
     name: "가구/인테리어",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202007/2020072114435685703321603332_446.jpg&w=150&h=150&edit=c&t=d21fafc444801db38c6c6c7bba6bc914b8cd565b",
     subCategories: [
       {
         id: 7,
@@ -337,6 +361,8 @@ export const categoryData: topCategoryType[] = [
     id: 8,
     name: "유아동",
     height: 260,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202108/2021082715435395419791160789_721.jpg&w=150&h=150&edit=c&t=8c8d1ab09145be52030a13825929cc0114bc2762",
     subCategories: [
       {
         id: 8,
@@ -388,6 +414,8 @@ export const categoryData: topCategoryType[] = [
     id: 9,
     name: "디지털/렌탈",
     height: 260,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202108/2021082715441465403746388474_754.jpg&w=150&h=150&edit=c&t=2893b121cbe0da32775099aa8f1a99cf590638be",
     subCategories: [
       {
         id: 9,
@@ -443,6 +471,8 @@ export const categoryData: topCategoryType[] = [
     id: 10,
     name: "여행/e쿠폰/\n문구/도서",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202112/2021120208063004997226756822_375.jpg&w=150&h=150&edit=c&t=6c17aa0f322bf176913ec6ff75e70f40af2c132c",
     subCategories: [
       {
         id: 10,
@@ -482,6 +512,8 @@ export const categoryData: topCategoryType[] = [
     id: 11,
     name: "신선식품",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202112/2021120208064724360560114156_388.jpg&w=150&h=150&edit=c&t=e7ac5adf6d471528ec581fa9224405eab200c636",
     subCategories: [
       {
         id: 11,
@@ -521,6 +553,8 @@ export const categoryData: topCategoryType[] = [
     id: 12,
     name: "가공/건강식품",
     height: 298,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202112/2021120208065932731184991218_891.jpg&w=150&h=150&edit=c&t=2566bec8d9e7f45e7eb19a4e3d3597c4a83e9326",
     subCategories: [
       {
         id: 12,
@@ -580,6 +614,8 @@ export const categoryData: topCategoryType[] = [
     id: 13,
     name: "반려동물",
     height: 184,
+    imgUrl:
+      "https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202110/2021101209162383633316135331_967.jpg&w=150&h=150&edit=c&t=4fe4a6e70a7dfe335bad1c2f8e01675fb8b813a0",
     subCategories: [
       {
         id: 13,
