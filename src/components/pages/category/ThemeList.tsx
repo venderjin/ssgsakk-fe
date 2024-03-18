@@ -16,8 +16,8 @@ export default function ThemeList() {
             <Link href={theme.url}>
               <Image
                 className="rounded-[8px] h-[103.5px] overflow-hidden overflow-y-auto"
-                src={`/images/category/${theme.img}.png`}
-                alt={theme.img}
+                src={theme.imgUrl}
+                alt={theme.name}
                 width={172.5}
                 height={103.5}
               ></Image>
