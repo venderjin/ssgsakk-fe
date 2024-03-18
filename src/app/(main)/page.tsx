@@ -30,6 +30,8 @@ export default function Home() {
                 imgPath="https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202310/2023101109160643017797103779_551.png&w=750&h=0                "
                 title="universeCLubSingleAdImage"
             />
+            <WhiteSpace height={40} backgroundColor="#ffffff" />
+            <HomeSectionTitle title="SSG.LIVE 핫딜을 놓치지 마세요" />
             <FloatingUp />
         </div>
     );
