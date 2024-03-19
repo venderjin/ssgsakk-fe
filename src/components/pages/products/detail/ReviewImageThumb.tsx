@@ -14,7 +14,10 @@ const ReviewImageThumb = ({ productId, reviewThumbList }: Props) => {
 
   return (
     <>
-      <div className="ml-[10px] pr-[20px] align-middle flex relative">
+      <div
+        className="ml-[10px] pr-[20px] align-middle flex relative"
+        onClick={() => setOpenModal(!openModal)}
+      >
         <div className="flex mr-[-1px] align-middle">
           {reviewThumbList.map((image, idx) => (
             <div
@@ -25,10 +28,7 @@ const ReviewImageThumb = ({ productId, reviewThumbList }: Props) => {
             </div>
           ))}
         </div>
-        <div
-          className="ml-[6px] right-arrow"
-          onClick={() => setOpenModal(!openModal)}
-        ></div>
+        <div className="ml-[6px] right-arrow"></div>
       </div>
 
       {openModal ? (
