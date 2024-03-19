@@ -5,15 +5,15 @@ import ReviewImageThumb from "./ReviewImageThumb";
 type Props = {
   reviewCount: number;
   averageRating: number;
+  productId: number;
   reviewThumbList: string[];
-  onChangeModal: () => void;
 };
 
 const ReviewReference = ({
   reviewCount,
   averageRating,
+  productId,
   reviewThumbList,
-  onChangeModal,
 }: Props) => {
   return (
     <div className="flex items-center pt-[13px] pb-[10px] pr-[18px] border-b-[1px] border-b-[#e5e5e5]">
@@ -33,8 +33,8 @@ const ReviewReference = ({
 
       {/* ---------포토&동영상 전체보기--------- */}
       <ReviewImageThumb
+        productId={productId}
         reviewThumbList={reviewThumbList}
-        onChangeModal={onChangeModal}
       />
     </div>
   );
