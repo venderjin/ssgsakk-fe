@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { headers } from "next/headers";
 
 const HomeGradientSectionTitle: React.FC<{ title: string }> = ({ title }) => {
     return (
@@ -20,7 +19,7 @@ const HomeGradientSectionTitle: React.FC<{ title: string }> = ({ title }) => {
                 </div>
 
                 <div className="flex items-center">
-                    <Image src="/images/home/rightArrow.svg" width={8} height={8} alt="arrow" className="mx-[8px]" />
+                    <Image src="/images/home/rightArrow.svg" width={16} height={16} alt="arrow" className="mx-[8px]" style={{ height: "16px" }} />
                 </div>
             </div>
         </div>
