@@ -16,6 +16,7 @@ const config: Config = {
                 "login-icon": "url(https://sui.ssgcdn.com/ui/m_ssg/img/sp_cmem_login.png)",
                 "top-icon": "url('https://sui.ssgcdn.com/ui/m_ssg/img/com_v2/sp_top_cate.png')",
                 "sns-icon": "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_cmemlogin_cico_20230912@2x.png')",
+                "product-icon": "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_20240219@2x.png')",
             },
             fontFamily: {
                 Pretendard: ["Pretendard"],

@@ -1,16 +1,27 @@
 import React from "react";
+
+import Footer from "@/components/layouts/Footer";
+import TopHeader from "@/components/layouts/TopHeader";
+import BottomHeader from "@/components/layouts/BottomHeader";
+import BottomNav from "@/components/layouts/BottomNav";
+
 import HomeAdCarousel from "@/components/pages/home/HomeAdCarousel";
-import WhiteSpace from "@/components/common/WhiteSpace";
+import WhiteSpace from "@/components/UI/WhiteSpace";
 import HomeGridItems from "@/components/pages/home/HomeGridItems";
 import HomeSingleAdImage from "@/components/pages/home/HomeSingleAdImage";
 import HomeSectionTitle from "@/components/pages/home/HomeSectionTitle";
-import FloatingUp from "@/components/common/FloatingUp";
+import FloatingUp from "@/components/UI/FloatingUp";
 import { HomeGradientSectionTitle } from "@/components/pages/home/HomeExtraUI";
 import HomeCreaditCardBanner from "@/components/pages/home/HomeCreaditCardBanner";
+import EventProductList from "@/components/pages/productList/EventProductList";
 
 export default function Home() {
     return (
-        <div>
+        <>
+            <TopHeader />
+            <BottomHeader />
+            {/* TopHeader and BottomHeader */}
+
             <HomeAdCarousel />
             <WhiteSpace height={20} backgroundColor="#ffffff" />
             <HomeGridItems />
@@ -33,6 +44,11 @@ export default function Home() {
             <WhiteSpace height={40} backgroundColor="#ffffff" />
             <HomeSectionTitle title="SSG.LIVE 핫딜을 놓치지 마세요" />
             <FloatingUp />
-        </div>
+            <EventProductList visiableProductList={3} />
+
+            {/* Footer and BottomNav */}
+            <Footer />
+            <BottomNav />
+        </>
     );
 }
