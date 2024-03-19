@@ -6,11 +6,12 @@ export interface categoryType {
 export interface topCategoryType extends categoryType {
   subCategories: categoryType[];
   height: number;
+  imgUrl: string;
 }
 
 export interface themeType {
   id: number;
   name: string;
-  img: string;
+  imgUrl: string;
   url: string;
 }
