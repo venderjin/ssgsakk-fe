@@ -6,11 +6,11 @@ import BottomHeader from "@/components/layouts/BottomHeader";
 import BottomNav from "@/components/layouts/BottomNav";
 
 import HomeAdCarousel from "@/components/pages/home/HomeAdCarousel";
-import WhiteSpace from "@/components/common/WhiteSpace";
+import WhiteSpace from "@/components/UI/WhiteSpace";
 import HomeGridItems from "@/components/pages/home/HomeGridItems";
 import HomeSingleAdImage from "@/components/pages/home/HomeSingleAdImage";
 import HomeSectionTitle from "@/components/pages/home/HomeSectionTitle";
-import FloatingUp from "@/components/common/FloatingUp";
+import FloatingUp from "@/components/UI/FloatingUp";
 import { HomeGradientSectionTitle } from "@/components/pages/home/HomeExtraUI";
 import HomeCreaditCardBanner from "@/components/pages/home/HomeCreaditCardBanner";
 import EventProductList from "@/components/pages/productList/EventProductList";
@@ -42,7 +42,7 @@ export default function Home() {
                 title="universeCLubSingleAdImage"
             />
             <FloatingUp />
-            <EventProductList />
+            <EventProductList visiableProductList={3} />
 
             {/* Footer and BottomNav */}
             <Footer />
