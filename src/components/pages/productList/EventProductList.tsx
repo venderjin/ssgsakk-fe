@@ -11,7 +11,7 @@ async function getProductData() {
 }
 
 interface EventProductListProps {
-    visiableProductList: number;
+    visiableProductList?: number;
 }
 
 const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList }) => {
@@ -20,7 +20,8 @@ const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList
     useEffect(() => {
         const fetchData = async () => {
             const result = await getProductData();
-            setData(result.products.slice(0, visiableProductList));
+            if (visiableProductList === undefined) setData(result.products);
+            else setData(result.products.slice(0, visiableProductList));
         };
         fetchData();
     }, []);
@@ -38,7 +39,7 @@ const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList
                 {data &&
                     Array.isArray(data) &&
                     data.map((item: any) => (
-                        <div key={item.id} className="border-2 px-3 ">
+                        <div key={item.id} className="px-3 mb-3">
                             <div style={{ width: "100%", height: "240px", position: "relative" }}>
                                 <Image
                                     src={item.thumbnail}
@@ -54,7 +55,7 @@ const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList
                                 />
                             </div>
                             <div className="flex flex-row">
-                                <div className=" flex-none my-2 w-2/3 ">
+                                <div className=" flex-none my-2 w-4/5 ">
                                     <div className="flex flex-row gap-1">
                                         <p className="font-Pretendard text-[16px] font-bold">{item.brand}</p>
                                         <p className="font-Pretendard text-[16px]">{item.title}</p>
@@ -62,7 +63,7 @@ const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList
                                     <p className="font-Pretendard text-[16px] whitespace-nowarp">{item.description}</p>
                                     <p className="font-Pretendard text-[16px] font-bold">{item.price.toLocaleString()}원~</p>
                                 </div>
-                                <div className="my-2 w-2/3 flex flex-row gap-2 justify-end pr-2">
+                                <div className="my-2 w-2/3 flex flex-row gap-2 justify-end pr-2 ">
                                     <HeartIcon handleLike={() => handleLike(item.id)} />
                                     <Cart />
                                 </div>
