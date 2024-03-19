@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { headers } from "next/headers";
 
 const HomeGradientSectionTitle: React.FC<{ title: string }> = ({ title }) => {
     return (
