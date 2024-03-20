@@ -60,6 +60,17 @@ body {
     border-width: 1px 0 0 1px;
     transform: rotate(135deg) translateX(-50%);
   }
+  .select-arrow:after {
+    background-image: url("https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_optbar_20230630@2x.png");
+    background-position: -176px -28px;
+    background-size: 194px 171px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 13px;
+    right: 30px;
+    content: "";
+  }
 }
 
 @font-face {

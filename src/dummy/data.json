@@ -1,4 +1,21 @@
 {
+  "optionList": [
+    {
+      "type": "색상",
+      "optionList": [
+        { "optionId": 1, "data": "아이보리" },
+        { "optionId": 2, "data": "블랙" }
+      ]
+    },
+    {
+      "type": "사이즈",
+      "optionList": [
+        { "optionId": 1, "data": "55" },
+        { "optionId": 2, "data": "66" }
+      ]
+    }
+  ],
+
   "photoReviewList": [
     {
       "productId": 1,

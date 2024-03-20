@@ -23,12 +23,24 @@ const config: Config = {
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_cmemlogin_cico_20230912@2x.png')",
         "product-icon":
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_20240219@2x.png')",
+        "product-opt-icon":
+          "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_optbar_20230630@2x.png')",
       },
       fontFamily: {
         Pretendard: ["Pretendard"],
       },
       colors: {
         "primary-red": "#ff5452",
+      },
+      keyframes: {
+        "bottom-sheet-up": {
+          "0%": { transform: "translateY(420px)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        "bottom-sheet-down": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(420px)" },
+        },
       },
     },
   },
