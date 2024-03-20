@@ -4,11 +4,19 @@ interface RightArrowProps {
     width?: string;
     height?: string;
     color?: string;
+    rotate?: string;
 }
 
-const RightArrow: React.FC<RightArrowProps> = ({ width, height, color }) => {
+const RightArrow: React.FC<RightArrowProps> = ({ width, height, color, rotate }) => {
     return (
-        <svg width={width ? width : 13} height={height ? height : 13} viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            width={width ? width : 13}
+            height={height ? height : 13}
+            style={rotate ? { transform: `rotate(${rotate}deg)` } : undefined}
+            viewBox="0 0 10 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
                 fill={color ? color : "black"}
                 fillRule="evenodd"

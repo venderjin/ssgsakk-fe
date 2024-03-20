@@ -10,16 +10,17 @@ interface MoreContentsProps {
 const MoreContents = ({ title, link }: MoreContentsProps) => {
     return (
         <div className="px-3">
-            <button className="w-full h-[40px] border-2 flex flex-row justify-center items-center">
-                <p className="font-Pretendard text-[14px]">{title}</p>
-                {link !== undefined ? (
-                    <Link href={link}>
-                        <RightArrow />
-                    </Link>
-                ) : (
+            {link !== undefined ? (
+                <Link href={link} className="w-full h-[40px] border-2 flex flex-row justify-center items-center">
+                    <p className="font-Pretendard text-[14px]">{title}</p>
                     <RightArrow />
-                )}
-            </button>
+                </Link>
+            ) : (
+                <button className="w-full h-[40px] border-2 flex flex-row justify-center items-center">
+                    <p className="font-Pretendard text-[14px]">{title}</p>
+                    <RightArrow />
+                </button>
+            )}
         </div>
     );
 };

@@ -1,7 +1,11 @@
-import Link from "next/link";
+"use client";
+import { useRouter } from "next/navigation";
+
 import Image from "next/image";
 
 export default function NotFound() {
+    const router = useRouter();
+
     return (
         <div className="bg-white w-full h-screen justify-center items-center flex flex-col">
             <Image src="/images/etc/notFound.png" alt="404" width={140} height={140} />
@@ -18,9 +22,11 @@ export default function NotFound() {
                 이전 페이지에서 다시 한번 시도해 주세요.
             </p>
 
-            <Link href="/" className="mt-[30px] justify-center flex">
-                <button className="text-white px-[50px] py-[20px] bg-[#000000] text-[15px] rounded-lg font-Pretendard">홈으로 돌아가기</button>
-            </Link>
+            <div className="mt-[30px] justify-center flex">
+                <button onClick={() => router.back()} className="text-white px-[50px] py-[20px] bg-[#000000] text-[15px] rounded-lg font-Pretendard">
+                    이전으로 돌아가기
+                </button>
+            </div>
         </div>
     );
 }

@@ -34,7 +34,7 @@ export default function Home() {
                 title="universeCLubSingleAdImage"
             />
             <EventProductList visiableProductList={5} />
-            <MoreContents title="쓱~특가 더보기" link="/page/specialPrice" />
+            <MoreContents title="쓱~특가 더보기" link="/productList/eventProductList?type=ssgSpecialPrice" />
             <WhiteSpace height={20} backgroundColor="#ffffff" />
             <HomeSectionTitle title="SSG.LIVE 핫딜을 놓치지 마세요" />
             <FloatingUp />
