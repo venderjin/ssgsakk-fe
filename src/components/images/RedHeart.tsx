@@ -1,8 +1,13 @@
-export default function RedHeart() {
+interface RedHeartProps {
+  height?: number;
+  width?: number;
+}
+
+export default function RedHeart({ height, width }: RedHeartProps) {
   return (
     <svg
-      width="current"
-      height="current"
+      width={width ? width : 16}
+      height={height ? height : 16}
       viewBox="0 0 16 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

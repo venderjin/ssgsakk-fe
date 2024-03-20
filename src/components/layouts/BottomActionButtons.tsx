@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import HeartIcon from "@/components/images/heart.svg";
-import RedHeartIcon from "@/components/images/RedHeart.svg";
+import HeartIcon from "@/components/UI/HeartIcon";
 
 const BottomActionButtons = () => {
   const [isCheck, setIsCheck] = useState<Boolean>(false);
   const handler = () => {
     setIsCheck(!isCheck);
+    console.log("checked");
   };
 
   return (
@@ -15,11 +15,7 @@ const BottomActionButtons = () => {
         onClick={() => handler()}
         className="w-[54px] h-[52px] border-t-[1px] border-t-[#c0c0c0] border-r-[1px] border-r-[#c0c0c0] flex justify-center items-center"
       >
-        {isCheck ? (
-          <RedHeartIcon width="28" height="28" />
-        ) : (
-          <HeartIcon width="28" height="28" />
-        )}
+        <HeartIcon height={28} width={28} handleLike={() => handler()} />
       </button>
 
       <button className="w-[110px] h-[52px] border-t-[1px] border-t-[#c0c0c0] border-r-[1px] border-r-[#c0c0c0] flex justify-center items-center">
