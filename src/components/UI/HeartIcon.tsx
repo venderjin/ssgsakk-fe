@@ -3,13 +3,27 @@ import React, { useState } from "react";
 import RedHeart from "../images/RedHeart";
 import Heart from "../images/Heart";
 
-export default function HeartIcon({ handleLike }: { handleLike: () => void }) {
-    const [isCheck, setIsCheck] = useState<Boolean>(false);
+interface Props {
+  handleLike: () => void;
+  height?: number;
+  width?: number;
+}
 
-    const handler = () => {
-        setIsCheck(!isCheck);
-        handleLike();
-    };
+export default function HeartIcon({ handleLike, height, width }: Props) {
+  const [isCheck, setIsCheck] = useState<Boolean>(false);
 
-    return <div onClick={handler}>{isCheck ? <RedHeart /> : <Heart />}</div>;
+  const handler = () => {
+    setIsCheck(!isCheck);
+    handleLike();
+  };
+
+  return (
+    <div onClick={handler}>
+      {isCheck ? (
+        <RedHeart height={height} width={width} />
+      ) : (
+        <Heart height={height} width={width} />
+      )}
+    </div>
+  );
 }
