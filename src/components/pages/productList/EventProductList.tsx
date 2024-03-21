@@ -15,7 +15,16 @@ interface EventProductListProps {
 }
 
 const EventProductList: React.FC<EventProductListProps> = ({ visiableProductList }) => {
-    const [data, setData] = useState(null);
+    interface Product {
+        id: number;
+        title: string;
+        description: string;
+        price: number;
+        brand: string;
+        thumbnail: string;
+    }
+
+    const [data, setData] = useState<Product[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {

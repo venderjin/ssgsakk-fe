@@ -62,6 +62,44 @@ export const specialPriceCategoryData: HomeSpeicalPriceType[] = [
                 title: "반려동물",
             },
         ],
+        deliveryType: [
+            {
+                id: 1,
+                title: "쓱배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/ssgDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/ssgDeliveryStroke.svg",
+            },
+            {
+                id: 2,
+                title: "새벽배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/earlymorningDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/earlymorningDeliveryStroke.svg",
+            },
+            {
+                id: 3,
+                title: "트레이더스쓱배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/tradersDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/tradersDeliveryDelivery.svg",
+            },
+            {
+                id: 4,
+                title: "백화점",
+                unCheckedImgpath: "/images/home/deliveryCategory/departmentDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/departmentDeliveryStroke.svg",
+            },
+            {
+                id: 5,
+                title: "오반장",
+                unCheckedImgpath: "/images/home/deliveryCategory/obanjangUnchecked.png",
+                checkedImgpath: "/images/home/deliveryCategory/obanjangChecked.png",
+            },
+            {
+                id: 6,
+                title: "쓱특가",
+                unCheckedImgpath: "/images/home/deliveryCategory/specialPriceDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/specialPriceDeliveryStroke.svg",
+            },
+        ],
     },
     {
         type: "ssgSpecialPrice",
@@ -104,6 +142,14 @@ export const specialPriceCategoryData: HomeSpeicalPriceType[] = [
                 title: "식품",
             },
         ],
+        deliveryType: [
+            {
+                id: 1,
+                title: "백화점",
+                unCheckedImgpath: "/images/home/deliveryCategory/departmentDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/departmentDeliveryStroke.svg",
+            },
+        ],
     },
     {
         type: "todayGrocery",
@@ -120,6 +166,26 @@ export const specialPriceCategoryData: HomeSpeicalPriceType[] = [
             {
                 id: 3,
                 title: "1+1",
+            },
+        ],
+        deliveryType: [
+            {
+                id: 1,
+                title: "쓱배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/ssgDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/ssgDeliveryStroke.svg",
+            },
+            {
+                id: 2,
+                title: "새벽배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/earlymorningDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/earlymorningDeliveryStroke.svg",
+            },
+            {
+                id: 3,
+                title: "트레이더스쓱배송",
+                unCheckedImgpath: "/images/home/deliveryCategory/tradersDelivery.svg",
+                checkedImgpath: "/images/home/deliveryCategory/tradersDeliveryDelivery.svg",
             },
         ],
     },

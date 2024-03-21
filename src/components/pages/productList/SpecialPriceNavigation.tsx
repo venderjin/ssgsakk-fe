@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import { specialPriceCategoryData } from "@/libs/specialPriceCategoryData";
 import WhiteSpace from "@/components/UI/WhiteSpace";
@@ -14,12 +15,26 @@ interface Props {
 const SpecialPriceNavigation = ({ type, title }: Props) => {
     const [resetSpecialPriceType, setResetSpecialPriceType] = useState<string>(""); //
     const [clickedCategoryIndex, setClickedCategoryIndex] = useState<number>(0); // 클릭한 버튼의 인덱스를 저장하는 상태
+    const [clickedDeliveryTypeIndex, setClickedDeliveryTypeIndex] = useState<number | null>(null); // 클릭한 배송타입의 인덱스를 저장하는 상태
+
     const router = useRouter();
 
     const handleTypeClick = (path: string) => {
         setResetSpecialPriceType(path);
         router.push(`/productList/eventProductList?type=${path}`);
     };
+
+    const handleDeliveryTypeClick = (index: number) => {
+        if (clickedDeliveryTypeIndex === index) {
+            setClickedDeliveryTypeIndex(null);
+            return;
+        }
+        setClickedDeliveryTypeIndex(index);
+    };
+
+    useEffect(() => {
+        setClickedDeliveryTypeIndex(null);
+    }, [resetSpecialPriceType]);
 
     useEffect(() => {
         setClickedCategoryIndex(0);
@@ -56,17 +71,47 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                                     key={index}
                                     onClick={() => setClickedCategoryIndex(index)}
                                     className={`
-                                    ${clickedCategoryIndex === index ? "bg-black text-white" : "bg-white text-black"}
-                            border-2 border-[#E5E5E5] py-2 px-3 whitespace-nowrap mr-1 font-Pretendard text-[13px]`}
+                                    ${
+                                        clickedCategoryIndex === index ? "bg-[#222222] text-white" : "bg-white text-black border-2 border-[#E5E5E5]"
+                                    } py-2 px-3 whitespace-nowrap mr-1 font-Pretendard text-[13px]`}
                                 >
                                     {category.title}
                                 </button>
                             ))
                         )}
                 </div>
-                <button className="bg-white border-2 border-[#E5E5E5] py-2 px-3 flex-3 font-Pretendard text-[13px]">
-                    <RightArrow rotate={"90"} />
-                </button>
+                <div
+                    className="flex-3 flex"
+                    style={{
+                        boxShadow: " -10px 0 8px 0px white",
+                        backgroundColor: "rgba(0,0,255,0)",
+                    }}
+                >
+                    <button className="bg-white border-2 border-[#E5E5E5] flex-1 justify-center items-center py-2 px-3  font-Pretendard text-[13px]">
+                        <RightArrow rotate={"90"} />
+                    </button>
+                </div>
+            </div>
+            <div className="flex flex-row overflow-x-auto scroll-smooth items-center py-2">
+                {specialPriceCategoryData
+                    .filter((item) => item.type === type)
+                    .map((item) =>
+                        item.deliveryType?.map((deliveryType, index) => (
+                            <div key={index} className="flex-none mr-3" style={{ width: "auto", height: "30px" }}>
+                                <Image
+                                    onClick={() => {
+                                        handleDeliveryTypeClick(index);
+                                    }}
+                                    src={clickedDeliveryTypeIndex === index ? deliveryType.checkedImgpath : deliveryType.unCheckedImgpath}
+                                    alt={deliveryType.title}
+                                    width={80}
+                                    height={30}
+                                    style={{ width: "auto", height: "30px" }}
+                                    className="object-contain transition-opacity"
+                                />
+                            </div>
+                        ))
+                    )}
             </div>
         </div>
     );

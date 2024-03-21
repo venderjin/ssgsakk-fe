@@ -35,4 +35,10 @@ export interface HomeSpeicalPriceType {
         id: number;
         title: string;
     }[];
+    deliveryType: {
+        id: number;
+        title: string;
+        unCheckedImgpath: string;
+        checkedImgpath: string;
+    }[];
 }
