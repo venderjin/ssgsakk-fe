@@ -3,7 +3,13 @@ import BottomPurchaseMain from "@/components/pages/products/purchase/BottomPurch
 import BottomPurchaseSwitcher from "@/components/pages/products/purchase/BottomPurchaseSwitcher";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 
-const BottomActionButtons = ({ productId }: { productId: number }) => {
+type Props = {
+  productId: number;
+  price: number;
+  discountPer: number;
+};
+
+const BottomActionButtons = ({ productId, price, discountPer }: Props) => {
   const [bottomMode, setBottomMode] = useState<string>("default");
   const onChangeBottomMode = (mode: string) => {
     setBottomMode(mode);
@@ -22,6 +28,8 @@ const BottomActionButtons = ({ productId }: { productId: number }) => {
           <BottomPurchaseOptionBox
             changeMode={onChangeBottomMode}
             productId={productId}
+            price={price}
+            discountPer={discountPer}
           />
         </>
       )}

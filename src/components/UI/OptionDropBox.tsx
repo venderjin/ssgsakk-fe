@@ -22,22 +22,6 @@ const OptionDropBox = ({ optionType, optionList }: Props) => {
 
   return (
     <div className="block">
-      {/* <select
-        name=""
-        id=""
-        className="hidden w-full h-[42px] pr-[40px] pl-[15px] rounded-[5px] font-Pretendard text-left border-[1px] border-[#e5e5e5]"
-      >
-        {optionList.map((option) => (
-          <option
-            className="text-[13px]"
-            key={option.optionId}
-            value={option.optionId}
-          >
-            {option.data}
-          </option>
-        ))}
-      </select> */}
-
       <div
         onClick={() => setIsOpen(true)}
         className="flex items-center my-[12px] h-[42px]  pl-[15px] rounded-[5px] font-Pretendard text-left border-[1px] border-[#e5e5e5] leading-10 tracking-normal"

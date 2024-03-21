@@ -41,6 +41,10 @@ const config: Config = {
           "0%": { transform: "translateY(0)" },
           "100%": { transform: "translateY(420px)" },
         },
+        "left-sheet-right": {
+          "0%": { transform: "translateX(-420px)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
     },
   },
