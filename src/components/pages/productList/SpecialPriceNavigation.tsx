@@ -1,11 +1,12 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { specialPriceCategoryData } from "@/libs/specialPriceCategoryData";
 import WhiteSpace from "@/components/UI/WhiteSpace";
 import RightArrow from "@/components/images/RightArrow";
+import HomeSingleAdImage from "@/components/pages/home/HomeSingleAdImage";
 
 interface Props {
     type: string; // "totalSpecialPrice" | "ssgSpecialPrice" | "todayGrocery"
@@ -41,8 +42,8 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
     }, [resetSpecialPriceType]);
 
     return (
-        <div className="m-3">
-            <div className="flex flex-row gap-2">
+        <>
+            <div className="flex flex-row gap-2 m-3">
                 {specialPriceCategoryData.map((item) => (
                     <button
                         key={item.type}
@@ -60,8 +61,13 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                     </button>
                 ))}
             </div>
-            <WhiteSpace height={20} />
-            <div className="flex flex-row gap-1">
+            {type === "ssgSpecialPrice" && (
+                <HomeSingleAdImage
+                    imgPath="https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202310/2023101109160643017797103779_551.png&w=750&h=0                "
+                    title="universeCLubSingleAdImage"
+                />
+            )}
+            <div className="flex flex-row gap-1 m-3">
                 <div className="bg-white flex-1 flex overflow-x-auto scroll-smooth">
                     {specialPriceCategoryData
                         .filter((item) => item.type === type)
@@ -92,7 +98,7 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                     </button>
                 </div>
             </div>
-            <div className="flex flex-row overflow-x-auto scroll-smooth items-center py-2">
+            <div className="flex flex-row overflow-x-auto scroll-smooth items-center py-2 m-3">
                 {specialPriceCategoryData
                     .filter((item) => item.type === type)
                     .map((item) =>
@@ -113,7 +119,7 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                         ))
                     )}
             </div>
-        </div>
+        </>
     );
 };
 
