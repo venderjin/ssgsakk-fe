@@ -33,6 +33,8 @@ const SelectedOptionCardUnit = ({
     onQuantityChange(option.optionCombId, option.quantity + count);
   };
 
+  console.log(seq);
+
   return (
     <div
       className={`relative px-[15px] pt-[13px] pb-[14px] mb-[5px] ${

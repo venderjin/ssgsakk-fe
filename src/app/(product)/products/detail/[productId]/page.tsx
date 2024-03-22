@@ -5,6 +5,8 @@ import TopHeader from "@/components/layouts/TopHeader";
 import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
+import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
+import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailInfo";
 
 async function getProductData(productId: number) {
   const res = await fetch(`http://localhost:3300/products?id=${productId}`, {
@@ -24,7 +26,7 @@ const page = async ({ params }: { params: { productId: number } }) => {
   return (
     <>
       <TopHeader />
-
+      <ProductPageSwitchHeader />
       <ImageSlider imageList={productData.images} />
       <ProductSummary
         title={productData.productName}
@@ -36,6 +38,7 @@ const page = async ({ params }: { params: { productId: number } }) => {
         reviewThumbList={productData.reviewThumbList}
         productId={params.productId}
       />
+      <ProductDetailInfo />
       <BottomActionButtons
         productId={params.productId}
         price={productData.productPrice}
