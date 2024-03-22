@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import { specialPriceCategoryData } from "@/libs/specialPriceCategoryData";
-import WhiteSpace from "@/components/UI/WhiteSpace";
 import RightArrow from "@/components/images/RightArrow";
 import HomeSingleAdImage from "@/components/pages/home/HomeSingleAdImage";
+import SliderModal from "@/components/UI/SliderModal";
 
 interface Props {
     type: string; // "totalSpecialPrice" | "ssgSpecialPrice" | "todayGrocery"
@@ -17,6 +17,7 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
     const [resetSpecialPriceType, setResetSpecialPriceType] = useState<string>(""); //
     const [clickedCategoryIndex, setClickedCategoryIndex] = useState<number>(0); // 클릭한 버튼의 인덱스를 저장하는 상태
     const [clickedDeliveryTypeIndex, setClickedDeliveryTypeIndex] = useState<number | null>(null); // 클릭한 배송타입의 인덱스를 저장하는 상태
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // 모달창을 열고 닫는 상태
 
     const router = useRouter();
 
@@ -31,6 +32,10 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
             return;
         }
         setClickedDeliveryTypeIndex(index);
+    };
+
+    const ModalHandler = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
     useEffect(() => {
@@ -93,12 +98,15 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                         backgroundColor: "rgba(0,0,255,0)",
                     }}
                 >
-                    <button className="bg-white border-2 border-[#E5E5E5] flex-1 justify-center items-center py-2 px-3  font-Pretendard text-[13px]">
+                    <button
+                        onClick={() => ModalHandler()}
+                        className="bg-white border-2 border-[#E5E5E5] flex-1 justify-center items-center py-2 px-3  font-Pretendard text-[13px]"
+                    >
                         <RightArrow rotate={"90"} />
                     </button>
                 </div>
             </div>
-            <div className="flex flex-row overflow-x-auto scroll-smooth items-center py-2 m-3">
+            <div className="flex flex-row overflow-x-auto scroll-smooth items-center pb-3 mx-3">
                 {specialPriceCategoryData
                     .filter((item) => item.type === type)
                     .map((item) =>
@@ -119,6 +127,22 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                         ))
                     )}
             </div>
+            {isModalOpen && (
+                <div className="mx-auto my-16 max-w-md">
+                    <div>test modal</div>
+                    <button onClick={() => ModalHandler()} className="hover: animate-fade-up animate-once animate-ease-in">
+                        close btn
+                    </button>
+                </div>
+                // <SliderModal>
+                //     <div className="bg-white h-[200px]">
+                //         <div>test modal</div>
+                //         <button onClick={() => ModalHandler()} className="hover: animate-fade-up animate-once animate-ease-in">
+                //             close btn
+                //         </button>
+                //     </div>
+                // </SliderModal>
+            )}
         </>
     );
 };
