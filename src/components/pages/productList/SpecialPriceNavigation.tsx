@@ -67,7 +67,7 @@ const SpecialPriceNavigation = ({ type, title }: Props) => {
                     title="universeCLubSingleAdImage"
                 />
             )}
-            <div className="flex flex-row gap-1 m-3">
+            <div className="flex flex-row gap-1 m-3 sticky top-10 z-50 py-2 bg-white">
                 <div className="bg-white flex-1 flex overflow-x-auto scroll-smooth">
                     {specialPriceCategoryData
                         .filter((item) => item.type === type)
