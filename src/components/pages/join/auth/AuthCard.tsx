@@ -22,30 +22,31 @@ const AuthCard = ({
         {/* 인증수단 선택 */}
         <div className="mt-[10px] w-[350px] flex justify-between">
           <div
-            onClick={() => onChagneAuthType("email")}
+            onClick={() => onChagneAuthType("phone")}
             className="h-[110px] w-[170px] pt-[18px] border border-[#e0e0e0] text-[15px] flex flex-col items-center"
           >
-            <div className="w-[44px]">
+            <div className="w-[35px] h-[44px]">
               <Image
-                src={"/images/etc/mailIcon.png"}
+                src={"/images/etc/authPhone.svg"}
+                alt={"휴대폰 인증"}
+                width={35}
+                height={44}
+              />
+            </div>
+            <span className="mt-[8px]">휴대폰 인증</span>
+          </div>
+
+          <div className="h-[110px] w-[170px] pt-[18px] border border-[#e0e0e0] text-[15px] flex flex-col items-center">
+            <div onClick={() => onChagneAuthType("phone")} className="w-[44px]">
+              <Image
+                onClick={() => onChagneAuthType("email")}
+                src={"/images/etc/authCard.png"}
                 alt={"이메일 인증"}
                 width={100}
                 height={100}
               />
             </div>
             <span className="mt-[8px]">이메일 인증</span>
-          </div>
-
-          <div className="h-[110px] w-[170px] pt-[18px] border border-[#e0e0e0] text-[15px] flex flex-col items-center">
-            <div onClick={() => onChagneAuthType("phone")} className="w-[44px]">
-              <Image
-                src={"/images/etc/phoneIcon.png"}
-                alt={"휴대폰 인증"}
-                width={100}
-                height={100}
-              />
-            </div>
-            <span className="mt-[8px]">휴대폰 인증</span>
           </div>
         </div>
 

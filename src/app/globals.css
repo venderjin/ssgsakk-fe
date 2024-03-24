@@ -49,6 +49,19 @@ body {
     font-size: 11px;
     content: "|";
   }
+  .right-arrow:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-top: -1px;
+    border: solid #969696;
+    border-width: 1px 0 0 1px;
+    transform: rotate(135deg) translateX(-50%);
+  }
 }
 
 @font-face {
@@ -128,4 +141,13 @@ body {
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf")
       format("truetype");
   font-display: swap;
+}
+
+.swiper-pagination-fraction {
+  width: 50px !important;
+  height: 22px !important;
+  border-radius: 11px;
+  background-color: rgba(34, 34, 34, 0.15);
+  color: white !important;
+  font-size: 12px !important;
 }

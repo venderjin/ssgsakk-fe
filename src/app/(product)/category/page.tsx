@@ -1,5 +1,5 @@
-import FloatingLeft from "@/components/common/FloatingLeft";
 import React from "react";
+import FloatingLeft from "@/components/UI/FloatingLeft";
 
 const CategoryPage = () => {
   return (

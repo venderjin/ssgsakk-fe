@@ -15,7 +15,7 @@ const page = () => {
     <>
       <BackArrowHeader title="신세계포인트 통합회원 가입" />
       <AuthCard onChagneAuthType={onChagneAuthType} />
-      {authType === "email" ? (
+      {authType === "phonoe" ? (
         <Modal>
           <BackArrowHeader title="신세계포인트 통합회원 가입" />
           <EmailAuthPage />
