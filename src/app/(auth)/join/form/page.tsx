@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
-import BackArrowHeader from "@/components/common/BackArrowHeader";
 import JoinForm from "@/components/pages/join/form/JoinForm";
 
 const Page = () => {
+  // 휴대폰 인증 후 이름과 전화번호가 넘어온다
+  const userName = "서여진";
+
   return (
     <>
-      <BackArrowHeader title="신세계포인트 통합회원 가입" />
-      <JoinForm />
+      <JoinForm userName={userName} />
     </>
   );
 };
