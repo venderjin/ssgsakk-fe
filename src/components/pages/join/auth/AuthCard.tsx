@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import CardTtile from "@/components/UI/CardTtile";
 
 const AuthCard = ({
   onChagneAuthType,
@@ -8,11 +9,7 @@ const AuthCard = ({
 }) => {
   return (
     <div className="font-Pretendard text-[#222]">
-      <div className="px-[20px] py-[15px] bg-[#f8f8f8]">
-        <h3 className="text-[14px] font-medium text-[#666] font-Pretendard">
-          본인인증
-        </h3>
-      </div>
+      <CardTtile title="본인인증" />
 
       <div className="my-[30px] px-[20px]">
         <p className="text-[14px] text-center">

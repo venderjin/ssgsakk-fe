@@ -2,6 +2,7 @@ import React from "react";
 import { joinIntroCouponDatas } from "@/libs/joinIntroDatas";
 import Image from "next/image";
 import Link from "next/link";
+import CardTtile from "@/components/UI/CardTtile";
 
 const JoinIntroCard = () => {
   return (
@@ -14,11 +15,7 @@ const JoinIntroCard = () => {
         </p>
       </div>
 
-      <div className="px-[20px] py-[15px] bg-[#f8f8f8]">
-        <h3 className="text-[14px] font-medium text-[#666] font-Pretendard">
-          신세계포인트 통합회원
-        </h3>
-      </div>
+      <CardTtile title="신세계포인트 통합회원" />
 
       <p className="mt-[20px] px-[20px] text-[14px] text-[#444] font-Pretendard">
         신세계 유니버스 클럽 3개월 무료체험이 제공됩니다.
