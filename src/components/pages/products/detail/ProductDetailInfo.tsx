@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef } from "react";
 import TriangleDown from "@/components/images/TriangleDown";
 
@@ -389,7 +390,7 @@ const ProductDetailInfo = () => {
   };
 
   return (
-    <div className="mt-[50px] mb-[52px] font-Pretendard">
+    <div className="px-[20px] mt-[50px] mb-[52px] font-Pretendard">
       <div
         className="overflow-hidden"
         ref={detailRef}

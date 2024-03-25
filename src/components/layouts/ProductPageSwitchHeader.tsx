@@ -1,10 +1,7 @@
+"use client";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-type Props = {
-  onChangeModal: () => void;
-};
 
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
@@ -25,7 +22,7 @@ const ProductPageSwitchHeader = () => {
 
   return (
     <>
-      <div className="w-[50px] float flex left-0 top-0 bottom-0 items-center justify-center">
+      <div className="w-[50px] float bg-[#fff] flex left-0 top-0 bottom-0 items-center justify-center">
         <Image
           src="/images/etc/whiteArrow.svg"
           alt="search-icon"
@@ -51,7 +48,7 @@ const ProductPageSwitchHeader = () => {
             <Image
               src="/images/etc/whiteArrow.svg"
               alt="search-icon"
-              width={24}
+              width={26}
               height={24}
             />
           )}

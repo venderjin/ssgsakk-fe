@@ -1,4 +1,3 @@
-"use client";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import ProductSummary from "@/components/pages/products/detail/ProductSummary";
 import TopHeader from "@/components/layouts/TopHeader";

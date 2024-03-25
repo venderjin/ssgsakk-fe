@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import BottomPurchaseMain from "@/components/pages/products/purchase/BottomPurchaseMain";
 import BottomPurchaseSwitcher from "@/components/pages/products/purchase/BottomPurchaseSwitcher";
