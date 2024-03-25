@@ -9,12 +9,12 @@ export const homeHeaderCategoryData: HomeHeaderNavigationType[] = [
     {
         id: 2,
         title: "특가",
-        url: "/special-price",
+        url: "/productList/eventProductList",
     },
     {
         id: 3,
         title: "베스트",
-        url: "/best",
+        url: "/page/best",
     },
     {
         id: 4,

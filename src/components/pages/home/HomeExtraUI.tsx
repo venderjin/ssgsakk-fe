@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import RightArrow from "@/components/images/RightArrow";
 
 const HomeGradientSectionTitle: React.FC<{ title: string }> = ({ title }) => {
     return (
@@ -18,8 +19,8 @@ const HomeGradientSectionTitle: React.FC<{ title: string }> = ({ title }) => {
                     </p>
                 </div>
 
-                <div className="flex items-center">
-                    <Image src="/images/home/rightArrow.svg" width={16} height={16} alt="arrow" className="mx-[8px]" style={{ height: "16px" }} />
+                <div className="flex items-center w-[20px]">
+                    <RightArrow color="#FF4E00" />
                 </div>
             </div>
         </div>

@@ -1,10 +1,5 @@
 import React from "react";
 
-import Footer from "@/components/layouts/Footer";
-import TopHeader from "@/components/layouts/TopHeader";
-import BottomHeader from "@/components/layouts/BottomHeader";
-import BottomNav from "@/components/layouts/BottomNav";
-
 import HomeAdCarousel from "@/components/pages/home/HomeAdCarousel";
 import WhiteSpace from "@/components/UI/WhiteSpace";
 import HomeGridItems from "@/components/pages/home/HomeGridItems";
@@ -14,14 +9,11 @@ import FloatingUp from "@/components/UI/FloatingUp";
 import { HomeGradientSectionTitle } from "@/components/pages/home/HomeExtraUI";
 import HomeCreaditCardBanner from "@/components/pages/home/HomeCreaditCardBanner";
 import EventProductList from "@/components/pages/productList/EventProductList";
+import MoreContents from "@/components/UI/MoreContents";
 
 export default function Home() {
     return (
         <>
-            <TopHeader />
-            <BottomHeader />
-            {/* TopHeader and BottomHeader */}
-
             <HomeAdCarousel />
             <WhiteSpace height={20} backgroundColor="#ffffff" />
             <HomeGridItems />
@@ -41,12 +33,11 @@ export default function Home() {
                 imgPath="https://simg.ssgcdn.com/trans.ssg?src=/cmpt/banner/202310/2023101109160643017797103779_551.png&w=750&h=0                "
                 title="universeCLubSingleAdImage"
             />
+            <EventProductList visiableProductList={5} />
+            <MoreContents title="쓱~특가 더보기" link="/productList/eventProductList?type=ssgSpecialPrice" />
+            <WhiteSpace height={20} backgroundColor="#ffffff" />
+            <HomeSectionTitle title="SSG.LIVE 핫딜을 놓치지 마세요" />
             <FloatingUp />
-            <EventProductList visiableProductList={3} />
-
-            {/* Footer and BottomNav */}
-            <Footer />
-            <BottomNav />
         </>
     );
 }
