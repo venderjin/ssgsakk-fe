@@ -1,0 +1,108 @@
+{
+  "optionList": [
+    {
+      "type": "색상",
+      "optionList": [
+        { "optionId": 1, "data": "아이보리" },
+        { "optionId": 2, "data": "블랙" }
+      ]
+    },
+    {
+      "type": "사이즈",
+      "optionList": [
+        { "optionId": 1, "data": "55" },
+        { "optionId": 2, "data": "66" }
+      ]
+    }
+  ],
+
+  "photoReviewList": [
+    {
+      "productId": 1,
+      "reviewList": [
+        {
+          "reviewId": 123,
+          "photoCount": 1,
+          "thumbImage": "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202310/20231019191939_1206816677_0_1.jpg&w=500&h=500&autoOrient=true&t=1e7f78bce1c1ea862b77640ba149f5825ac14c24"
+        },
+        {
+          "reviewId": 124,
+          "photoCount": 2,
+          "thumbImage": "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99"
+        },
+        {
+          "reviewId": 125,
+          "photoCount": 2,
+          "thumbImage": "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99"
+        },
+        {
+          "reviewId": 126,
+          "photoCount": 2,
+          "thumbImage": "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99"
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productName": "니트 배색 원피스(LC31CXOP567X)",
+      "description": "상세데이터입니다.",
+      "productPrice": 55900,
+      "vendor": "레코브",
+      "productDetail": "",
+      "discountPercent": 18,
+      "averageRating": 4.5,
+      "reviewCount": 12,
+      "reviewThumbList": [
+        "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202310/20231019191939_1206816677_0_1.jpg&w=500&h=500&autoOrient=true&t=1e7f78bce1c1ea862b77640ba149f5825ac14c24",
+        "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99"
+      ],
+      "images": [
+        {
+          "id": 1,
+          "priority": 1,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i1_750.jpg"
+        },
+        {
+          "id": 2,
+          "priority": 2,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i3_750.jpg"
+        },
+        {
+          "id": 3,
+          "priority": 3,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i4_750.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "productName": "니트 배색 원피스(LC31CXOP567X)",
+      "description": "상세데이터입니다.",
+      "productPrice": 55900,
+      "vendor": "레코브",
+      "productDetail": "",
+      "discountPercent": 0,
+      "averageRating": 0,
+      "reviewCount": 0,
+      "images": [
+        {
+          "id": 1,
+          "priority": 1,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i1_750.jpg"
+        },
+        {
+          "id": 2,
+          "priority": 2,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i3_750.jpg"
+        },
+        {
+          "id": 3,
+          "priority": 3,
+          "url": "https://sitem.ssgcdn.com/80/52/82/item/1000559825280_i4_750.jpg"
+        }
+      ]
+    }
+  ]
+}
