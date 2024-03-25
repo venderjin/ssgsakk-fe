@@ -8,16 +8,16 @@ import ThemeList from "@/components/pages/category/ThemeList";
 import BottomNav from "@/components/layouts/BottomNav";
 
 const CategoryPage = () => {
-    return (
-        <>
-            <TopHeader />
-            <CategoryList />
-            <ThemeList />
-            <CategoryFooter />
-            <FloatingLeft />
-            <BottomNav />
-        </>
-    );
+  return (
+    <>
+      <TopHeader />
+      <CategoryList />
+      <ThemeList />
+      <CategoryFooter />
+      <FloatingLeft />
+      <BottomNav />
+    </>
+  );
 };
 
 export default CategoryPage;
