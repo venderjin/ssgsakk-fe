@@ -23,7 +23,6 @@ const JoinForm = ({ userName }: { userName: string }) => {
 
   const onChangeAddress = (address: Address) => {
     setSelectedAddress({ ...address });
-    console.log(address);
   };
 
   return (
@@ -83,7 +82,7 @@ const JoinForm = ({ userName }: { userName: string }) => {
               </div>
 
               {/* 주소 */}
-              <div className="pt-[15px] flex border-t border-t-[#eee]">
+              <div className="py-[15px] flex border-t border-t-[#eee]">
                 <FormLabel labelName="주소" />
                 <div className="w-full relative">
                   <div className="relative pr-[100px] overflow-hidden">
@@ -106,22 +105,28 @@ const JoinForm = ({ userName }: { userName: string }) => {
                 </div>
               </div>
 
-              {/* 우편번호 검색 후 나타나는 폼 */}
-              <div className="my-[10px] pb-[10px] text-[13px]">
-                <strong className="mr-[30px] float-left font-normal leading-4 w-[48px] my-[4px]  bg-[#f6f6f6] text-[#888] text-[12px] text-center ">
-                  도로명
-                </strong>
-                <span className="break-words leading-4 block overflow-hidden py-[5px] text-[#222]">
-                  {`${selectedAddress.roadAddress} ${selectedAddress.detailAddress}`}
-                </span>
+              {selectedAddress.roadAddress === "" ? (
+                ""
+              ) : (
+                <>
+                  {/* 우편번호 검색 후 나타나는 폼 */}
+                  <div className="my-[10px] pb-[10px] text-[13px]">
+                    <strong className="mr-[30px] float-left font-normal leading-4 w-[48px] my-[4px]  bg-[#f6f6f6] text-[#888] text-[12px] text-center ">
+                      도로명
+                    </strong>
+                    <span className="break-words leading-4 block overflow-hidden py-[5px] text-[#222]">
+                      {`${selectedAddress.roadAddress} ${selectedAddress.detailAddress}`}
+                    </span>
 
-                <strong className="mr-[30px] float-left font-normal w-[48px] my-[4px]  bg-[#f6f6f6] text-[#888] text-[12px] text-center ">
-                  지번
-                </strong>
-                <span className="leading-4 block overflow-hidden py-[5px] text-[#222]">
-                  {`${selectedAddress.jibunAddress} ${selectedAddress.detailAddress}`}
-                </span>
-              </div>
+                    <strong className="mr-[30px] float-left font-normal w-[48px] my-[4px]  bg-[#f6f6f6] text-[#888] text-[12px] text-center ">
+                      지번
+                    </strong>
+                    <span className="leading-4 block overflow-hidden py-[5px] text-[#222]">
+                      {`${selectedAddress.jibunAddress} ${selectedAddress.detailAddress}`}
+                    </span>
+                  </div>
+                </>
+              )}
 
               {/* 휴대폰 번호 자동 입력 */}
               <div className="py-[15px] flex border-t border-t-[#eee]">

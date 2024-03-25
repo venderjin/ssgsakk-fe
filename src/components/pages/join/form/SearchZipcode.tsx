@@ -24,7 +24,6 @@ const SearchZipcode = ({
   });
 
   const completeHandler = (data: any) => {
-    console.log(data);
     let defaultAddress = "";
     if (data.buildingName === "") {
       defaultAddress = "";
