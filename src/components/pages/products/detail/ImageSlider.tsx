@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ImageType } from "@/types/productType";
 import { Swiper, SwiperSlide } from "swiper/react";
