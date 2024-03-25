@@ -6,19 +6,19 @@ import Link from "next/link";
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
 
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  const onScroll = useCallback((event: Event) => {
+  const onScroll = useCallback(() => {
     const { scrollY } = window;
 
     if (scrollY >= 100) setDisplay(true);
     else setDisplay(false);
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [onScroll]);
 
   return (
     <>

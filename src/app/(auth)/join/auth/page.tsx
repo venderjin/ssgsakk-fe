@@ -7,7 +7,7 @@ import Modal from "@/components/common/Modal";
 import PhoneAuthPage from "@/components/pages/join/auth/PhoneAuthPage";
 import ModalHeader from "@/components/common/ModalHeader";
 
-const page = () => {
+const Page = () => {
   const [authType, setAuthType] = useState<string>("");
   const onChagneAuthType = (type: string) => {
     setAuthType(type);
@@ -32,4 +32,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

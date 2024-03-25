@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import TriangleDown from "@/components/images/TriangleDown";
 
 const detailData = `<div class="mndtl_tmpl_detail">
@@ -377,7 +377,7 @@ const ProductDetailInfo = () => {
   const [detailHeight, setDetailHeight] = useState<number>(1200);
 
   // 페이지 로드 시 상세정보의 높이 계산하여 저장
-  useState(() => {
+  useEffect(() => {
     if (detailRef.current) {
       setDetailHeight(detailRef.current.clientHeight);
     }

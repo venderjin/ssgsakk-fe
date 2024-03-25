@@ -62,7 +62,7 @@ const OptionDropBoxList = ({
     if (lastSelectedOption && lastSelectedOption.data !== undefined) {
       onOptionSelect(selectedOptionList);
     }
-  }, [selectedOptionList]);
+  }, [selectedOptionList, onOptionSelect]);
 
   const handleOptionSelect = (index: number, selectedOption: Option) => {
     const updatedSelectedOptionList = [...selectedOptionList];

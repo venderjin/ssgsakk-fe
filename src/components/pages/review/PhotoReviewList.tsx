@@ -26,7 +26,7 @@ const PhotoReviewList = ({ productId }: { productId: number }) => {
     };
 
     fetchData();
-  }, []);
+  }, [productId]);
 
   return (
     <div className="mt-[15px] px-[20px]">

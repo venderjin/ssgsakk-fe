@@ -16,17 +16,13 @@ export const metadata: Metadata = {
 
 type Props = {
   children: React.ReactNode;
-  modal: React.ReactNode;
 };
 
-export default function RootLayout({ children, modal }: Props) {
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          {children}
-          {modal}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
       <script
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
