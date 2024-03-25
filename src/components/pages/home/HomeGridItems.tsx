@@ -36,7 +36,14 @@ const HomeGridItems = () => {
                 <div className="h-[115px] flex-nowrap flex flex-row w-[912px] pt-[10px] ">
                     {homeGridItemsData[0].items.map((item: { id: number; title: string; url: string; imgsrc: string }) => (
                         <div key={item.id} className="flex justify-start items-center flex-col px-[10px]">
-                            <Image src={item.imgsrc} alt={item.title} width={64} height={64} className="rounded-full" />
+                            <Image
+                                src={item.imgsrc}
+                                alt={item.title}
+                                width={64}
+                                height={64}
+                                className="rounded-full"
+                                {...(item.id === 5 ? { unoptimized: true } : {})}
+                            />
                             <span
                                 className="font-Pretendard text-[13px] whitespace-nowrap leading-4 font-normal text-center mt-[6px]"
                                 dangerouslySetInnerHTML={{ __html: item.title.replace(/\n/g, "<br>") }}

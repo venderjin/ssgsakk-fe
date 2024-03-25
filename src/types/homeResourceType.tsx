@@ -27,3 +27,18 @@ export interface HomeCreditCardEventBannerType {
     firstGradientColor: string;
     secondGradientColor: string;
 }
+
+export interface HomeSpeicalPriceType {
+    type: "totalSpecialPrice" | "ssgSpecialPrice" | "todayGrocery";
+    title: "전체\n보기" | "쓱~\n특가" | "오늘의\n장보기";
+    category: {
+        id: number;
+        title: string;
+    }[];
+    deliveryType: {
+        id: number;
+        title: string;
+        unCheckedImgpath: string;
+        checkedImgpath: string;
+    }[];
+}
