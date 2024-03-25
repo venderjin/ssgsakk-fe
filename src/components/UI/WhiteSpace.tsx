@@ -2,7 +2,7 @@ import React from "react";
 
 interface WhiteSpaceProps {
     height: number;
-    backgroundColor: string;
+    backgroundColor?: string;
 }
 
 const WhiteSpace: React.FC<WhiteSpaceProps> = ({ height, backgroundColor }) => {
@@ -10,7 +10,7 @@ const WhiteSpace: React.FC<WhiteSpaceProps> = ({ height, backgroundColor }) => {
         <div
             style={{
                 height: `${height}px`,
-                backgroundColor: `${backgroundColor}`,
+                backgroundColor: backgroundColor === undefined ? "white" : `${backgroundColor}`,
             }}
         ></div>
     );

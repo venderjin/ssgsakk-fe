@@ -2,20 +2,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { snsLoginData } from "@/libs/snsLoginData";
+import { snsLoginData, loginSupportData } from "@/libs/loginDatas";
 import { SnsLogin } from "@/types/snsLoginType";
-import Image from "next/image";
-
-type Props = {
-  onChangeSaveIdCheck: (data: boolean) => void;
-};
+import LoginCheckbox from "@/components/common/LoginCheckbox";
+import SnsButton from "@/components/common/SnsButton";
 
 type loginType = {
   loginId: string;
   password: string;
 };
 
-export default function LoginForm({ onChangeSaveIdCheck }: Props) {
+export default function LoginForm() {
   const [saveIdCheck, setCheck] = useState(false);
   const [loginData, setLoginData] = useState<loginType>({
     loginId: "",
@@ -26,7 +23,6 @@ export default function LoginForm({ onChangeSaveIdCheck }: Props) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setCheck(event.target.checked);
-    onChangeSaveIdCheck(event.target.checked);
   };
 
   const { data: session } = useSession();
@@ -52,14 +48,14 @@ export default function LoginForm({ onChangeSaveIdCheck }: Props) {
     <div className="p-[20px] pt-[40px]">
       <form onSubmit={loginSubmit}>
         <input
-          className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px]"
+          className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px] font-Pretendard"
           placeholder="아이디"
           type="text"
           name="loginId"
           onChange={onChangeLoginData}
         />
         <input
-          className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] border-t-0 px-[15px] py-[12px] text-[15px]"
+          className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] border-t-0 px-[15px] py-[12px] text-[15px] font-Pretendard"
           placeholder="비밀번호"
           type="password"
           name="password"
@@ -67,80 +63,67 @@ export default function LoginForm({ onChangeSaveIdCheck }: Props) {
         />
 
         <div className="flex w-full mt-[10px] px-[15px]">
-          <span className="flex content-center items-center">
-            <input
-              checked={saveIdCheck}
-              onChange={(e) => onInputCheckboxChange(e)}
-              type="checkBox"
-              id="keep_id"
-              className={`w-[22px] h-[22px] appearance-none mr-[5px] bg-login-icon bg-no-repeat ${
-                saveIdCheck
-                  ? "bg-[position:0px_-18px]"
-                  : "bg-[position:-24px_-18px]"
-              } bg-[length:250px_250px]`}
-            />
-            <label htmlFor="keep_id" className="text-[14px] text-[#222222]">
-              아이디 저장
-            </label>
-          </span>
+          <LoginCheckbox
+            id="keep_id"
+            isChecked={saveIdCheck}
+            labelName="아이디 저장"
+            onChangeCheckbox={onInputCheckboxChange}
+            iconSize={22}
+          />
         </div>
 
         <button
           type="submit"
-          className="login-btn bg-[#FF5452] text-white text-[15px]  mt-[30px] font-semibold"
+          className="base-btn bg-[#FF5452] text-white mt-[30px] font-medium"
         >
           로그인
         </button>
       </form>
 
-      <div className="mt-[13px] w-full h-[19.5px] flex justify-center">
-        <Link className="px-[8px] text-[13px] text-[#4A4A4A]" href="">
-          아이디 찾기
-        </Link>
-        <span className="border-r-2 border-r-gray-400"></span>
-        <Link className="px-[8px] text-[13px] text-[#4A4A4A]" href="">
-          비밀번호 찾기
-        </Link>
-        <span className="border-r-2 border-r-gray-400"></span>
-        <Link className="px-[8px] text-[13px] text-[#4A4A4A]" href="">
-          회원가입
-        </Link>
+      <div className="mt-[13px] w-full h-[19.5px] flex justify-center items-center">
+        {loginSupportData.map((item) => {
+          return (
+            <div key={item.id}>
+              <Link
+                className={`px-[7px] text-[13px] text-[#4A4A4A] font-Pretendard 
+                ${
+                  item.id >= loginSupportData.length
+                    ? ""
+                    : "border-r-[1px] border-r-[#4a4a4a]"
+                }
+                
+                `}
+                href={item.url}
+              >
+                {item.title}
+              </Link>
+            </div>
+          );
+        })}
       </div>
 
       <ul className="w-full my-[40px] flex justify-around items-center">
         {snsLoginData.map((sns: SnsLogin) => {
           return (
-            <li
+            <SnsButton
               key={sns.id}
-              className="w-[51px] flex flex-col items-center justify-center"
-              onClick={() =>
-                signIn(sns.type, { redirect: true, callbackUrl: "/" })
-              }
-            >
-              <Image
-                src={`/images/login/${sns.type}.svg`}
-                priority
-                alt={sns.type}
-                width={51}
-                height={51}
-              ></Image>
-              <span className="mt-[6px] text-[12px] text-[#4A4A4A]">
-                {sns.name}
-              </span>
-            </li>
+              snsType={sns.type}
+              snsName={sns.name}
+              iconPosition={sns.img}
+            />
           );
         })}
       </ul>
 
       <div className="mt-[100px]">
         <Link href="">
-          <button className="login-btn bg-[#222222] text-white text-[14px] font-semibold mb-[34px]">
+          <button className="base-btn bg-[#222222] text-white text-[14px] font-semibold mb-[34px]">
             휴대폰 간편 로그인
           </button>
         </Link>
 
         <Link href="/nonMemberLogin">
-          <button className="login-btn bg-[#f3f3f3] text-[#9B9B9B] text-[13px] ">
+          <button className="base-btn bg-[#f3f3f3] text-[#9B9B9B] text-[13px]">
             비회원 조회하기
           </button>
         </Link>

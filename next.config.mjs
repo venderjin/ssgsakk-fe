@@ -1,14 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-
-    return config;
-  },
   images: {
+    domains: ["dummyjson.com", "ssgcdn.com"],
     remotePatterns: [
       {
         protocol: "https",
@@ -19,6 +12,10 @@ const nextConfig = {
         hostname: "*.dummyjson.com",
       },
     ],
+  },
+  env: {
+    ZIPCODE_SERVICE_URL: process.env.ZIPCODE_SERVICE_URL,
+    ZIPCODE_SERVICE_KEY: process.env.ZIPCODE_SERVICE_KEY,
   },
 };
 
