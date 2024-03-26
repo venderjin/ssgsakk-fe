@@ -16,7 +16,7 @@ export const loginSupportData: NavigationType[] = [
   {
     id: 3,
     title: "회원가입",
-    url: "/join/joinIntro",
+    url: "/signin/intro",
   },
 ];
 

@@ -16,6 +16,7 @@ const nextConfig = {
   env: {
     ZIPCODE_SERVICE_URL: process.env.ZIPCODE_SERVICE_URL,
     ZIPCODE_SERVICE_KEY: process.env.ZIPCODE_SERVICE_KEY,
+    BASE_URL: process.env.BASE_URL,
   },
 };
 

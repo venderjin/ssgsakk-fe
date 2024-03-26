@@ -1,5 +1,4 @@
 import CardTtile from "@/components/UI/CardTtile";
-import React from "react";
 
 const JoinAgreeList = () => {
   return (

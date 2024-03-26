@@ -1,4 +1,3 @@
-import React from "react";
 import { joinIntroCouponDatas } from "@/libs/joinIntroDatas";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +48,7 @@ const JoinIntroCard = () => {
             멤버십 혜택 받고 통합회원 가입하기
           </button>
 
-          <Link href="/join/auth">
+          <Link href="/signin">
             <button className="base-btn bg-[#00000033] text-white font-bold mt-[10px]">
               통합회원만 가입하기
             </button>
