@@ -9,7 +9,7 @@ export const footerNavigationData: FooterNavigationType[] = [
   {
     id: 2,
     title: "회원가입",
-    url: "/signin/intro",
+    url: "/signup/intro",
   },
   {
     id: 3,

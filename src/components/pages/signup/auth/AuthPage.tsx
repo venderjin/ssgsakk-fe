@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
-import AuthCard from "@/components/pages/signin/auth/AuthCard";
-import EmailAuthPage from "@/components/pages/signin/auth/EmailAuthPage";
+import AuthCard from "@/components/pages/signup/auth/AuthCard";
+import EmailAuthPage from "@/components/pages/signup/auth/EmailAuthPage";
 import Modal from "@/components/common/Modal";
-import PhoneAuthPage from "@/components/pages/signin/auth/PhoneAuthPage";
+import PhoneAuthPage from "@/components/pages/signup/auth/PhoneAuthPage";
 import ModalHeader from "@/components/common/ModalHeader";
 import Footer from "@/components/layouts/Footer";
 

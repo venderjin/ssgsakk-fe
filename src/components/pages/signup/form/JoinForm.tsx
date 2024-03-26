@@ -1,10 +1,10 @@
 import { useState } from "react";
 import FormLabel from "./FormLabel";
 import CardTtile from "@/components/UI/CardTtile";
-import JoinAgreeList from "@/components/pages/signin/form/JoinAgreeList";
+import JoinAgreeList from "@/components/pages/signup/form/JoinAgreeList";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import SearchZipcode from "./SearchZipcode";
-import { signinErrorMessage } from "@/libs/errorMessage";
+import { signupErrorMessage } from "@/libs/errorMessage";
 
 type Address = {
   zipCode?: string;
@@ -82,7 +82,7 @@ const JoinForm = ({ userEmail }: { userEmail: string }) => {
 
   return (
     <div className="font-Pretendard">
-      <BackArrowHeader title="신세계포인트 통합회원 가입" />
+      {/* <BackArrowHeader title="신세계포인트 통합회원 가입" /> */}
       {openAddress ? (
         <SearchZipcode
           onChangeAddress={onChangeAddress}

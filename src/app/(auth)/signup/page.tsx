@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import AuthPage from "@/components/pages/signin/auth/AuthPage";
-import JoinForm from "@/components/pages/signin/form/JoinForm";
+import AuthPage from "@/components/pages/signup/auth/AuthPage";
+import JoinForm from "@/components/pages/signup/form/JoinForm";
+import SignupForm from "@/components/pages/signup/form/SignupForm";
 
 const Page = () => {
   const [isVeryfied, setIsVeryfied] = useState<boolean>(true);
@@ -17,7 +18,10 @@ const Page = () => {
       {!isVeryfied ? (
         <AuthPage sendUserEmail={sendUserEmail} />
       ) : (
-        <JoinForm userEmail={userEmail} />
+        <>
+          <SignupForm userEmail={userEmail} />
+          {/* <JoinForm userEmail={userEmail} /> */}
+        </>
       )}
     </>
   );
