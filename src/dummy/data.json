@@ -16,6 +16,18 @@
     }
   ],
 
+  "optionData": {
+    "depthLevel": 2,
+    "firstDepthName": "색상",
+    "secondDepthName": "사이즈",
+    "options": [
+      { "id": 1, "explain": "아이보리", "explain2": 55, "stock": 10 },
+      { "id": 2, "explain": "아이보리", "prexplain2": 66, "stock": 20 },
+      { "id": 3, "explain": "블랙", "explain2": 55, "stock": 0 },
+      { "id": 4, "explain": "블랙", "explain2": 66, "stock": 30 }
+    ]
+  },
+
   "photoReviewList": [
     {
       "productId": 1,
