@@ -1,30 +1,12 @@
 "use client";
-import { useState } from "react";
-import AuthPage from "@/components/pages/signup/auth/AuthPage";
-import JoinForm from "@/components/pages/signup/form/JoinForm";
+import { useSearchParams } from "next/navigation";
 import SignupForm from "@/components/pages/signup/form/SignupForm";
 
 const Page = () => {
-  const [isVeryfied, setIsVeryfied] = useState<boolean>(true);
-  const [userEmail, setUserEmail] = useState<string>("");
+  const params = useSearchParams();
+  const userEmail = params.get("userEmail");
 
-  const sendUserEmail = (userEmail: string) => {
-    setUserEmail(userEmail);
-    setIsVeryfied(true);
-  };
-
-  return (
-    <>
-      {!isVeryfied ? (
-        <AuthPage sendUserEmail={sendUserEmail} />
-      ) : (
-        <>
-          <SignupForm userEmail={userEmail} />
-          {/* <JoinForm userEmail={userEmail} /> */}
-        </>
-      )}
-    </>
-  );
+  return <SignupForm userEmail={userEmail || ""} />;
 };
 
 export default Page;

@@ -26,6 +26,8 @@ const config: Config = {
         "product-opt-icon":
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_optbar_20230630@2x.png')",
         "check-icon": "url('https://sui.ssgcdn.com/ui/m_ssg/img/sp_form3.png')",
+        "agree-icon":
+          "url('https://sui.ssgcdn.com/ui/m_ssg/img/sp_cmem_form_v2.png')",
       },
       fontFamily: {
         Pretendard: ["Pretendard"],

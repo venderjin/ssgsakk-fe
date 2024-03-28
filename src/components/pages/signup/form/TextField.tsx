@@ -8,6 +8,8 @@ interface SignupFormData {
   passwordConfirm: string;
   name: string;
   phone: string;
+  email: string;
+  zipCode: string;
 }
 
 interface Props {

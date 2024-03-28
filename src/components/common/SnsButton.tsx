@@ -8,10 +8,20 @@ type Props = {
 };
 
 export default function SnsButton({ snsType, snsName, iconPosition }: Props) {
+  const requestSnsLogin = async (snsType: string) => {
+    const res = await fetch(
+      `${process.env.BASE_URL}/auth2/authorization/google`
+    );
+    console.log(res);
+  };
+
   return (
     <li
       className="w-[51px] flex flex-col items-center justify-center"
-      onClick={() => signIn(snsType, { redirect: true, callbackUrl: "/" })}
+      onClick={() => {
+        requestSnsLogin(snsType);
+        //signIn(snsType, { redirect: true, callbackUrl: "/" }
+      }}
     >
       <span
         style={{ backgroundPosition: iconPosition }}

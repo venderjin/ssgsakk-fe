@@ -1,5 +1,5 @@
 import timeFormatter from "@/utils/timeFormatter";
-import { redirect } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import ThermList from "./ThermList";
 
@@ -8,11 +8,8 @@ type CheckBoxType = {
   [key: string]: boolean;
 };
 
-const EmailAuthPage = ({
-  sendUserEmail,
-}: {
-  sendUserEmail: (email: string) => void;
-}) => {
+const EmailAuthPage = () => {
+  const router = useRouter();
   const [userEmail, setUserEmail] = useState<string>("");
   const [authCode, setAuthCode] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -28,7 +25,6 @@ const EmailAuthPage = ({
 
   const onChangeAgreementList = (data: CheckBoxType) => {
     setCheckBoxes({ ...data });
-    console.log(data);
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +49,9 @@ const EmailAuthPage = ({
       body: JSON.stringify({ email: userEmail }),
     });
 
-    const data = await res.json();
     //정상적으로 발송
     if (res.ok) {
+      console.log(res);
       alert("인증코드가 발송되었습니다.");
       setIsOpen(true);
       setRemainingTime(INIT_TIME);
@@ -87,7 +83,7 @@ const EmailAuthPage = ({
 
     if (res.ok) {
       alert("인증이 완료되었습니다.");
-      sendUserEmail(userEmail);
+      router.push(`/signup?userEmail=${userEmail}`);
     }
 
     if (res.status === 406) {
@@ -149,7 +145,7 @@ const EmailAuthPage = ({
 
                 <span
                   onClick={sendCodeHandler}
-                  className="float-right text-[14px] text-[#222] underline"
+                  className="float-right text-[14px] text-[#222] underline cursor-pointer"
                 >
                   재전송
                 </span>

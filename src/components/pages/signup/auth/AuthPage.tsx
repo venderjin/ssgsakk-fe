@@ -8,11 +8,7 @@ import PhoneAuthPage from "@/components/pages/signup/auth/PhoneAuthPage";
 import ModalHeader from "@/components/common/ModalHeader";
 import Footer from "@/components/layouts/Footer";
 
-const AuthPage = ({
-  sendUserEmail,
-}: {
-  sendUserEmail: (email: string) => void;
-}) => {
+const AuthPage = () => {
   const [authType, setAuthType] = useState<string>("");
   const onChagneAuthType = (type: string) => {
     setAuthType(type);
@@ -20,8 +16,7 @@ const AuthPage = ({
 
   const authTypeComponent = () => {
     if (authType === "phone") return <PhoneAuthPage />;
-    else if (authType === "email")
-      return <EmailAuthPage sendUserEmail={sendUserEmail} />;
+    else if (authType === "email") return <EmailAuthPage />;
   };
 
   return (
