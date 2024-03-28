@@ -63,8 +63,9 @@ const HomeGridItems = () => {
                     ))}
                 </div>
             </div>
-            <div className="h-0.5 bg-gray-200">
-                <div className="h-1 bg-black rounded-full" style={{ width: `${scrollProgress.right < 20 ? 20 : scrollProgress.right}%` }}></div>
+            <div className="h-0.5 bg-gray-200 flex flex-row">
+                <div className="h-0.5 bg-black rounded-full" style={{ width: 50 }}></div>
+                <div className="h-0.5 bg-black rounded-full" style={{ width: `${scrollProgress.right}%` }}></div>
             </div>
         </div>
     );
