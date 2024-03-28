@@ -34,7 +34,9 @@ const TopHeader = () => {
                             height={14}
                         />
                     </div>
-                    <SearchFrom />
+                    <div>
+                        <SearchFrom />
+                    </div>
                     <div className="flex items-center">
                         <Image src="/images/home/chatbotLogo.png" alt="Chatbot" width={26} height={26} className="mr-[10px]" />
                         <Image src="/images/home/cartLogo.png" alt="Cart" width={26} height={26} />
