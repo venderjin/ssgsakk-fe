@@ -1,4 +1,3 @@
-import React from "react";
 import { snsLoginData } from "@/libs/joinIntroDatas";
 import SnsButton from "@/components/common/SnsButton";
 import CardTtile from "@/components/UI/CardTtile";
