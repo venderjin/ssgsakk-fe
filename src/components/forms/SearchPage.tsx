@@ -9,11 +9,10 @@ import Cart from "../images/Cart";
 import DeleteInput from "../images/DeleteInput";
 
 interface SearchPageProps {
-    isModalOpen: boolean;
     onChangeModal: () => void;
 }
 
-const SearchPage = ({ isModalOpen, onChangeModal }: SearchPageProps) => {
+const SearchPage = ({ onChangeModal }: SearchPageProps) => {
     const [searchValue, setSearchValue] = useState<string>(""); // 검색어를 담는 상태
     const [searchValueLength, setSearchValueLength] = useState<number>(0); // 검색어의 길이를 담는 상태
     const inputRef = useRef<HTMLInputElement>(null);
@@ -35,10 +34,15 @@ const SearchPage = ({ isModalOpen, onChangeModal }: SearchPageProps) => {
     };
 
     const searchSubmit = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
+        if (e.key === "Escape") {
+            onChangeModal();
+        } else if (e.key === "Enter" && searchValue.length > 0) {
             e.preventDefault();
-            console.log("searchValue is", searchValue);
             router.push(`/productList/searchProductList?keyword=${searchValue}`);
+            onChangeModal();
+        } else if (e.key === "Enter" && searchValue.length == 0) {
+            e.preventDefault();
+            alert("검색어를 확인해주세요.");
         }
     };
 

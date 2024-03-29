@@ -9,7 +9,6 @@ const SearchFrom = () => {
 
     const modalController = () => {
         setIsModalOpen(!isModalOpen);
-        console.log("isModalOpen is", isModalOpen);
     };
 
     return (
@@ -20,7 +19,7 @@ const SearchFrom = () => {
                     <Image src="/images/home/searchLogo.png" alt="Search" width={24} height={24} />
                 </div>
             </form>
-            {isModalOpen && <SearchPage isModalOpen={isModalOpen} onChangeModal={modalController} />}
+            {isModalOpen && <SearchPage onChangeModal={modalController} />}
         </>
     );
 };
