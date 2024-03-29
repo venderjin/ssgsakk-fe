@@ -36,14 +36,16 @@ const HomeGridItems = () => {
                 <div className="h-[115px] flex-nowrap flex flex-row w-[912px] pt-[10px] ">
                     {homeGridItemsData[0].items.map((item: { id: number; title: string; url: string; imgsrc: string }) => (
                         <div key={item.id} className="flex justify-start items-center flex-col px-[10px]">
-                            <Image
-                                src={item.imgsrc}
-                                alt={item.title}
-                                width={64}
-                                height={64}
-                                className="rounded-full"
-                                {...(item.id === 5 ? { unoptimized: true } : {})}
-                            />
+                            <div className="w-[64px] h-[64px]">
+                                <Image
+                                    src={item.imgsrc}
+                                    alt={item.title}
+                                    width={64}
+                                    height={64}
+                                    className="rounded-full"
+                                    {...(item.id === 5 ? { unoptimized: true } : {})}
+                                />
+                            </div>
                             <span
                                 className="font-Pretendard text-[13px] whitespace-nowrap leading-4 font-normal text-center mt-[6px]"
                                 dangerouslySetInnerHTML={{ __html: item.title.replace(/\n/g, "<br>") }}
@@ -54,7 +56,10 @@ const HomeGridItems = () => {
                 <div className="h-[145px] flex-nowrap flex flex-row w-[912px] pt-[10px]">
                     {homeGridItemsData[1].items.map((item: { id: number; title: string; url: string; imgsrc: string }) => (
                         <div key={item.id} className="flex justify-start items-center flex-col px-[10px]">
-                            <Image src={item.imgsrc} alt={item.title} width={64} height={96} className="rounded-full" />
+                            <div className="w-[64px] h-[92px]">
+                                <Image src={item.imgsrc} alt={item.title} width={64} height={96} className="rounded-full" />
+                            </div>
+
                             <span
                                 className="font-Pretendard text-[13px] whitespace-nowrap leading-4 font-normal text-center mt-[6px]"
                                 dangerouslySetInnerHTML={{ __html: item.title.replace(/\n/g, "<br>") }}
@@ -63,8 +68,9 @@ const HomeGridItems = () => {
                     ))}
                 </div>
             </div>
-            <div className="h-0.5 bg-gray-200">
-                <div className="h-1 bg-black rounded-full" style={{ width: `${scrollProgress.right < 20 ? 20 : scrollProgress.right}%` }}></div>
+            <div className="h-0.5 bg-gray-200 flex flex-row">
+                <div className="h-0.5 bg-black rounded-full" style={{ width: "25%" }}></div>
+                <div className="h-0.5 bg-black rounded-full" style={{ width: `calc(${scrollProgress.right}% - 25%)` }}></div>
             </div>
         </div>
     );

@@ -1,8 +1,13 @@
 import React from "react";
 
-const Cart = () => {
+interface Props {
+    width?: string;
+    height?: string;
+}
+
+const Cart: React.FC<Props> = ({ width, height }) => {
     return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={width ? width : 13} height={height ? height : 13} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 7.91006H5V8.91007H17V7.91006Z" fill="black" />
             <path
                 fillRule="evenodd"

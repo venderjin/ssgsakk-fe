@@ -1,12 +1,13 @@
-"use client";
-import { useSearchParams } from "next/navigation";
+// "use client";
+import React, { Suspense } from "react";
 import SignupForm from "@/components/pages/signup/form/SignupForm";
 
 const Page = () => {
-  const params = useSearchParams();
-  const userEmail = params.get("userEmail");
-
-  return <SignupForm userEmail={userEmail || ""} />;
+    return (
+        <Suspense>
+            <SignupForm />;
+        </Suspense>
+    );
 };
 
 export default Page;
