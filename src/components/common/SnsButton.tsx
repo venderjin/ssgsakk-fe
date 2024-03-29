@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function SnsButton({ snsType, snsName, iconPosition }: Props) {
-  const requestSnsLogin = () => {
+  const requestSnsLogin = (snsType: string) => {
     window.location.href = `https://ssgssak.site/oauth2/authorization/naver`;
   };
   // const requestSnsLogin = async (snsType: string) => {
