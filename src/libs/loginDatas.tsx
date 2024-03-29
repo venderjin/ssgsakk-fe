@@ -29,8 +29,8 @@ export const snsLoginData: SnsLogin[] = [
   },
   {
     id: 2,
-    name: "카카오",
-    type: "kakao",
+    name: "구글",
+    type: "google",
     img: "-61px -61px",
   },
   {
