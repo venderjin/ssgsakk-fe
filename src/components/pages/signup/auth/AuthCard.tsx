@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Image from "next/image";
 import CardTtile from "@/components/UI/CardTtile";
 
@@ -33,10 +32,12 @@ const AuthCard = ({
             <span className="mt-[8px]">휴대폰 인증</span>
           </div>
 
-          <div className="h-[110px] w-[170px] pt-[18px] border border-[#e0e0e0] text-[15px] flex flex-col items-center">
-            <div onClick={() => onChagneAuthType("phone")} className="w-[44px]">
+          <div
+            onClick={() => onChagneAuthType("email")}
+            className="h-[110px] w-[170px] pt-[18px] border border-[#e0e0e0] text-[15px] flex flex-col items-center"
+          >
+            <div className="w-[44px]">
               <Image
-                onClick={() => onChagneAuthType("email")}
                 src={"/images/etc/authCard.png"}
                 alt={"이메일 인증"}
                 width={100}

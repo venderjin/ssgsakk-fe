@@ -3,7 +3,7 @@ import Image from "next/image";
 import DaumPostcode from "react-daum-postcode";
 
 type Address = {
-  zipCode?: string;
+  zipCode: string;
   roadAddress?: string;
   jibunAddress?: string;
   detailAddress?: string;
@@ -116,7 +116,7 @@ const SearchZipcode = ({
                   type="text"
                   title="상세주소 입력"
                   placeholder="상세주소를 입력해주세요."
-                  className="border-none text-[12px] text-[#222] leading-5 outline-0 bg-[#fff]"
+                  className="border-none w-full text-[12px] text-[#222] leading-5 outline-0 bg-[#fff]"
                   maxLength={40}
                   onChange={handleChange}
                 />
