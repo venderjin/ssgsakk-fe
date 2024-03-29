@@ -42,3 +42,14 @@ export interface HomeSpeicalPriceType {
         checkedImgpath: string;
     }[];
 }
+
+export interface HomeShoppingmallSelectModalType {
+    type: "shoppingmall" | "brand";
+    items: {
+        id: number;
+        title: string;
+        subtitle?: string;
+        eventBoolean?: boolean;
+        imgPath: string;
+    }[];
+}
