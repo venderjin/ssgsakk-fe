@@ -19,6 +19,7 @@ const ImageSlider = ({ imageList }: Props) => {
   return (
     <div className="h-[373px] ">
       <Swiper
+        className="mySwiper"
         pagination={{ type: "fraction" }}
         loop={true} // 슬라이드 루프
         spaceBetween={30} // 슬라이스 사이 간격
