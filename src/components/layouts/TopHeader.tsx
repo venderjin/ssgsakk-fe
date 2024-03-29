@@ -34,7 +34,7 @@ const TopHeader = () => {
                             height={14}
                         />
                     </div>
-                    <div>
+                    <div className="relative w-full">
                         <SearchFrom />
                     </div>
                     <div className="flex items-center">

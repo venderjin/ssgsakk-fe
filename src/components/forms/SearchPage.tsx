@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import Modal from "@/components/common/Modal";
@@ -17,7 +17,7 @@ const SearchPage = ({ isModalOpen, onChangeModal }: SearchPageProps) => {
     const [searchValue, setSearchValue] = useState<string>(""); // 검색어를 담는 상태
     const [searchValueLength, setSearchValueLength] = useState<number>(0); // 검색어의 길이를 담는 상태
     const inputRef = useRef<HTMLInputElement>(null);
-    // const router = useRouter();
+    const router = useRouter();
 
     useEffect(() => {
         // 컴포넌트가 마운트될 때 포커스를 설정합니다.
@@ -36,9 +36,15 @@ const SearchPage = ({ isModalOpen, onChangeModal }: SearchPageProps) => {
 
     const searchSubmit = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
+            e.preventDefault();
             console.log("searchValue is", searchValue);
-            redirect(`/productList/searchProductList?keyword=${searchValue}`);
+            router.push(`/productList/searchProductList?keyword=${searchValue}`);
         }
+    };
+
+    const test = () => {
+        console.log("searchValue is", searchValue);
+        router.push(`/productList/searchProductList?keyword=${searchValue}`);
     };
 
     return (
@@ -69,7 +75,7 @@ const SearchPage = ({ isModalOpen, onChangeModal }: SearchPageProps) => {
                         </div>
                     </form>
                 </div>
-                <div className="mx-[4px] w-[40px] flex-initial flex justify-center items-center">
+                <div onClick={test} className="mx-[4px] w-[40px] flex-initial flex justify-center items-center">
                     <Cart width="25" height="25" />
                 </div>
             </div>
