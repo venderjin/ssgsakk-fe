@@ -5,11 +5,11 @@ import Link from "next/link";
 
 import SearchFrom from "../forms/SearchFrom";
 import SliderModal from "@/components/common/SliderModal";
-import ModalSlider from "../images/ModalSlider";
+import ModalSlider from "@/components/images/ModalSlider";
 
 import { homeShoppingmallSelectModalData } from "@/libs/homeShoppingmallSelectModalData";
-import RightArrow from "../images/RightArrow";
-import WhiteSpace from "../UI/WhiteSpace";
+import RightArrow from "@/components/images/RightArrow";
+import WhiteSpace from "@/components/UI/WhiteSpace";
 
 const TopHeader = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // 모달창을 열고 닫는 상태
@@ -34,9 +34,7 @@ const TopHeader = () => {
                             height={14}
                         />
                     </div>
-                    <div className="relative w-full">
-                        <SearchFrom />
-                    </div>
+                    <SearchFrom />
                     <div className="flex items-center">
                         <Image src="/images/home/chatbotLogo.png" alt="Chatbot" width={26} height={26} className="mr-[10px]" />
                         <Image src="/images/home/cartLogo.png" alt="Cart" width={26} height={26} />
