@@ -16,7 +16,7 @@ export const loginSupportData: NavigationType[] = [
   {
     id: 3,
     title: "회원가입",
-    url: "/join/joinIntro",
+    url: "/signup/intro",
   },
 ];
 
@@ -29,8 +29,8 @@ export const snsLoginData: SnsLogin[] = [
   },
   {
     id: 2,
-    name: "카카오",
-    type: "kakao",
+    name: "구글",
+    type: "google",
     img: "-61px -61px",
   },
   {
