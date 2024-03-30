@@ -7,7 +7,7 @@ const member = {
 
 const MyPoint = () => {
   return (
-    <section className="pt-[24px] pb-[80px] relative overflow-hidden font-Pretendard">
+    <section className="pt-[24px] pb-[80px] relative overflow-hidden">
       <div className="px-[16px]">
         <Link href="/">
           <span className="text-[24px] text-[#22222]">{member.name} 님</span>

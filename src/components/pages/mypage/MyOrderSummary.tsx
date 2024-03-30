@@ -10,7 +10,7 @@ import { LinkType } from "@/types/commonType";
 
 const MyOrderSummary = () => {
   return (
-    <div className=" px-[16px] font-Pretendard">
+    <div className="px-[16px]">
       <div className="flex items-center justify-between">
         <Link href={"/"} className="flex items-center">
           <strong className="text-[18px] mr-[5px]">주문/배송 조회</strong>

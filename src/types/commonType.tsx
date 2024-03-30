@@ -3,4 +3,5 @@ export interface LinkType {
   name: string;
   value: string;
   url: string;
+  icon?: string;
 }
