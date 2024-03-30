@@ -25,9 +25,9 @@ const MyPoint = () => {
           </div>
         </Link>
 
-        <div className="flex justify-between relative mt-[12px]">
+        <div className="flex justify-between gap-2 relative mt-[12px]">
           {/* 쿠폰 */}
-          <div className="flex flex-col items-center h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
+          <div className="basis-1.5/5 flex flex-col items-center h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
             <Link href="/">
               <span className="text-[14px]">쿠폰</span>
               <div>
@@ -36,15 +36,12 @@ const MyPoint = () => {
               </div>
             </Link>
 
-            <Link
-              className="mt-[15px] bg-[#222222] text-[#fff] text-[12px] px-[12px] py-[3px] h-[20px] rounded-[3px] box-border"
-              href="/"
-            >
+            <div className="mt-[15px] bg-[#222222] text-[#fff] text-[12px] px-[12px] h-[20px] rounded-[3px] box-border text-center">
               쿠폰함
-            </Link>
+            </div>
           </div>
           {/* SSG MONEY */}
-          <div className="flex flex-col items-center  h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
+          <div className="basis-2/5 flex flex-col items-center  h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
             <Link className="flex flex-col items-center" href="/">
               <span className="text-[14px]">SSG MONEY</span>
               <div>
@@ -55,7 +52,7 @@ const MyPoint = () => {
           </div>
 
           {/* 신세계포인트 */}
-          <div className="flex flex-col items-center h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
+          <div className="basis-1.5/5 flex flex-col items-center h-[114px] border border-[#cfcfcf] rounded-[10px] bg-white p-[16px]">
             <Link className="flex flex-col items-center" href="/">
               <span className="text-[14px]">신세계포인트</span>
               <div>
@@ -68,6 +65,7 @@ const MyPoint = () => {
           </div>
         </div>
       </div>
+      <span className="top-border" />
     </section>
   );
 };
