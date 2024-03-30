@@ -5,3 +5,8 @@ export interface LinkType {
   url: string;
   icon?: string;
 }
+
+export interface MenuGroupType {
+  group: string;
+  menus: LinkType[];
+}

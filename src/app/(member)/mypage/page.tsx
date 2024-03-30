@@ -1,3 +1,4 @@
+import MyMenuGroup from "@/components/pages/mypage/MyMenuGroup";
 import MyOrderSummary from "@/components/pages/mypage/MyOrderSummary";
 import MyPoint from "@/components/pages/mypage/MyPoint";
 import MyReviewSummary from "@/components/pages/mypage/MyReviewSummary";
@@ -11,6 +12,7 @@ const Page = () => {
       <MyOrderSummary />
       <QuickMenu />
       <MyReviewSummary />
+      <MyMenuGroup />
     </div>
   );
 };
