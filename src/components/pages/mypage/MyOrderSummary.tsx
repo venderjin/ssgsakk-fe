@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 import ShippingPoint from "@/components/images/ShippingPoint";
