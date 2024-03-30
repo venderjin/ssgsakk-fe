@@ -1,16 +1,18 @@
 import React from "react";
 
-interface SelectedOption {
-  type: string;
-  optionId?: number;
-  data?: string;
-}
-
 interface SelectedOptionAndQuantity {
   optionCombId: number;
-  optionComb: SelectedOption[];
+  optionString: string;
   quantity: number;
 }
+
+type Props = {
+  option: SelectedOptionAndQuantity;
+  sellingPrice: number;
+  seq: number;
+  deleteOption: (optionCombId: number) => void;
+  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
+};
 
 const SelectedOptionCardUnit = ({
   option,
@@ -18,13 +20,7 @@ const SelectedOptionCardUnit = ({
   seq,
   deleteOption,
   onQuantityChange,
-}: {
-  option: SelectedOptionAndQuantity;
-  sellingPrice: number;
-  seq: number;
-  deleteOption: (optionCombId: number) => void;
-  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
-}) => {
+}: Props) => {
   const handleQuantity = (count: number) => {
     if (option.quantity + count <= 0) {
       alert("1회 최소 구매 가능한 수량은 1개입니다.");
@@ -32,8 +28,6 @@ const SelectedOptionCardUnit = ({
     }
     onQuantityChange(option.optionCombId, option.quantity + count);
   };
-
-  console.log(seq);
 
   return (
     <div
@@ -45,9 +39,7 @@ const SelectedOptionCardUnit = ({
     >
       <div className="overflow-hidden">
         <span className="pr-[27px]  text-[13px] tracking-normal ">
-          {option.optionComb
-            .map((item) => `${item.type}:${item.data}`)
-            .join(" / ")}
+          {option.optionString}
         </span>
         {/* 수량 옵션 편집*/}
         <div className="relative">

@@ -9,11 +9,26 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
 
-type Props = {
-  imageList: ImageType[];
-};
+async function getProductData(productId: number) {
+  const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-const ImageSlider = ({ imageList }: Props) => {
+  if (res.ok) {
+    const data = await res.json();
+    return data.result.contents;
+  }
+
+  if (res.status === 400) {
+    console.log("잘못된 요청입니다.");
+  }
+}
+
+const ImageSlider = async ({ productId }: { productId: number }) => {
+  const imageList = await getProductData(productId);
   SwiperCore.use([Pagination]);
 
   return (
@@ -25,14 +40,14 @@ const ImageSlider = ({ imageList }: Props) => {
         spaceBetween={30} // 슬라이스 사이 간격
         slidesPerView={1} // 보여질 슬라이스 수
       >
-        {imageList.map((image, index) => (
-          <SwiperSlide key={image.id}>
+        {imageList.map((image: ImageType) => (
+          <SwiperSlide key={image.priority}>
             <div className="h-[373px] relative">
               <Image
                 fill
-                src={image.url}
-                alt={`상품이미지${index + 1}`}
-                priority={index === 0 ? true : false}
+                src={image.contentUrl}
+                alt={image.contentDescription}
+                priority={image.priority === 1 ? true : false}
               ></Image>
             </div>
           </SwiperSlide>

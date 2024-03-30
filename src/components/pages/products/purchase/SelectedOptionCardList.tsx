@@ -1,15 +1,9 @@
 import React from "react";
 import SelectedOptionCardUnit from "./SelectedOptionCardUnit";
 
-interface SelectedOption {
-  type: string;
-  optionId?: number;
-  data?: string;
-}
-
 interface SelectedOptionAndQuantity {
   optionCombId: number;
-  optionComb: SelectedOption[];
+  optionString: string;
   quantity: number;
 }
 

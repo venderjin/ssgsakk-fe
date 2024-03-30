@@ -3,20 +3,12 @@ import Link from "next/link";
 import ReviewImageThumb from "./ReviewImageThumb";
 
 type Props = {
-  reviewCount: number;
-  averageRating: number;
   productId: number;
-  reviewThumbList: string[];
 };
 
-const ReviewReference = ({
-  reviewCount,
-  averageRating,
-  productId,
-  reviewThumbList,
-}: Props) => {
+const ReviewReference = ({ productId }: Props) => {
   return (
-    <div className="flex items-center pt-[13px] pb-[10px] pr-[18px] border-b-[1px] border-b-[#e5e5e5]">
+    <div className="flex items-center pt-[13px] pb-[10px] pr-[18px] ">
       {/* ---------리뷰평점--------- */}
       <div className="flex text-[15px] text-[#222] align-middle leading-[18px]">
         <div className="w-[16px] h-[16px] bg-product-icon bg-[position:-130px_-438px] bg-[size:524px_479px] align-middle"></div>
