@@ -166,3 +166,10 @@ body {
   color: white !important;
   font-size: 12px !important;
 }
+
+input:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: none;
+}

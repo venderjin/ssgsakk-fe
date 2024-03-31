@@ -1,4 +1,22 @@
 {
+  "writableReviews": [
+    {
+      "orderSeq": 11,
+      "orderItemSeq": 12,
+      "orderDate": "2024.02.31",
+      "productSeq": 123,
+      "productName": "오트밀 500g 귀리 100% 시리얼",
+      "imageUrl": "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_750.jpg"
+    },
+    {
+      "orderSeq": 12,
+      "orderItemSeq": 12,
+      "orderDate": "2024.02.31",
+      "productSeq": 124,
+      "productName": "오트밀 100g 귀리 100% 시리얼",
+      "imageUrl": "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_750.jpg"
+    }
+  ],
   "shippingAddress": {
     "shippingAddressId": 1123,
     "addressName": "집",

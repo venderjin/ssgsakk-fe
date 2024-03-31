@@ -1,6 +1,16 @@
 import Link from "next/link";
 
-const MyReviewSummary = () => {
+const getWritableReviewList = async () => {
+  const res = await fetch("http://localhost:3300/writableReviews", {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  return data.writableReviews;
+};
+
+const MyReviewSummary = async () => {
+  const writableReviews = await getWritableReviewList();
+
   return (
     <div className="px-[16px] pb-[50px]">
       <div className="flex items-center justify-between">
