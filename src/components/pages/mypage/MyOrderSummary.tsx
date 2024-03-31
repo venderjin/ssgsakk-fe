@@ -17,7 +17,7 @@ const MyOrderSummary = () => {
         </Link>
 
         <Link
-          href={"/"}
+          href={"/mypage/shippingList"}
           className=" flex flex-row items-center justify-center w-[92px] h-[20px] border border-[#cfcfcf] rounded-[5px]"
         >
           <ShippingPoint width={12} height={12} />
@@ -71,7 +71,7 @@ const MyOrderSummary = () => {
 
       {/* 주문/배송조회 바로가기 */}
       <Link
-        href={"/myPage/orderInfo"}
+        href={"/mypage/orderInfo"}
         className="h-[45px] flex items-center justify-center text-[13px] text-[#444444]"
       >
         주문/배송 조회 보러가기

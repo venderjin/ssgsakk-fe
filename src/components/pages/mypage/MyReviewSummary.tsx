@@ -26,7 +26,7 @@ const MyReviewSummary = () => {
 
         <div className="basis-1/3 flex items-center">
           <Link
-            href={"/myPage/review"}
+            href={"/mypage/review"}
             className="w-full flex justify-center items-center "
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">일반</span>
@@ -34,7 +34,7 @@ const MyReviewSummary = () => {
           </Link>
           <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
           <Link
-            href={"/myPage/review"}
+            href={"/mypage/review"}
             className="w-full flex justify-center items-center"
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">스페셜</span>
