@@ -3,127 +3,173 @@
 @tailwind utilities;
 
 body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 @layer components {
-    .base-btn {
-        height: 50px;
-        width: 100%;
-        font-family: "Pretendard";
-        font-size: 16px;
-    }
-    .form-input {
-        width: 100%;
-        border: 1px solid #bcbcbc;
-        font-size: 15px;
-    }
-    .vetical-line:before {
-        vertical-align: middle;
-        padding-right: 10px;
-        font-size: 11px;
-        content: "|";
-    }
-    .right-arrow:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        margin-top: -1px;
-        border: solid #969696;
-        border-width: 1px 0 0 1px;
-        transform: rotate(135deg) translateX(-50%);
-    }
-    .select-arrow:after {
-        background-image: url("https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_optbar_20230630@2x.png");
-        background-position: -176px -28px;
-        background-size: 194px 171px;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 13px;
-        right: 30px;
-        content: "";
-    }
+  .base-btn {
+    height: 50px;
+    width: 100%;
+    font-family: "Pretendard";
+    font-size: 16px;
+  }
+  .form-input {
+    width: 100%;
+    border: 1px solid #bcbcbc;
+    font-size: 15px;
+  }
+  .vetical-line:before {
+    vertical-align: middle;
+    padding-right: 10px;
+    font-size: 11px;
+    content: "|";
+  }
+  .right-arrow:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-top: -1px;
+    border: solid #969696;
+    border-width: 1px 0 0 1px;
+    transform: rotate(135deg) translateX(-50%);
+  }
+  .select-arrow:after {
+    background-image: url("https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_product_optbar_20230630@2x.png");
+    background-position: -176px -28px;
+    background-size: 194px 171px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 13px;
+    right: 30px;
+    content: "";
+  }
+
+  .top-border:after {
+    content: "";
+    width: 100%;
+    height: 40px;
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -4px 10px 0px;
+  }
 }
 
 @font-face {
-    font-family: "Pretendard";
-    font-weight: 100;
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix") format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf") format("truetype");
-    font-display: swap;
+  font-family: "Pretendard";
+  font-weight: 100;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf")
+      format("truetype");
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Pretendard";
-    font-weight: 400;
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix") format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf") format("truetype");
-    font-display: swap;
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf")
+      format("truetype");
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Pretendard";
-    font-weight: 700;
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix") format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf") format("truetype");
-    font-display: swap;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf")
+      format("truetype");
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Pretendard";
-    font-weight: 800;
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot?#iefix") format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.ttf") format("truetype");
-    font-display: swap;
+  font-family: "Pretendard";
+  font-weight: 800;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.ttf")
+      format("truetype");
+  font-display: swap;
 }
 @font-face {
-    font-family: "Pretendard";
-    font-weight: 900;
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot?#iefix") format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf") format("truetype");
-    font-display: swap;
+  font-family: "Pretendard";
+  font-weight: 900;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf")
+      format("truetype");
+  font-display: swap;
 }
 
 .swiper-pagination-fraction {
-    width: 50px !important;
-    height: 22px !important;
-    border-radius: 11px;
-    background-color: rgba(34, 34, 34, 0.15);
-    color: white !important;
-    font-size: 12px !important;
+  width: 50px !important;
+  height: 22px !important;
+  border-radius: 11px;
+  background-color: rgba(34, 34, 34, 0.15);
+  color: white !important;
+  font-size: 12px !important;
+}
+
+input:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: none;
 }

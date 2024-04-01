@@ -1,4 +1,54 @@
 {
+  "writableReviews": [
+    {
+      "orderSeq": 11,
+      "orderItemSeq": 12,
+      "orderDate": "2024.02.31",
+      "productSeq": 123,
+      "productName": "오트밀 500g 귀리 100% 시리얼",
+      "imageUrl": "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_750.jpg"
+    },
+    {
+      "orderSeq": 12,
+      "orderItemSeq": 12,
+      "orderDate": "2024.02.31",
+      "productSeq": 124,
+      "productName": "오트밀 100g 귀리 100% 시리얼",
+      "imageUrl": "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_750.jpg"
+    }
+  ],
+  "shippingAddress": {
+    "shippingAddressId": 1123,
+    "addressName": "집",
+    "zipCode": "12345",
+    "receiverName": "홍길동",
+    "receiverPhone": "01012345678",
+    "roadAddress": "서울시 강남구 역삼동 123-45",
+    "jibunAddress": "서울시 강남구 역삼동 123-45",
+    "detailAddress": "123호",
+    "defaultAddress": true
+  },
+  "shippingList": [
+    {
+      "shippingAddressId": 1123,
+      "addressName": "집",
+      "zipCode": "12345",
+      "roadAddress": "서울시 강남구 역삼동 123-45",
+      "jibunAddress": "서울시 강남구 역삼동 123-45",
+      "detailAddress": "123호",
+      "defaultAddress": true
+    },
+    {
+      "shippingAddressId": 21234,
+      "addressName": "회사",
+      "zipCode": "12345",
+      "roadAddress": "서울시 강남구 역삼동 123-45",
+      "jibunAddress": "부산광역시 사상구 엄궁동 669-2 엄궁대림아파트",
+      "detailAddress": "104동 1304호",
+      "defaultAddress": false
+    }
+  ],
+
   "optionList": [
     {
       "type": "색상",
