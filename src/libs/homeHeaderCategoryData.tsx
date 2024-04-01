@@ -19,26 +19,21 @@ export const homeHeaderCategoryData: HomeHeaderNavigationType[] = [
     {
         id: 4,
         title: "명품",
-        url: "/",
     },
     {
         id: 5,
         title: "뷰티",
-        url: "/",
     },
     {
         id: 6,
         title: "패션",
-        url: "/",
     },
     {
         id: 7,
         title: "ssg.tv",
-        url: "/",
     },
     {
         id: 8,
         title: "브랜드",
-        url: "/",
     },
 ];
