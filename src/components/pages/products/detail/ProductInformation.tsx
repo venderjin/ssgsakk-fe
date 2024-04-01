@@ -5,28 +5,25 @@ import ReviewReference from "./ReviewReference";
 import ProductPrice from "@/components/pages/products/detail/ProductPrice";
 import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailInfo";
 
-async function getProductData(productId: number) {
-  const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-cache",
-  });
+type ProductData = {
+  productId: number;
+  vendor: string;
+  productName: string;
+  productPrice: number;
+  discountPercent: number;
+  reviewCount: number;
+  productDescription: string;
+};
 
-  if (res.ok) {
-    const data = await res.json();
-    return data.result;
-  }
-
-  if (res.status === 400) {
-    console.log("잘못된 요청입니다.");
-  }
-}
-
-const ProductInformation = async ({ productId }: { productId: number }) => {
-  const data = await getProductData(productId);
-
+const ProductInformation = ({
+  productId,
+  vendor,
+  productName,
+  productPrice,
+  discountPercent,
+  reviewCount,
+  productDescription,
+}: ProductData) => {
   return (
     <>
       {/* 상품 요약 상단 */}
@@ -44,24 +41,22 @@ const ProductInformation = async ({ productId }: { productId: number }) => {
           {/* -------------상품명------------- */}
           <h2 className="text-[16px] text-[#222222]">
             <div className="font-bold text-[13px] mb-[10px]">
-              <Link href={"/"}>{data.vendor}</Link>
+              {/* <Link href={"/"}>{productData.vendor}</Link> */}
             </div>
-            <span className="text-[16px] text-[#222222]">
-              {data.productName}
-            </span>
+            <span className="text-[16px] text-[#222222]">{productName}</span>
           </h2>
 
           <ProductPrice
-            productPrice={data.productPrice}
-            discountPer={data.discountPercent}
+            productPrice={productPrice}
+            discountPer={discountPercent}
           />
           <UniverseBanner />
-          {data.reviewCount > 0 && <ReviewReference productId={productId} />}
+          {reviewCount > 0 && <ReviewReference productId={productId} />}
         </div>
       </div>
 
       {/* 상품 상세 */}
-      <ProductDetailInfo productDescription={data.productDescription} />
+      <ProductDetailInfo productDescription={productDescription} />
     </>
   );
 };

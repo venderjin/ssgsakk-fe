@@ -1,4 +1,43 @@
 {
+  "firstOption": {
+    "depthLevel": 2,
+    "optionTypeList": ["사이즈", "색상"],
+    "optionList": [
+      {
+        "depth": 1,
+        "data": "1ho"
+      },
+      {
+        "depth": 1,
+        "data": "2ho"
+      },
+      {
+        "depth": 1,
+        "data": "3ho"
+      }
+    ]
+  },
+
+  "secondOption": [
+    {
+      "optionAndStockSeq": 1,
+      "depth": 2,
+      "data": "블랙",
+      "stock": 10
+    },
+    {
+      "optionAndStockSeq": 2,
+      "depth": 2,
+      "data": "화이트",
+      "stock": 20
+    },
+    {
+      "optionAndStockSeq": 3,
+      "depth": 2,
+      "data": "베이지",
+      "stock": 0
+    }
+  ],
   "optionList": [
     {
       "type": "색상",
