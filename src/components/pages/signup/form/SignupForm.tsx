@@ -149,7 +149,12 @@ const SignupFormComponent = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ...data,
+        userId: data.id,
+        userPassword: data.password,
+        userName: data.name,
+        userEmail: data.email,
+        userMobileNum: data.phone,
+        zipCode: data.zipCode,
         roadAddress: selectedAddress.roadAddress,
         jibunAddress: selectedAddress.jibunAddress,
         detailAddress: selectedAddress.detailAddress,
