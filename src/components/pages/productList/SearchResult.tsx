@@ -1,44 +1,49 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 import DataNotFound from "@/components/common/DataNotFound";
+import ProductList from "@/components/pages/productList/ProductList";
 
 interface ProductSeq {
     productSeq: number;
 }
 
 const SearchResult = () => {
+    const [notFound, setNotFound] = useState<boolean | null>(null); //검색 결과 없음 [true, false
+    const [productSeqData, setProductSeqData] = useState<number[]>([]); //검색 결과 데이터 [productSeq, productSeq, ...
     const searchkeyword = useSearchParams().get("keyword");
-    console.log("searchkeyword is", searchkeyword); //입력값 없으면 null
 
-    const fetchKeywordData = async () => {
-        const searchResponse = await fetch(`${process.env.BASE_URL}/products/search?keyword=${searchkeyword}`);
-        const searchResult = await searchResponse.json();
-        const searchResultProductSeq = searchResult.result.map((product: ProductSeq) => product.productSeq);
-        if (searchResultProductSeq.length === 0) {
-            console.log("검색 결과가 없습니다.");
-            return;
-        } else if (searchResultProductSeq.length > 0) {
-            fetchProductData(searchResultProductSeq);
-        }
-    };
-
-    const fetchProductData = async (productSeq: Array<number>) => {
-        productSeq.forEach(async (seq) => {
-            const productResponse = await fetch(`${process.env.BASE_URL}/products/${seq}`);
-            const productResult = await productResponse.json();
-            console.log("productResult is", productResult);
-        });
-    };
-
-    fetchKeywordData();
+    useEffect(() => {
+        const fetchKeywordData = async (searchkeyword: string) => {
+            const searchResponse = await fetch(`${process.env.BASE_URL}/products/search?keyword=${searchkeyword}`, { cache: "no-store" });
+            const searchResult = await searchResponse.json();
+            const searchResultProductSeq = searchResult.result.map((product: ProductSeq) => product.productSeq);
+            if (searchResultProductSeq.length === 0) {
+                setNotFound(true);
+                setProductSeqData([]);
+            } else if (searchResultProductSeq.length > 0) {
+                setNotFound(false);
+                setProductSeqData(searchResultProductSeq);
+            }
+        };
+        fetchKeywordData(searchkeyword as string);
+    }, [searchkeyword]);
 
     return (
-        <div>
-            SearchResult
-            <DataNotFound />
-        </div>
+        <>
+            {notFound ? (
+                <DataNotFound />
+            ) : (
+                <div className="flex flex-row h-auto px-3 w-full flex-wrap justify-between ">
+                    {productSeqData.map((productSeq: number, idx: number) => (
+                        <div key={idx} className="basis-[48%]">
+                            <ProductList productSeq={productSeq} />
+                        </div>
+                    ))}
+                </div>
+            )}
+        </>
     );
 };
 
