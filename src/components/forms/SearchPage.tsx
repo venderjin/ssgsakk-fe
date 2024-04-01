@@ -80,7 +80,7 @@ const SearchPage = ({ onChangeModal }: SearchPageProps) => {
                     </form>
                 </div>
                 <div onClick={test} className="mx-[4px] w-[40px] flex-initial flex justify-center items-center">
-                    <Cart width="25" height="25" />
+                    <Cart width={25} height={25} />
                 </div>
             </div>
             <div>
