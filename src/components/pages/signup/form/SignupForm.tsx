@@ -13,7 +13,7 @@ import MarketingAgreeList from "@/components/pages/signup/form/MarketingAgreeLis
 import TextField from "@/components/pages/signup/form/TextField";
 import BeforeSignupAgreement from "@/components/pages/signup/auth/BeforeSignupAgreement";
 import { useSearchParams } from "next/navigation";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type CheckBoxType = {
   [key: string]: boolean;
@@ -62,6 +62,7 @@ const schema = yup.object().shape({
 });
 
 const SignupFormComponent = () => {
+  const router = useRouter();
   const [marketingAgreement, setMarketingAgreement] = useState<CheckBoxType>({
     emailS: false,
     smsS: false,
@@ -128,7 +129,7 @@ const SignupFormComponent = () => {
       method: "POST",
       cache: "no-store",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: id }),
+      body: JSON.stringify({ inputId: id }),
     });
 
     //const data = await res.json();
@@ -166,7 +167,7 @@ const SignupFormComponent = () => {
 
     if (res.ok) {
       alert("회원가입이 완료되었습니다!\n로그인 페이지로 이동합니다.");
-      redirect("/login");
+      router.push("/login");
     }
 
     if (res.status === 500) {

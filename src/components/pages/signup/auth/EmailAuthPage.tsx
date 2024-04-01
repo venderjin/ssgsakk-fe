@@ -1,5 +1,5 @@
 import timeFormatter from "@/utils/timeFormatter";
-import { useRouter, redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import ThermList from "./ThermList";
 
@@ -65,7 +65,7 @@ const EmailAuthPage = () => {
           "해당 이메일로 가입된 계정이 있습니다. \n로그인 화면으로 이동하시겠습니까?"
         )
       ) {
-        redirect("/login");
+        router.push("/login");
       } else {
         setUserEmail("");
       }
