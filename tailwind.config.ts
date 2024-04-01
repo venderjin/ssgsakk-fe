@@ -28,6 +28,10 @@ const config: Config = {
         "check-icon": "url('https://sui.ssgcdn.com/ui/m_ssg/img/sp_form3.png')",
         "agree-icon":
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/sp_cmem_form_v2.png')",
+        "break-line":
+          "url('https://sui.ssgcdn.com/ui/m_ssg/img/line_xdot_d9d9d9.gif')",
+        "review-icon":
+          "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_myssg_review_20240208@2x.png')",
       },
       fontFamily: {
         Pretendard: ["Pretendard"],

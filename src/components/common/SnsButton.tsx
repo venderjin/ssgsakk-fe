@@ -8,18 +8,21 @@ type Props = {
 };
 
 export default function SnsButton({ snsType, snsName, iconPosition }: Props) {
-  const requestSnsLogin = async (snsType: string) => {
-    window.location.href = `${process.env.BASE_URL}/oauth2/authorization/${snsType}`;
-
-    // const res = await fetch(
-    //   `${process.env.BASE_URL}/auth2/authorization/${snsType}`
-    // );
-
-    // if (res.ok) {
-    //   //const data = await res.json();
-    //   console.log(res);
-    // }
+  const requestSnsLogin = (snsType: string) => {
+    window.location.href = `https://ssgssak.site/oauth2/authorization/naver`;
   };
+  // const requestSnsLogin = async (snsType: string) => {
+  //   window.location.href = `https://ssgssak.site/oauth2/authorization/naver`;
+
+  //   // const res = await fetch(
+  //   //   `${process.env.BASE_URL}/auth2/authorization/${snsType}`
+  //   // );
+
+  //   // if (res.ok) {
+  //   //   //const data = await res.json();
+  //   //   console.log(res);
+  //   // }
+  // };
 
   return (
     <li
