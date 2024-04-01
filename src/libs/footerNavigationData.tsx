@@ -9,7 +9,7 @@ export const footerLoginNavigationData: FooterNavigationType[] = [
   {
     id: 2,
     title: "로그아웃",
-    url: "/api/auth/signout",
+    url: "/signout",
   },
   {
     id: 3,

@@ -1,7 +1,8 @@
+import Test from "@/components/pages/signup/form/Test";
 import React from "react";
 
-const page = () => {
-  return <div>test</div>;
+const page = async () => {
+  return <Test />;
 };
 
 export default page;

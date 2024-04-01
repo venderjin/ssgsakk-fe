@@ -1,15 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
 import { FooterNavigationType } from "@/types/navigationType";
 import {
   footerNavigationData,
   footerLoginNavigationData,
 } from "@/libs/footerNavigationData";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const Footer = () => {
   const { data: session } = useSession();
+
+  //const session = await getServerSession(options);
+  // const footerData = session ? footerLoginNavigationData : footerNavigationData;
 
   return (
     <div className="w-full pb-[50px]">
@@ -41,22 +43,44 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full flex bg-[#DBDBE0] px-[13px]">
-        {footerNavigationData.map((category: FooterNavigationType) => (
-          <Link
-            href={category.url}
-            key={category.id}
-            className={`
-                            w-full items-center justify-center flex
-                            text-[#565656] font-Pretendard my-[8px] px-[10px] text-[11px] ${
-                              category.id < 4
-                                ? "border-r-2 border-[#B8B8BE]"
-                                : "border-r-0"
-                            }`}
-            target={category.id === 3 || category.id === 4 ? "_blank" : "_self"}
-          >
-            {category.title}
-          </Link>
-        ))}
+        {session
+          ? footerLoginNavigationData.map((category: FooterNavigationType) => (
+              <div
+                key={category.id}
+                className={`w-full items-center justify-center flex text-[#565656] font-Pretendard my-[8px] px-[10px] text-[11px] ${
+                  category.id < 4 ? "border-r-2 border-[#B8B8BE]" : "border-r-0"
+                }`}
+              >
+                {category.title === "로그아웃" ? (
+                  <button onClick={() => signOut()}>{category.title}</button>
+                ) : (
+                  <Link
+                    href={category.url}
+                    target={
+                      category.id === 3 || category.id === 4
+                        ? "_blank"
+                        : "_self"
+                    }
+                  >
+                    {category.title}
+                  </Link>
+                )}
+              </div>
+            ))
+          : footerNavigationData.map((category: FooterNavigationType) => (
+              <Link
+                href={category.url}
+                key={category.id}
+                className={`w-full items-center justify-center flex text-[#565656] font-Pretendard my-[8px] px-[10px] text-[11px] ${
+                  category.id < 4 ? "border-r-2 border-[#B8B8BE]" : "border-r-0"
+                }`}
+                target={
+                  category.id === 3 || category.id === 4 ? "_blank" : "_self"
+                }
+              >
+                {category.title}
+              </Link>
+            ))}
       </div>
       <div className="w-full px-[20px] py-[10px]">
         <div className="mb-[8px]">

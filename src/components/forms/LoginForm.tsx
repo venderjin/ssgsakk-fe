@@ -25,9 +25,6 @@ export default function LoginForm() {
     setCheck(event.target.checked);
   };
 
-  const { data: session } = useSession();
-  //console.log("session:", session);
-
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!loginData.loginId || !loginData.password) {
@@ -41,25 +38,6 @@ export default function LoginForm() {
       redirect: true,
       callbackUrl: "/",
     });
-
-    // const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
-    //   method: "POST",
-    //   cache: "no-store",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     userId: loginData.loginId,
-    //     userPassword: loginData.password,
-    //   }),
-    // });
-
-    // const data = await res.json();
-    // if (res.ok) {
-    //   return alert("로그인 성공");
-    // }
-
-    // if (res.status === 409) {
-    //   return alert(data.message);
-    // }
   };
 
   const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,9 +49,6 @@ export default function LoginForm() {
 
   return (
     <div className="p-[20px] pt-[40px]">
-      <button className="bg-red-200" onClick={() => signOut()}>
-        로그아웃
-      </button>
       <form onSubmit={loginSubmit}>
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px] font-Pretendard"

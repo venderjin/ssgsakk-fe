@@ -2,7 +2,6 @@ import { Session } from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
-import { redirect } from "next/navigation";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -70,7 +69,6 @@ export const options: NextAuthOptions = {
     async session({ session, token }: { session: Session; token: any }) {
       session.user.token = token.token;
       session.user.userName = token.userName;
-      session.user.uuid = token.uuid;
       return session;
 
       //return { ...session, ...token };
