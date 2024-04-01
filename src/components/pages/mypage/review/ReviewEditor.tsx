@@ -6,7 +6,7 @@ const ReviewEditor = () => {
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [files, setFiles] = useState<File[]>([]);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLButtonElement>(null);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -56,7 +56,6 @@ const ReviewEditor = () => {
           <div className="flex items-center mr-[17px]">
             <div className="bg-review-icon bg-[position:-152px_-129px] bg-[length:220px_179px] w-[19px] h-[16px] mr-[5px]"></div>
             <input type="file" ref={inputRef} style={{ display: "none" }} />
-
             <button
               onClick={() => inputRef.current?.click()}
               className="text-[#222] text-[14px] font-bold"
@@ -74,7 +73,7 @@ const ReviewEditor = () => {
         </div>
 
         {/* 첨부 미디어 미리보기 */}
-        <div>
+        <div className="h-[200px]">
           <ul className="overflow-hidden mt-[20px] mx-[-4px]">
             <li>
               <div className="overflow-hidden block relative max-w-[80px] min-h-[80px] rounded-[8px]">
