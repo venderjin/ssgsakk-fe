@@ -45,6 +45,7 @@ const EmailAuthPage = () => {
   const sendCodeToServer = async () => {
     const res = await fetch(`${process.env.BASE_URL}/auth/mail-send`, {
       method: "POST",
+      cache: "no-store",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: userEmail }),
     });

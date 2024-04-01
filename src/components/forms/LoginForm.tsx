@@ -6,6 +6,7 @@ import { snsLoginData, loginSupportData } from "@/libs/loginDatas";
 import { SnsLogin } from "@/types/snsLoginType";
 import LoginCheckbox from "@/components/common/LoginCheckbox";
 import SnsButton from "@/components/common/SnsButton";
+import { log } from "console";
 
 type loginType = {
   loginId: string;
@@ -28,13 +29,30 @@ export default function LoginForm() {
   const { data: session } = useSession();
   //console.log("session:", session);
 
-  const loginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!loginData.loginId || !loginData.password) {
       return alert("아이디와 비밀번호를 입력해주세요.");
     }
 
-    console.log(loginData);
+    const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        loginId: loginData.loginId,
+        loginPassword: loginData.password,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      return alert("로그인 성공");
+    }
+
+    if (res.status === 409) {
+      return alert(data.message);
+    }
   };
 
   const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {

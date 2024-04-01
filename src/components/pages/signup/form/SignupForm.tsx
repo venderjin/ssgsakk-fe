@@ -13,6 +13,7 @@ import MarketingAgreeList from "@/components/pages/signup/form/MarketingAgreeLis
 import TextField from "@/components/pages/signup/form/TextField";
 import BeforeSignupAgreement from "@/components/pages/signup/auth/BeforeSignupAgreement";
 import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 type CheckBoxType = {
   [key: string]: boolean;
@@ -125,6 +126,7 @@ const SignupFormComponent = () => {
 
     const res = await fetch(`${process.env.BASE_URL}/auth/id-duplicate-check`, {
       method: "POST",
+      cache: "no-store",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId: id }),
     });
@@ -147,6 +149,7 @@ const SignupFormComponent = () => {
 
     const res = await fetch(`${process.env.BASE_URL}/auth/signup`, {
       method: "POST",
+      cache: "no-store",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         userId: data.id,
@@ -163,7 +166,7 @@ const SignupFormComponent = () => {
 
     if (res.ok) {
       alert("회원가입이 완료되었습니다!\n로그인 페이지로 이동합니다.");
-      //redirect("/login");
+      redirect("/login");
     }
 
     if (res.status === 500) {
