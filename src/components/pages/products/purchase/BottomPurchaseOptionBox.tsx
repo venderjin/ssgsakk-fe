@@ -3,6 +3,7 @@ import PurchaseTotal from "@/components/pages/products/purchase/PurchaseTotal";
 import OptionDropBoxList from "@/components/pages/products/purchase/OptionDropBoxList";
 import BottomUpBox from "@/components/UI/BottomUpBox";
 import SelectedOptionCardList from "@/components/pages/products/purchase/SelectedOptionCardList";
+import dummyData from "@/dummy/data.json";
 import {
   OptionCombination,
   OptionInfo,
@@ -23,8 +24,8 @@ const BottomPurchaseOptionBox = ({
   onChangeOrderData,
 }: Props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [optionList, setOptionList] = useState<OptionInfo[]>([]);
-  const [optionStock, setOptionStock] = useState<OptionCombination[]>([]);
+  //const [optionList, setOptionList] = useState<OptionInfo[]>([]);
+  //const [optionStock, setOptionStock] = useState<OptionCombination[]>([]);
   const [selectedOptionCombonations, setOptionCombonations] = useState<
     SelectedOptionAndQuantity[]
   >([]);
@@ -34,29 +35,29 @@ const BottomPurchaseOptionBox = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptionCombonations]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`http://localhost:3300/optionData`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-cache",
-      });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await fetch(`http://localhost:3300/optionData`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       cache: "no-cache",
+  //     });
 
-      if (res.ok) {
-        const data = await res.json();
-        setOptionStock(data.options);
-        setOptionList(setOoptionList(data));
-      }
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       setOptionStock(data.options);
+  //       setOptionList(setOoptionList(data));
+  //     }
 
-      if (res.status === 400) {
-        console.log("잘못된 요청입니다.");
-      }
-    };
+  //     if (res.status === 400) {
+  //       console.log("잘못된 요청입니다.");
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const setOoptionList = (data: any) => {
     const optionData: OptionInfo[] = [];
@@ -85,6 +86,9 @@ const BottomPurchaseOptionBox = ({
     return optionData;
   };
 
+  const optionList = setOoptionList(dummyData.optionData);
+  const optionStock = dummyData.optionData.options;
+
   const getOptionString = (optionAndStockSeq: number) => {
     const item = optionStock.filter(
       (option) => option.optionAndStockSeq === optionAndStockSeq
@@ -93,8 +97,8 @@ const BottomPurchaseOptionBox = ({
 
     optionList.forEach((option, idx) => {
       if (idx === 0) optionString += `${option.type}:${item.explain} `;
-      else if (idx === 1) optionString += `${option.type}:${item.explain2} `;
-      else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
+      else if (idx === 1) optionString += `${option.type}:${item.explain2}`;
+      //else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
     });
 
     return optionString.replace(" ", "/");

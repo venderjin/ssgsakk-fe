@@ -25,7 +25,7 @@ const BottomPurchaseSwitcher = ({
   });
 
   useEffect(() => {
-    const sellingPrice = Math.floor(
+    const sellingPrice = Math.round(
       productPrice - productPrice * (discountPercent / 100)
     );
     setSellingPrice(sellingPrice);

@@ -5,6 +5,7 @@ import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
+import "./productDetail.css";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
