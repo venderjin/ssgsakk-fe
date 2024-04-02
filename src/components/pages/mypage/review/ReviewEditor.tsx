@@ -2,11 +2,20 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 
-const ReviewEditor = () => {
+interface ReviewForm {
+  content: string;
+  images: string[];
+}
+
+const ReviewEditor = ({
+  saveReviewForm,
+}: {
+  saveReviewForm: (reviewData: ReviewForm) => void;
+}) => {
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
-  const [files, setFiles] = useState<File[]>([]);
-  const inputRef = useRef<HTMLButtonElement>(null);
+  const [images, setImages] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -14,14 +23,31 @@ const ReviewEditor = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files?.[0];
-    if (!files) return;
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(files);
-    //로딩이 완료되면
-    fileReader.onload = (e: any) => {
-      if (typeof e.target.result === "string") console.log(e.target.result);
-    };
+    const targetFiles = (e.target as HTMLInputElement).files as FileList;
+    if (!targetFiles) return;
+
+    if (images.length >= 3)
+      return alert("이미지는 최대 3개까지 첨부 가능합니다.");
+    const targetFilesArray = Array.from(targetFiles);
+    const file = URL.createObjectURL(targetFilesArray[0]);
+
+    const updateImages = [...images, file];
+    setImages(updateImages);
+  };
+
+  const deleteHandler = (index: number) => {
+    const updateImages = images.filter((_, i) => i !== index);
+    setImages(updateImages);
+
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  };
+
+  const submitHandler = () => {
+    if (content.length < 10) return alert("10자 이상 입력해주세요.");
+
+    saveReviewForm({ content, images });
   };
 
   return (
@@ -55,7 +81,13 @@ const ReviewEditor = () => {
         <div className="mt-[22px] flex">
           <div className="flex items-center mr-[17px]">
             <div className="bg-review-icon bg-[position:-152px_-129px] bg-[length:220px_179px] w-[19px] h-[16px] mr-[5px]"></div>
-            <input type="file" ref={inputRef} style={{ display: "none" }} />
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={handleChange}
+              accept="image/*"
+              style={{ display: "none" }}
+            />
             <button
               onClick={() => inputRef.current?.click()}
               className="text-[#222] text-[14px] font-bold"
@@ -73,22 +105,36 @@ const ReviewEditor = () => {
         </div>
 
         {/* 첨부 미디어 미리보기 */}
-        <div className="h-[200px]">
-          <ul className="overflow-hidden mt-[20px] mx-[-4px]">
-            <li>
-              <div className="overflow-hidden block relative max-w-[80px] min-h-[80px] rounded-[8px]">
-                <Image
-                  src="https://succ.ssgcdn.com/uphoto/202403/20240331200616_1215669319_0_1.jpg"
-                  alt="첨부이미지"
-                  fill={true}
-                  sizes="(max-width: 600px) 100vw, 600px"
-                />
 
-                <div className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]" />
-              </div>
-            </li>
+        <div className="mt-[20px]">
+          <ul className="flex gap-2">
+            {images.map((image, index) => (
+              <li key={index}>
+                <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
+                  <Image
+                    src={image}
+                    alt="첨부이미지"
+                    fill={true}
+                    sizes="(max-width: 600px) 100vw, 600px"
+                  />
+                  <div
+                    onClick={() => deleteHandler(index)}
+                    className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]"
+                  />
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 bg-[#fff] p-[15px] border-t border-t-[#f8f8f8]">
+        <button
+          onClick={submitHandler}
+          className="bg-[#222] text-[#fbfbfb] text-[15px] rounded-[8px] h-[40px] w-full"
+        >
+          등록
+        </button>
       </div>
     </div>
   );
