@@ -7,11 +7,14 @@ import PhotoReviewList from "../../review/PhotoReviewList";
 
 type Props = {
   productId: number;
-  reviewThumbList: string[];
 };
 
-const ReviewImageThumb = ({ productId, reviewThumbList }: Props) => {
+const ReviewImageThumb = ({ productId }: Props) => {
   const [openModal, setOpenModal] = useState(false);
+  const reviewThumbList = [
+    "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202310/20231019191939_1206816677_0_1.jpg&w=500&h=500&autoOrient=true&t=1e7f78bce1c1ea862b77640ba149f5825ac14c24",
+    "https://simg.ssgcdn.com/trans.ssg?src=/uphoto/202308/20230830204922_1203913673_1_1.jpg&w=335&h=335&edit=c&autoOrient=true&t=639a64365260be78143d1e4767f31568c2836d99",
+  ];
 
   return (
     <>

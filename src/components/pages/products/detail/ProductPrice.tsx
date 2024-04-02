@@ -6,7 +6,9 @@ type Props = {
 };
 
 const ProductPrice = ({ productPrice, discountPer }: Props) => {
-  const newPrice = productPrice - productPrice * (discountPer / 100);
+  const newPrice = Math.round(
+    productPrice - productPrice * (discountPer / 100)
+  );
 
   return (
     <div className="mt-[25px] leading-tight">
