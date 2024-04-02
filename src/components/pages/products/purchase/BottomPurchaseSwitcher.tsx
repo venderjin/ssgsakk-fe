@@ -5,6 +5,7 @@ import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 
 interface Props {
   productId: number;
+  productName: string;
   productPrice: number;
   discountPercent: number;
   changeMode: (mode: string) => void;
@@ -13,23 +14,16 @@ interface Props {
 
 const BottomPurchaseSwitcher = ({
   productId,
+  productName,
   productPrice,
   discountPercent,
   changeMode,
   mode,
 }: Props) => {
-  const [sellingPrice, setSellingPrice] = useState<number>(0);
   const [orderData, setOrderData] = useState<OrderData>({
     productId: productId,
     optionList: [],
   });
-
-  useEffect(() => {
-    const sellingPrice = Math.round(
-      productPrice - productPrice * (discountPercent / 100)
-    );
-    setSellingPrice(sellingPrice);
-  }, []);
 
   const onChangeOrderData = (data: SelectedOptionAndQuantity[]) => {
     setOrderData({
@@ -44,6 +38,8 @@ const BottomPurchaseSwitcher = ({
   };
 
   const orderHandler = () => {
+    if (orderData.optionList.length === 0)
+      return alert("상품 옵션을 선택해주세요.");
     console.log(orderData);
   };
 
@@ -73,7 +69,9 @@ const BottomPurchaseSwitcher = ({
       </div>
       <BottomPurchaseOptionBox
         productId={productId}
-        sellingPrice={sellingPrice}
+        productName={productName}
+        productPrice={productPrice}
+        discountPercent={discountPercent}
         changeMode={changeMode}
         onChangeOrderData={onChangeOrderData}
       />
