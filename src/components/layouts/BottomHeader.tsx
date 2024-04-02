@@ -19,16 +19,30 @@ const BottomHeader = () => {
                             className={`px-[12px] ${category.url === pathname ? "border-b-2 border-black" : ""} ${category.id !== 7 ? "py-2" : ""}`}
                         >
                             {category.id === 7 ? (
-                                <Image src="/images/home/ssgTVLogo.png" alt="ssgtvlogo" width={60} height={46} className="px-[4px] min-w-[60px] h-auto"></Image>
-                            ) : (
+                                <Image
+                                    onClick={() => alert("준비중인 서비스입니다.")}
+                                    src="/images/home/ssgTVLogo.png"
+                                    alt="ssgtvlogo"
+                                    width={60}
+                                    height={46}
+                                    className="px-[4px] min-w-[60px] h-auto"
+                                ></Image>
+                            ) : category.id < 4 ? (
                                 <Link
-                                    href={category.url}
+                                    href={category.url || ""}
                                     className={`font-Pretendardd text-[14px] whitespace-nowrap px-[4px] h-auto ${
                                         category.url === pathname ? "font-black" : ""
                                     } `}
                                 >
                                     {category.title}
                                 </Link>
+                            ) : (
+                                <span
+                                    onClick={() => alert("준비중인 서비스입니다.")}
+                                    className="font-Pretendardd text-[14px] whitespace-nowrap px-[4px] h-auto"
+                                >
+                                    {category.title}
+                                </span>
                             )}
                         </li>
                     );

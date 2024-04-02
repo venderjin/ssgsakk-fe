@@ -158,13 +158,43 @@ body {
   font-display: swap;
 }
 
-.swiper-pagination-fraction {
-  width: 50px !important;
-  height: 22px !important;
+.mySwiper .swiper-pagination-fraction {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50px;
+  height: 22px;
   border-radius: 11px;
   background-color: rgba(34, 34, 34, 0.15);
-  color: white !important;
-  font-size: 12px !important;
+  color: white;
+  font-size: 12px;
+
+  display: inline;
+  align-content: center;
+}
+
+.homeSwiper .swiper-pagination-fraction {
+  position: absolute;
+  bottom: 0px;
+  left: 90%;
+  transform: translate(-50%, 0);
+  width: 70px;
+  height: 30px;
+  background-color: rgba(34, 34, 34, 0.15);
+  color: white;
+  font-size: 13px;
+  font-family: Pretendard;
+  font-weight: bold;
+  display: inline;
+  align-content: center;
+}
+
+.homeSwiper {
+  width: 90%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 input:focus {
