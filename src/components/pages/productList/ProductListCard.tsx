@@ -1,14 +1,8 @@
-"use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import HeartIcon from "@/components/UI/HeartIcon";
 import Cart from "@/components/images/Cart";
 import DeliveryLabel from "@/components/UI/DeliveryLabel";
-
-interface ProductListProps {
-    productSeq: number;
-}
 
 interface ProductData {
     productName: string;
@@ -25,27 +19,15 @@ interface ProductData {
     }>;
 }
 
-const ProductList = ({ productSeq }: ProductListProps) => {
-    const [productData, setProductData] = useState<ProductData | null>(null);
+async function fetchProductList(productId: number) {
+    const response = await fetch(`${process.env.BASE_URL}/products/${productId}`);
+    const data = await response.json();
+    console.log(data.result);
+    return data.result;
+}
 
-    useEffect(() => {
-        const fetchProductList = async (productId: number) => {
-            const response = await fetch(`${process.env.BASE_URL}/products/${productId}`, { cache: "no-store" });
-            const data = await response.json();
-            console.log(data.result);
-            setProductData(data.result);
-        };
-        fetchProductList(productSeq);
-    }, [productSeq]);
-
-    if (!productData) {
-        return <div>Loading...</div>;
-    }
-
-    const handleLike = (id: any) => {
-        console.log("like");
-        console.log(id);
-    };
+const ProductListCard = async ({ productSeq }: { productSeq: number }) => {
+    const productData: ProductData = await fetchProductList(productSeq);
 
     return (
         <>
@@ -56,7 +38,7 @@ const ProductList = ({ productSeq }: ProductListProps) => {
                 <div className=" flex flex-row gap-2 justify-between py-2 items-center ">
                     <DeliveryLabel deliveryType={productData.deliveryType} />
                     <div className="flex flex-row gap-2 items-center">
-                        <HeartIcon handleLike={() => handleLike(productSeq)} />
+                        <HeartIcon productSeq={productSeq} />
                         <Cart width={20} height={20} />
                     </div>
                 </div>
@@ -84,4 +66,4 @@ const ProductList = ({ productSeq }: ProductListProps) => {
     );
 };
 
-export default ProductList;
+export default ProductListCard;
