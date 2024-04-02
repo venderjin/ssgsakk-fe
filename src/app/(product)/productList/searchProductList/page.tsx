@@ -1,13 +1,24 @@
-import React, { Suspense } from "react";
-
 import SearchResult from "@/components/pages/productList/SearchResult";
 
-const searchProductListpage = () => {
+async function fetchProductList(keyword: string) {
+    const response = await fetch(`${process.env.BASE_URL}/products/search?keyword=${keyword}`, { cache: "no-store" });
+    const data = await response.json();
+    console.log(data);
+    return data.result;
+}
+
+const searchProductListpage = async ({
+    params,
+    searchParams,
+}: {
+    params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+    const res = await fetchProductList(searchParams.keyword as string);
+
     return (
         <>
-            <Suspense>
-                <SearchResult />
-            </Suspense>
+            <SearchResult productSeqList={res} />
         </>
     );
 };
