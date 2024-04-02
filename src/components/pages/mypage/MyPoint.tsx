@@ -1,16 +1,18 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
-const member = {
-  name: "서여진",
-  point: 1000,
-};
+const MyPoint = async () => {
+  const session = await getServerSession(options);
+  const point = 1000;
 
-const MyPoint = () => {
   return (
     <section className="pt-[24px] pb-[80px] relative overflow-hidden">
       <div className="px-[16px]">
         <Link href="/">
-          <span className="text-[24px] text-[#22222]">{member.name} 님</span>
+          <span className="text-[24px] text-[#22222]">
+            {session?.user.userName} 님
+          </span>
         </Link>
 
         <Link className="mt-[8px]" href="/">
@@ -19,8 +21,7 @@ const MyPoint = () => {
           </div>
           <div>
             <span className="text-[20px] leading-5">
-              <strong>{member.point.toLocaleString()}포인트 혜택</strong>을
-              받았어요
+              <strong>{point.toLocaleString()}포인트 혜택</strong>을 받았어요
             </span>
           </div>
         </Link>
@@ -57,7 +58,7 @@ const MyPoint = () => {
               <span className="text-[14px]">신세계포인트</span>
               <div>
                 <strong className="text-[18px]">
-                  {member.point.toLocaleString()}
+                  {point.toLocaleString()}
                 </strong>
                 <span className="text-[13px] ml-[3px] mt-[-2px]">point</span>
               </div>
