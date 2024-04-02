@@ -39,9 +39,14 @@ const page = async ({ params }: { params: { productId: number } }) => {
         productPrice={productData.productPrice}
         discountPercent={productData.discountPercent}
         reviewCount={productData.reviewCount}
+        averageRating={productData.averageRating}
         productDescription={productData.productDescription}
       />
-      <BottomActionButtons productId={params.productId} />
+      <BottomActionButtons
+        productId={params.productId}
+        productPrice={productData.productPrice}
+        discountPercent={productData.discountPercent}
+      />
       <FloatingLeft />
       <FloatingUp />
     </>

@@ -1,11 +1,6 @@
 import React from "react";
 import SelectedOptionCardUnit from "./SelectedOptionCardUnit";
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionString: string;
-  quantity: number;
-}
+import { SelectedOptionAndQuantity } from "@/types/optionType";
 
 const SelectedOptionCardList = ({
   selectOption,
@@ -15,8 +10,8 @@ const SelectedOptionCardList = ({
 }: {
   selectOption: SelectedOptionAndQuantity[];
   sellingPrice: number;
-  deleteOption: (optionCombId: number) => void;
-  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
+  deleteOption: (optionAndStockSeq: number) => void;
+  onQuantityChange: (optionAndStockSeq: number, newQuantity: number) => void;
 }) => {
   return (
     <div className="overflow-hidden  pt-[12px] px-[15px]">

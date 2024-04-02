@@ -1,41 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionString: string;
-  quantity: number;
-}
-
-interface OptionType {
-  optionId: number;
-  quantity: number;
-}
-
-interface OrderData {
-  productId: number;
-  optionList: OptionType[];
-}
+import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 
 interface Props {
   productId: number;
+  productPrice: number;
+  discountPercent: number;
   changeMode: (mode: string) => void;
   mode: string;
 }
 
-const BottomPurchaseSwitcher = ({ productId, changeMode, mode }: Props) => {
+const BottomPurchaseSwitcher = ({
+  productId,
+  productPrice,
+  discountPercent,
+  changeMode,
+  mode,
+}: Props) => {
+  const [sellingPrice, setSellingPrice] = useState<number>(0);
   const [orderData, setOrderData] = useState<OrderData>({
     productId: productId,
     optionList: [],
   });
+
+  useEffect(() => {
+    const sellingPrice = Math.floor(
+      productPrice - productPrice * (discountPercent / 100)
+    );
+    setSellingPrice(sellingPrice);
+  }, []);
 
   const onChangeOrderData = (data: SelectedOptionAndQuantity[]) => {
     setOrderData({
       productId: productId,
       optionList: data.map((item) => {
         return {
-          optionId: item.optionCombId,
+          optionAndStockSeq: item.optionAndStockSeq,
           quantity: item.quantity,
         };
       }),
@@ -71,6 +72,8 @@ const BottomPurchaseSwitcher = ({ productId, changeMode, mode }: Props) => {
         </button>
       </div>
       <BottomPurchaseOptionBox
+        productId={productId}
+        sellingPrice={sellingPrice}
         changeMode={changeMode}
         onChangeOrderData={onChangeOrderData}
       />

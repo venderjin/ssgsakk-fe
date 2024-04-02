@@ -5,9 +5,15 @@ import BottomPurchaseSwitcher from "@/components/pages/products/purchase/BottomP
 
 type Props = {
   productId: number;
+  productPrice: number;
+  discountPercent: number;
 };
 
-const BottomActionButtons = ({ productId }: Props) => {
+const BottomActionButtons = ({
+  productId,
+  productPrice,
+  discountPercent,
+}: Props) => {
   const [bottomMode, setBottomMode] = useState<string>("default");
   const onChangeBottomMode = (mode: string) => {
     setBottomMode(mode);
@@ -21,6 +27,8 @@ const BottomActionButtons = ({ productId }: Props) => {
         <>
           <BottomPurchaseSwitcher
             productId={productId}
+            productPrice={productPrice}
+            discountPercent={discountPercent}
             changeMode={onChangeBottomMode}
             mode={bottomMode}
           />

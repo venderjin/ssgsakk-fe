@@ -1,43 +1,33 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import PurchaseTotal from "@/components/pages/products/purchase/PurchaseTotal";
 import OptionDropBoxList from "@/components/pages/products/purchase/OptionDropBoxList";
 import BottomUpBox from "@/components/UI/BottomUpBox";
 import SelectedOptionCardList from "@/components/pages/products/purchase/SelectedOptionCardList";
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionString: string;
-  quantity: number;
-}
-
-interface Option {
-  explain?: string;
-  explain2?: string;
-  explain3?: string;
-  stock: number;
-  optionAndStockSeq: number;
-}
-
-interface OptionType {
-  type: string;
-  optionList: string[];
-}
+import {
+  OptionCombination,
+  OptionInfo,
+  SelectedOptionAndQuantity,
+} from "@/types/optionType";
 
 interface Props {
+  productId: number;
+  sellingPrice: number;
   changeMode: (mode: string) => void;
   onChangeOrderData: (orderData: SelectedOptionAndQuantity[]) => void;
 }
 
-const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
-  const [optionNumber, setOptionNumber] = useState<number>(0);
-  const [optionList, setOptionList] = useState<OptionType[]>([]);
-  const [optionStock, setOptionStock] = useState<Option[]>([]);
-  const [price, setPrice] = useState<number>(0);
-  const [sellingPrice, setSellingPrice] = useState<number>(0);
+const BottomPurchaseOptionBox = ({
+  productId,
+  sellingPrice,
+  changeMode,
+  onChangeOrderData,
+}: Props) => {
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [optionList, setOptionList] = useState<OptionInfo[]>([]);
+  const [optionStock, setOptionStock] = useState<OptionCombination[]>([]);
   const [selectedOptionCombonations, setOptionCombonations] = useState<
     SelectedOptionAndQuantity[]
   >([]);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     onChangeOrderData(selectedOptionCombonations);
@@ -56,14 +46,8 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
 
       if (res.ok) {
         const data = await res.json();
-        setOptionNumber(data.depthLevel);
         setOptionStock(data.options);
         setOptionList(setOoptionList(data));
-        setPrice(data.price);
-        const sellingPrice =
-          data.price - data.price * (data.discountPercent / 100);
-
-        setSellingPrice(sellingPrice);
       }
 
       if (res.status === 400) {
@@ -75,16 +59,16 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
   }, []);
 
   const setOoptionList = (data: any) => {
-    const optionData: OptionType[] = [];
+    const optionData: OptionInfo[] = [];
     for (let i = 1; i <= data.depthLevel; i++) {
       const optionList: Set<string> = new Set();
-      data.options.forEach((option: Option) => {
+      data.options.forEach((option: OptionCombination) => {
         if (i === 1) optionList.add(option.explain || "");
         else if (i === 2) optionList.add(option.explain2 || "");
         else if (i === 3) optionList.add(option.explain3 || "");
       });
 
-      const option: OptionType = { type: "", optionList: [] };
+      const option: OptionInfo = { type: "", optionList: [] };
       if (i === 1) {
         option.type = data.firstDepthName;
         option.optionList = Array.from(optionList);
@@ -101,25 +85,9 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
     return optionData;
   };
 
-  // const handleOptionSelect = (optionCombId: number) => {
-  // setOptionCombonations((prev) => {
-  //     console.log("prev: ", prev);
-  //     const isDuplicate = prev.some(
-  //       (item) => item.optionCombId === optionCombId
-  //     );
-  //     console.log(optionCombId);
-  //     if (isDuplicate) {
-  //       alert("이미 동일한 옵션이 있습니다.");
-  //       return prev;
-  //     }
-  //     const newOption = { optionCombId, quantity: 1 };
-  //     return [...prev, newOption];
-  //   });
-  //   console.log("next:", selectedOptionCombonations);
-  // };
-  const getOptionString = (optionCombId: number) => {
+  const getOptionString = (optionAndStockSeq: number) => {
     const item = optionStock.filter(
-      (option) => option.optionAndStockSeq === optionCombId
+      (option) => option.optionAndStockSeq === optionAndStockSeq
     )[0];
     let optionString: string = "";
 
@@ -132,16 +100,16 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
     return optionString.replace(" ", "/");
   };
 
-  const handleOptionSelect = (optionCombId: number) => {
+  const handleOptionSelect = (optionAndStockSeq: number) => {
     const updateData = {
-      optionCombId,
-      optionString: getOptionString(optionCombId),
+      optionAndStockSeq,
+      optionString: getOptionString(optionAndStockSeq),
       quantity: 1,
     };
 
     // 중복된 옵션이 있는지 확인
     const isDuplicate = selectedOptionCombonations.some(
-      (item) => item.optionCombId === optionCombId
+      (item) => item.optionAndStockSeq === optionAndStockSeq
     );
 
     if (isDuplicate) {
@@ -158,10 +126,10 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
     }
   };
 
-  const onQuantityChange = (optionCombId: number, newQuantity: number) => {
+  const onQuantityChange = (optionAndStockSeq: number, newQuantity: number) => {
     // 변경된 수량을 반영하여 총 가격을 업데이트
     const updatedOptions = selectedOptionCombonations.map((option) => {
-      if (option.optionCombId === optionCombId) {
+      if (option.optionAndStockSeq === optionAndStockSeq) {
         const priceDifference = (newQuantity - option.quantity) * sellingPrice;
         setTotalPrice(totalPrice + priceDifference);
         return { ...option, quantity: newQuantity };
@@ -172,9 +140,9 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
     setOptionCombonations(updatedOptions);
   };
 
-  const deleteOption = (optionCombId: number) => {
+  const deleteOption = (optionAndStockSeq: number) => {
     const deletedOption = selectedOptionCombonations.find(
-      (option) => option.optionCombId === optionCombId
+      (option) => option.optionAndStockSeq === optionAndStockSeq
     );
 
     // 삭제될 옵션의 가격을 계산
@@ -185,7 +153,7 @@ const BottomPurchaseOptionBox = ({ changeMode, onChangeOrderData }: Props) => {
     }
 
     const updatedOptions = selectedOptionCombonations.filter(
-      (option) => option.optionCombId !== optionCombId
+      (option) => option.optionAndStockSeq !== optionAndStockSeq
     );
 
     setOptionCombonations(updatedOptions);

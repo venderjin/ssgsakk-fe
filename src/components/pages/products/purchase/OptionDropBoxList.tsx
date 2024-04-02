@@ -2,23 +2,11 @@
 import React, { useState, useEffect } from "react";
 import BottomUpBox from "@/components/UI/BottomUpBox";
 import RightArrow from "@/components/images/RightArrow";
-
-interface Option {
-  explain?: string;
-  explain2?: string;
-  explain3?: string;
-  stock: number;
-  optionAndStockSeq: number;
-}
-
-interface OptionType {
-  type: string;
-  optionList: string[];
-}
+import { OptionCombination, OptionInfo } from "@/types/optionType";
 
 type Props = {
-  optionList: OptionType[];
-  optionStock: Option[];
+  optionList: OptionInfo[];
+  optionStock: OptionCombination[];
   onOptionSelect: (selectedOptionId: number) => void;
 };
 
@@ -33,7 +21,6 @@ const OptionDropBoxList = ({
 
   useEffect(() => {
     // 마지막 요소의 data 값이 변경될 때 실행되는 부분
-    // console.log("selectedOption:", selectedOption);
     const lastSelectedOption = selectedOption[depth - 1];
     if (lastSelectedOption && lastSelectedOption !== "") {
       const selectedOptionId = findOptionAndStockSeq();
@@ -106,7 +93,7 @@ const OptionDropBoxList = ({
 
   return (
     <div className="px-[15px]">
-      {optionList.map((option: OptionType, idx: number) => (
+      {optionList.map((option: OptionInfo, idx: number) => (
         <div key={idx}>
           {/* 옵션 드롭박스 */}
           <div

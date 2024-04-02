@@ -1,17 +1,11 @@
-import React from "react";
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionString: string;
-  quantity: number;
-}
+import { SelectedOptionAndQuantity } from "@/types/optionType";
 
 type Props = {
   option: SelectedOptionAndQuantity;
   sellingPrice: number;
   seq: number;
-  deleteOption: (optionCombId: number) => void;
-  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
+  deleteOption: (optionAndStockSeq: number) => void;
+  onQuantityChange: (optionAndStockSeq: number, newQuantity: number) => void;
 };
 
 const SelectedOptionCardUnit = ({
@@ -26,7 +20,7 @@ const SelectedOptionCardUnit = ({
       alert("1회 최소 구매 가능한 수량은 1개입니다.");
       return;
     }
-    onQuantityChange(option.optionCombId, option.quantity + count);
+    onQuantityChange(option.optionAndStockSeq, option.quantity + count);
   };
 
   return (
@@ -75,7 +69,7 @@ const SelectedOptionCardUnit = ({
         {/* 삭제 버튼 */}
         <button
           className="absolute top-0 right-0 p-[8px]"
-          onClick={() => deleteOption(option.optionCombId)}
+          onClick={() => deleteOption(option.optionAndStockSeq)}
         >
           <div className=" w-[16px] h-[16px] mr-[4px] bg-product-opt-icon bg-[position:-176px_-106px] bg-[size:194px_171px] align-middle" />
         </button>

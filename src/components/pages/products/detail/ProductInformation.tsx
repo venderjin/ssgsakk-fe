@@ -12,6 +12,7 @@ type ProductData = {
   productPrice: number;
   discountPercent: number;
   reviewCount: number;
+  averageRating: number;
   productDescription: string;
 };
 
@@ -22,6 +23,7 @@ const ProductInformation = ({
   productPrice,
   discountPercent,
   reviewCount,
+  averageRating,
   productDescription,
 }: ProductData) => {
   return (
@@ -51,7 +53,13 @@ const ProductInformation = ({
             discountPer={discountPercent}
           />
           <UniverseBanner />
-          {reviewCount > 0 && <ReviewReference productId={productId} />}
+          {reviewCount > 0 && (
+            <ReviewReference
+              productId={productId}
+              reviewCount={reviewCount}
+              averageRating={averageRating}
+            />
+          )}
         </div>
       </div>
 

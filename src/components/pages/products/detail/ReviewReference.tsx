@@ -4,9 +4,11 @@ import ReviewImageThumb from "./ReviewImageThumb";
 
 type Props = {
   productId: number;
+  reviewCount: number;
+  averageRating: number;
 };
 
-const ReviewReference = ({ productId }: Props) => {
+const ReviewReference = ({ productId, reviewCount, averageRating }: Props) => {
   return (
     <div className="flex items-center pt-[13px] pb-[10px] pr-[18px] ">
       {/* ---------리뷰평점--------- */}
@@ -24,10 +26,7 @@ const ReviewReference = ({ productId }: Props) => {
       </Link>
 
       {/* ---------포토&동영상 전체보기--------- */}
-      <ReviewImageThumb
-        productId={productId}
-        reviewThumbList={reviewThumbList}
-      />
+      <ReviewImageThumb productId={productId} />
     </div>
   );
 };
