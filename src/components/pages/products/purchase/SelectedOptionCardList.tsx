@@ -3,11 +3,13 @@ import SelectedOptionCardUnit from "./SelectedOptionCardUnit";
 import { SelectedOptionAndQuantity } from "@/types/optionType";
 
 const SelectedOptionCardList = ({
+  depthLevel,
   selectOption,
   sellingPrice,
   deleteOption,
   onQuantityChange,
 }: {
+  depthLevel: number;
   selectOption: SelectedOptionAndQuantity[];
   sellingPrice: number;
   deleteOption: (optionAndStockSeq: number) => void;
@@ -22,6 +24,7 @@ const SelectedOptionCardList = ({
           <SelectedOptionCardUnit
             key={index}
             seq={index}
+            depthLevel={depthLevel}
             option={option}
             sellingPrice={sellingPrice}
             deleteOption={deleteOption}
