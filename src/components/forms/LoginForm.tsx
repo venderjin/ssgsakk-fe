@@ -25,16 +25,19 @@ export default function LoginForm() {
     setCheck(event.target.checked);
   };
 
-  const { data: session } = useSession();
-  //console.log("session:", session);
-
-  const loginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!loginData.loginId || !loginData.password) {
       return alert("아이디와 비밀번호를 입력해주세요.");
     }
 
-    console.log(loginData);
+    const { loginId, password } = loginData;
+    const response = await signIn("user-credentials", {
+      loginId,
+      password,
+      redirect: true,
+      callbackUrl: "/",
+    });
   };
 
   const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {

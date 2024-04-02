@@ -1,5 +1,4 @@
 import React from "react";
-
 import HomeAdCarousel from "@/components/pages/home/HomeAdCarousel";
 import WhiteSpace from "@/components/UI/WhiteSpace";
 import HomeGridItems from "@/components/pages/home/HomeGridItems";
