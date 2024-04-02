@@ -1,6 +1,7 @@
 import { SelectedOptionAndQuantity } from "@/types/optionType";
 
 type Props = {
+  depthLevel: number;
   option: SelectedOptionAndQuantity;
   sellingPrice: number;
   seq: number;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const SelectedOptionCardUnit = ({
+  depthLevel,
   option,
   sellingPrice,
   seq,
@@ -22,6 +24,8 @@ const SelectedOptionCardUnit = ({
     }
     onQuantityChange(option.optionAndStockSeq, option.quantity + count);
   };
+
+  console.log(option);
 
   return (
     <div
@@ -67,12 +71,14 @@ const SelectedOptionCardUnit = ({
         </div>
 
         {/* 삭제 버튼 */}
-        <button
-          className="absolute top-0 right-0 p-[8px]"
-          onClick={() => deleteOption(option.optionAndStockSeq)}
-        >
-          <div className=" w-[16px] h-[16px] mr-[4px] bg-product-opt-icon bg-[position:-176px_-106px] bg-[size:194px_171px] align-middle" />
-        </button>
+        {depthLevel > 0 && (
+          <button
+            className="absolute top-0 right-0 p-[8px]"
+            onClick={() => deleteOption(option.optionAndStockSeq)}
+          >
+            <div className=" w-[16px] h-[16px] mr-[4px] bg-product-opt-icon bg-[position:-176px_-106px] bg-[size:194px_171px] align-middle" />
+          </button>
+        )}
       </div>
     </div>
   );

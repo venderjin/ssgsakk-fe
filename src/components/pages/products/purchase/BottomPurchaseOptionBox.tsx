@@ -28,6 +28,7 @@ const BottomPurchaseOptionBox = ({
   changeMode,
   onChangeOrderData,
 }: Props) => {
+  const [depthLevel, setDepthLevel] = useState<number>(0);
   const [sellingPrice, setSellingPrice] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [optionList, setOptionList] = useState<OptionInfo[]>([]);
@@ -42,6 +43,7 @@ const BottomPurchaseOptionBox = ({
   }, [selectedOptionCombonations]);
 
   useEffect(() => {
+    setInitSellingPrice();
     const fetchData = async () => {
       const res = await fetch(
         `${process.env.BASE_URL}/optionstock/${productId}`,
@@ -56,11 +58,12 @@ const BottomPurchaseOptionBox = ({
 
       if (res.ok) {
         const data = await res.json();
-
         setOptionStock(data.result.options);
         setOptionList(setOoptionList(data.result));
-        if (data.result.options.length > 0) {
+        if (!data.result.depthLevel) {
           handleNonOptionSelect(data.result.options[0].optionAndStockSeq);
+        } else {
+          setDepthLevel(data.result.depthLevel);
         }
       }
 
@@ -117,6 +120,13 @@ const BottomPurchaseOptionBox = ({
     });
 
     return optionString.replace(" ", "/");
+  };
+
+  const setInitSellingPrice = () => {
+    const sellingPrice = Math.round(
+      productPrice - productPrice * (discountPercent / 100)
+    );
+    setSellingPrice(sellingPrice);
   };
 
   const handleNonOptionSelect = (optionAndStockSeq: number) => {
@@ -216,6 +226,7 @@ const BottomPurchaseOptionBox = ({
             onOptionSelect={handleOptionSelect}
           />
           <SelectedOptionCardList
+            depthLevel={depthLevel}
             deleteOption={deleteOption}
             sellingPrice={sellingPrice}
             selectOption={selectedOptionCombonations}
