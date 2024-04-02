@@ -8,7 +8,7 @@ import FormLabel from "@/components/pages/signup/form/FormLabel";
 import SearchZipcode from "@/components/pages/signup/form/SearchZipcode";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import CardTtile from "@/components/UI/CardTtile";
-import ErrorMessage from "@/components/pages/signup/form/ErrorMessage";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 import MarketingAgreeList from "@/components/pages/signup/form/MarketingAgreeList";
 import TextField from "@/components/pages/signup/form/TextField";
 import BeforeSignupAgreement from "@/components/pages/signup/auth/BeforeSignupAgreement";

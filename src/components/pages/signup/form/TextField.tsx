@@ -1,6 +1,6 @@
 import { Path, UseFormRegister } from "react-hook-form";
 import FormLabel from "@/components/pages/signup/form/FormLabel";
-import ErrorMessage from "@/components/pages/signup/form/ErrorMessage";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 
 interface SignupFormData {
   id: string;
