@@ -31,12 +31,13 @@ export default function LoginForm() {
       return alert("아이디와 비밀번호를 입력해주세요.");
     }
 
+    const callbackUrl = `${process.env.HOME_URL}`;
     const { loginId, password } = loginData;
     const response = await signIn("user-credentials", {
       loginId,
       password,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: callbackUrl,
     });
   };
 
