@@ -19,7 +19,7 @@ const BottomPurchaseMain = ({ changeMode }: Props) => {
         onClick={() => handler()}
         className="w-[54px] h-[52px] border-t-[1px] border-t-[#c0c0c0] border-r-[1px] border-r-[#c0c0c0] flex justify-center items-center"
       >
-        <HeartIcon height={24} width={24} handleLike={() => handler()} />
+        <HeartIcon height={24} width={24} />
       </button>
 
       <button

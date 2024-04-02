@@ -1,22 +1,28 @@
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
-import ProductSummary from "@/components/pages/products/detail/ProductSummary";
+import ProductInformation from "@/components/pages/products/detail/ProductInformation";
 import TopHeader from "@/components/layouts/TopHeader";
 import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
-import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailInfo";
+import "./productDetail.css";
 
 async function getProductData(productId: number) {
-  const res = await fetch(`http://localhost:3300/products?id=${productId}`, {
-    cache: "no-store",
+  const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  if (!res.ok) {
-    throw new Error("network error");
+
+  if (res.ok) {
+    const data = await res.json();
+    return data.result;
   }
 
-  const data = await res.json();
-  return data[0];
+  if (res.status === 400) {
+    console.log("잘못된 요청입니다.");
+  }
 }
 
 const page = async ({ params }: { params: { productId: number } }) => {
@@ -26,22 +32,21 @@ const page = async ({ params }: { params: { productId: number } }) => {
     <>
       <TopHeader />
       <ProductPageSwitchHeader />
-      <ImageSlider imageList={productData.images} />
-      <ProductSummary
-        title={productData.productName}
-        price={productData.productPrice}
-        discountPer={productData.discountPercent}
+      <ImageSlider imageList={productData.contents} />
+      <ProductInformation
+        productId={productData.productId}
         vendor={productData.vendor}
-        averageRating={productData.averageRating}
+        productName={productData.productName}
+        productPrice={productData.productPrice}
+        discountPercent={productData.discountPercent}
         reviewCount={productData.reviewCount}
-        reviewThumbList={productData.reviewThumbList}
-        productId={params.productId}
+        averageRating={productData.averageRating}
+        productDescription={productData.productDescription}
       />
-      <ProductDetailInfo />
       <BottomActionButtons
         productId={params.productId}
-        price={productData.productPrice}
-        discountPer={productData.discountPercent}
+        productPrice={productData.productPrice}
+        discountPercent={productData.discountPercent}
       />
       <FloatingLeft />
       <FloatingUp />

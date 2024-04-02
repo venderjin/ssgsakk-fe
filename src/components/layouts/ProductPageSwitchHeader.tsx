@@ -22,14 +22,14 @@ const ProductPageSwitchHeader = () => {
 
   return (
     <>
-      <div className="w-[50px] float bg-[#fff] flex left-0 top-0 bottom-0 items-center justify-center">
+      {/* <div className="w-[50px] float bg-[#fff] flex left-0 top-0 bottom-0 items-center justify-center">
         <Image
           src="/images/etc/whiteArrow.svg"
           alt="search-icon"
           width={24}
           height={24}
         />
-      </div>
+      </div> */}
 
       <nav
         className={`h-[50px] px-[65px] flex sticky top-0 z-50 shadow-md bg-white ${
@@ -37,21 +37,12 @@ const ProductPageSwitchHeader = () => {
         }`}
       >
         <div className="w-[50px] h-[50px] flex absolute left-0 top-0 bottom-0 items-center justify-center">
-          {display ? (
-            <Image
-              src="/images/etc/blackArrow.svg"
-              alt="search-icon"
-              width={24}
-              height={24}
-            />
-          ) : (
-            <Image
-              src="/images/etc/whiteArrow.svg"
-              alt="search-icon"
-              width={26}
-              height={24}
-            />
-          )}
+          <Image
+            src="/images/etc/blackArrow.svg"
+            alt="search-icon"
+            width={24}
+            height={24}
+          />
         </div>
 
         <div className="w-full h-full  font-Pretendard">

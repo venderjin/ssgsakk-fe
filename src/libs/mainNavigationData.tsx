@@ -10,7 +10,7 @@ export const mainNavigationData: MainNavigationType[] = [
     {
         id: 2,
         title: "선물하기",
-        url: "/gift",
+        url: "/",
         icon: "/images/bottomNav/gift.svg",
     },
     {
@@ -28,7 +28,7 @@ export const mainNavigationData: MainNavigationType[] = [
     {
         id: 5,
         title: "최근본",
-        url: "/recently-viewed",
+        url: "/",
         icon: "/images/bottomNav/recently.svg",
     },
 ];

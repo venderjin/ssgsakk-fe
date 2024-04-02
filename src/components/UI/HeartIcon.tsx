@@ -4,21 +4,21 @@ import RedHeart from "../images/RedHeart";
 import Heart from "../images/Heart";
 
 interface Props {
-  handleLike: () => void;
+  productSeq?: number;
   height?: number;
   width?: number;
 }
 
-export default function HeartIcon({ handleLike, height, width }: Props) {
+export default function HeartIcon({ productSeq, height, width }: Props) {
   const [isCheck, setIsCheck] = useState<Boolean>(false);
 
-  const handler = () => {
-    setIsCheck(!isCheck);
-    handleLike();
-  };
+  // const handler = () => {
+  //     setIsCheck(!isCheck);
+  //     handleLike();
+  // };
 
   return (
-    <div onClick={handler}>
+    <div>
       {isCheck ? (
         <RedHeart height={height} width={width} />
       ) : (

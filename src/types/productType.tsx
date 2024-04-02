@@ -1,7 +1,7 @@
 export type ImageType = {
-  id: number;
   priority: number;
-  url: string;
+  contentUrl: string;
+  contentDescription: string;
 };
 
 export type productType = {
@@ -24,4 +24,10 @@ export interface reviewType {
   rating: number;
   createdDate: string;
   images: ImageType[];
+}
+
+export interface ProductNavigationType {
+  id: number;
+  title: string;
+  value: string;
 }

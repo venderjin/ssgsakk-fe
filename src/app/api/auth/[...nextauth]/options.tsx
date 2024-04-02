@@ -1,18 +1,40 @@
+import { Session } from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
-import { redirect } from "next/navigation";
 
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
+      id: "user-credentials",
       name: "Credentials",
       credentials: {
         loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        // 서버와 통신하여 로그인 처리
+      async authorize(credentials) {
+        if (!credentials?.loginId || !credentials?.password) {
+          return null;
+        }
+        const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: credentials.loginId,
+            userPassword: credentials.password,
+          }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          return data.result;
+        }
+        if (res.status === 409) {
+          return alert(data.message);
+        }
+
         return null;
       },
     }),
@@ -36,7 +58,7 @@ export const options: NextAuthOptions = {
           })
         ).json();
 
-        console.log(data);
+        //console.log(data);
       }
       return true;
     },
@@ -44,8 +66,12 @@ export const options: NextAuthOptions = {
       return { ...token, ...user };
     },
 
-    async session({ session, token }) {
-      return { ...session, ...token };
+    async session({ session, token }: { session: Session; token: any }) {
+      session.user.token = token.token;
+      session.user.userName = token.userName;
+      return session;
+
+      //return { ...session, ...token };
     },
 
     async redirect({ url, baseUrl }) {
