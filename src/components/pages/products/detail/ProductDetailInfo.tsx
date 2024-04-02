@@ -42,7 +42,7 @@ const ProductDetailInfo = ({
       </div>
 
       {/* 상세정보 펼쳐보기 */}
-      <div>
+      <div className="bg-white">
         <button
           onClick={toggleDetail}
           className="w-full h-[50px] text-[14px] flex items-center justify-center"

@@ -4,6 +4,8 @@ import MyPoint from "@/components/pages/mypage/MyPoint";
 import MyReviewSummary from "@/components/pages/mypage/MyReviewSummary";
 import QuickMenu from "@/components/pages/mypage/QuickMenu";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
+import BottomNav from "@/components/layouts/BottomNav";
+import Footer from "@/components/layouts/Footer";
 
 const Page = () => {
   return (
@@ -14,6 +16,8 @@ const Page = () => {
       <QuickMenu />
       <MyReviewSummary />
       <MyMenuGroup />
+      <Footer />
+      <BottomNav />
     </div>
   );
 };
