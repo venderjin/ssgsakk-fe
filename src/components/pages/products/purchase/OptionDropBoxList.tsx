@@ -147,7 +147,7 @@ const OptionDropBoxList = ({
                           selectedOption[openBox] == item
                             ? "border-[1px] border-[#000]"
                             : ""
-                        } pr-[10px] text-[#bcb2b2] rounded-[5px] align-middle`}
+                        } pr-[10px] text-[#bcb2b2] rounded-[5px] align-middle cursor-default`}
                       >
                         <span className="table-cell h-[50px] px-[10px]  align-middle">
                           <span

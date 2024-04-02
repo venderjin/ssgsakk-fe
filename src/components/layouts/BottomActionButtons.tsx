@@ -5,12 +5,14 @@ import BottomPurchaseSwitcher from "@/components/pages/products/purchase/BottomP
 
 type Props = {
   productId: number;
+  productName: string;
   productPrice: number;
   discountPercent: number;
 };
 
 const BottomActionButtons = ({
   productId,
+  productName,
   productPrice,
   discountPercent,
 }: Props) => {
@@ -27,6 +29,7 @@ const BottomActionButtons = ({
         <>
           <BottomPurchaseSwitcher
             productId={productId}
+            productName={productName}
             productPrice={productPrice}
             discountPercent={discountPercent}
             changeMode={onChangeBottomMode}

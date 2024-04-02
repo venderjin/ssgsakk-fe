@@ -3,29 +3,35 @@ import PurchaseTotal from "@/components/pages/products/purchase/PurchaseTotal";
 import OptionDropBoxList from "@/components/pages/products/purchase/OptionDropBoxList";
 import BottomUpBox from "@/components/UI/BottomUpBox";
 import SelectedOptionCardList from "@/components/pages/products/purchase/SelectedOptionCardList";
-import dummyData from "@/dummy/data.json";
+
 import {
   OptionCombination,
   OptionInfo,
   SelectedOptionAndQuantity,
 } from "@/types/optionType";
+import { set } from "react-hook-form";
 
 interface Props {
   productId: number;
-  sellingPrice: number;
+  productName: string;
+  productPrice: number;
+  discountPercent: number;
   changeMode: (mode: string) => void;
   onChangeOrderData: (orderData: SelectedOptionAndQuantity[]) => void;
 }
 
 const BottomPurchaseOptionBox = ({
   productId,
-  sellingPrice,
+  productName,
+  productPrice,
+  discountPercent,
   changeMode,
   onChangeOrderData,
 }: Props) => {
+  const [sellingPrice, setSellingPrice] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  //const [optionList, setOptionList] = useState<OptionInfo[]>([]);
-  //const [optionStock, setOptionStock] = useState<OptionCombination[]>([]);
+  const [optionList, setOptionList] = useState<OptionInfo[]>([]);
+  const [optionStock, setOptionStock] = useState<OptionCombination[]>([]);
   const [selectedOptionCombonations, setOptionCombonations] = useState<
     SelectedOptionAndQuantity[]
   >([]);
@@ -35,29 +41,36 @@ const BottomPurchaseOptionBox = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptionCombonations]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await fetch(`http://localhost:3300/optionData`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       cache: "no-cache",
-  //     });
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `${process.env.BASE_URL}/optionstock/${productId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
+        }
+      );
 
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setOptionStock(data.options);
-  //       setOptionList(setOoptionList(data));
-  //     }
+      if (res.ok) {
+        const data = await res.json();
 
-  //     if (res.status === 400) {
-  //       console.log("잘못된 요청입니다.");
-  //     }
-  //   };
+        setOptionStock(data.result.options);
+        setOptionList(setOoptionList(data.result));
+        if (data.result.options.length > 0) {
+          handleNonOptionSelect(data.result.options[0].optionAndStockSeq);
+        }
+      }
 
-  //   fetchData();
-  // }, []);
+      if (res.status === 400) {
+        console.log("잘못된 요청입니다.");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const setOoptionList = (data: any) => {
     const optionData: OptionInfo[] = [];
@@ -86,8 +99,8 @@ const BottomPurchaseOptionBox = ({
     return optionData;
   };
 
-  const optionList = setOoptionList(dummyData.optionData);
-  const optionStock = dummyData.optionData.options;
+  // const optionList = setOoptionList(dummyData.optionData);
+  // const optionStock = dummyData.optionData.options;
 
   const getOptionString = (optionAndStockSeq: number) => {
     const item = optionStock.filter(
@@ -95,13 +108,38 @@ const BottomPurchaseOptionBox = ({
     )[0];
     let optionString: string = "";
 
+    if (optionList.length === 0) return productName;
+
     optionList.forEach((option, idx) => {
       if (idx === 0) optionString += `${option.type}:${item.explain} `;
       else if (idx === 1) optionString += `${option.type}:${item.explain2}`;
-      //else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
+      else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
     });
 
     return optionString.replace(" ", "/");
+  };
+
+  const handleNonOptionSelect = (optionAndStockSeq: number) => {
+    const sellingPrice = Math.round(
+      productPrice - productPrice * (discountPercent / 100)
+    );
+    setSellingPrice(sellingPrice);
+
+    const updateData = {
+      optionAndStockSeq,
+      optionString: getOptionString(optionAndStockSeq),
+      quantity: 1,
+    };
+
+    const updateSelectedOptionCombination = [
+      ...selectedOptionCombonations,
+      updateData,
+    ];
+    setOptionCombonations(updateSelectedOptionCombination);
+    // 총 가격 계산
+    const newTotalPrice = totalPrice + sellingPrice * updateData.quantity;
+
+    setTotalPrice(newTotalPrice);
   };
 
   const handleOptionSelect = (optionAndStockSeq: number) => {
