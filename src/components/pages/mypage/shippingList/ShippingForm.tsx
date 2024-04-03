@@ -11,7 +11,7 @@ import regex from "@/utils/regex";
 import SearchZipcode from "@/components/pages/signup/form/SearchZipcode";
 
 interface ShippingFormData {
-  addressName: string;
+  addressNickname: string;
   receiverName: string;
   receiverPhone: string;
   zipCode: string;
@@ -67,14 +67,14 @@ const ShippingForm = () => {
           detailAddress: data.detailAddress,
         });
         return {
-          addressName: data.addressName,
+          addressNickname: data.addressNickname,
           receiverName: data.receiverName,
           receiverPhone: data.receiverPhone,
           zipCode: data.zipCode,
         };
       } else {
         return {
-          addressName: "",
+          addressNickname: "",
           receiverName: "",
           receiverPhone: "",
           zipCode: "",
@@ -84,8 +84,8 @@ const ShippingForm = () => {
   });
 
   const resetHandler = () => {
-    setValue("addressName", "");
-    setValue("receiverName", "");
+    setValue("addressNickname", "");
+    setValue("addressNickname", "");
     setValue("receiverPhone", "");
     setValue("zipCode", "");
     setAddressData({
@@ -127,11 +127,11 @@ const ShippingForm = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <ShippingFormTextField
-            name="addressName"
+            name="addressNickname"
             text="주소별칭"
             placeholder="주소별칭 입력"
             register={register}
-            errorMsg={errors.addressName?.message}
+            errorMsg={errors.addressNickname?.message}
           />
 
           <ShippingFormTextField

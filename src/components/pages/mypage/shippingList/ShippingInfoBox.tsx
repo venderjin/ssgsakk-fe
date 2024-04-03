@@ -1,57 +1,72 @@
 "use client";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 interface ShippingInfo {
   shippingAddressId: number;
-  addressName: string;
+  addressNickname: string;
   zipCode: string;
   roadAddress: string;
   jibunAddress: string;
   detailAddress: string;
-  defaultAddress: boolean;
+  defaultAddressCheck: number;
 }
 
 const ShippingInfoBox = ({
-  shippingInfo,
+  shippingData,
   setCheckedAddressId,
   checkedAddressId,
 }: {
-  shippingInfo: ShippingInfo;
+  shippingData: ShippingInfo;
   setCheckedAddressId: (id: number) => void;
   checkedAddressId: number | null;
 }) => {
+  const { data: session } = useSession();
   const router = useRouter();
+
   const modifyHandler = () => {
     router.push(
-      `/mypage/shippingForm?shippingAddressId=${shippingInfo.shippingAddressId}`
+      `/mypage/shippingForm?shippingAddressId=${shippingData.shippingAddressId}`
     );
   };
-  const deleteHandler = () => {
+
+  const deleteHandler = async () => {
     if (confirm("선택한 주소를 삭제하시겠습니까?")) {
-      console.log(shippingInfo.shippingAddressId, "삭제");
+      console.log(shippingData.shippingAddressId, "삭제");
     }
-    //삭제 로직
-    // const res = await fetch("http://localhost:3300/shippingList", {
-    //     method: "DELETE",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ shippingAddressId: shippingInfo.shippingAddressId }),
-    // });
+
+    const res = await fetch(
+      `${process.env.BASE_URL}/shipping-adr/${shippingData.shippingAddressId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: session?.user?.token || "",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.ok) {
+      alert("배송지가 삭제되었습니다.");
+    } else {
+      alert("배송지 삭제에 실패했습니다.");
+    }
   };
 
   return (
     <div className="block">
       <input
         type="radio"
-        checked={shippingInfo.shippingAddressId === checkedAddressId}
-        onChange={() => setCheckedAddressId(shippingInfo.shippingAddressId)}
+        checked={shippingData.shippingAddressId === checkedAddressId}
+        onChange={() => setCheckedAddressId(shippingData.shippingAddressId)}
         className="block absolute left-0 top-[50%] w-[20px] h-[20px]"
       />
 
       <div className="relative block text-[13px] text-[#222]">
         <strong className="block pr-[35px]">
-          <span>{shippingInfo.addressName}</span>
-          {shippingInfo.defaultAddress && (
+          <span>{shippingData.addressNickname}</span>
+          {shippingData.defaultAddressCheck && (
             <span className="px-[10px] ml-[6px] text-[12px] text-[#fff] bg-primary-red rounded-[10px] py-[1px] font-medium">
               기본배송지
             </span>
@@ -59,10 +74,10 @@ const ShippingInfoBox = ({
         </strong>
         <span className="block mt-[5px]">(1234)</span>
         <span className="block mt-[5px]">
-          도로명주소: {shippingInfo.roadAddress + shippingInfo.detailAddress}
+          도로명주소: {shippingData.roadAddress + shippingData.detailAddress}
         </span>
         <span className="block mt-[5px]">
-          지번주소: {shippingInfo.jibunAddress + shippingInfo.detailAddress}
+          지번주소: {shippingData.jibunAddress + shippingData.detailAddress}
         </span>
       </div>
 
@@ -70,7 +85,7 @@ const ShippingInfoBox = ({
         <button onClick={modifyHandler} className="px-[10px]">
           <span>수정</span>
         </button>
-        {!shippingInfo.defaultAddress && (
+        {!shippingData.defaultAddressCheck && (
           <>
             <span className="border-r border-r-[#e5e5e5] h-[12px]" />
             <button onClick={deleteHandler} className="px-[10px]">

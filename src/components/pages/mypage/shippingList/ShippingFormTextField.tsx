@@ -2,7 +2,7 @@ import { Path, UseFormRegister } from "react-hook-form";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 
 interface ShippingFormData {
-  addressName: string;
+  addressNickname: string;
   receiverName: string;
   receiverPhone: string;
   zipCode: string;
