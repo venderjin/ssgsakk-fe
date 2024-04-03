@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
-import { useS3Upload } from "next-s3-upload";
 
 interface ReviewForm {
   content: string;
@@ -17,7 +16,6 @@ const ReviewEditor = ({
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -25,17 +23,29 @@ const ReviewEditor = ({
   };
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //const targetFiles = (e.target as HTMLInputElement).files as FileList;
-    //if (!targetFiles) return;
-
+    const targetFiles = (e.target as HTMLInputElement).files as FileList;
+    if (!targetFiles) return;
     //if (images.length >= 3)
     // return alert("이미지는 최대 3개까지 첨부 가능합니다.");
-    //const targetFilesArray = Array.from(targetFiles);
-    //const file = targetFilesArray[0];
+    const targetFilesArray = Array.from(targetFiles);
+    const file = targetFilesArray[0];
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/s3-upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+
     //const file = URL.createObjectURL(targetFilesArray[0]);
-    const file = e.target.files?.[0] as File;
-    let { url } = await uploadToS3(file);
-    console.log(url);
     //const updateImages = [...images, file];
     //setImages(updateImages);
   };
