@@ -1,39 +1,31 @@
-import React from "react";
+import { SelectedOptionAndQuantity } from "@/types/optionType";
 
-interface SelectedOption {
-  type: string;
-  optionId?: number;
-  data?: string;
-}
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionComb: SelectedOption[];
-  quantity: number;
-}
+type Props = {
+  depthLevel: number;
+  option: SelectedOptionAndQuantity;
+  sellingPrice: number;
+  seq: number;
+  deleteOption: (optionAndStockSeq: number) => void;
+  onQuantityChange: (optionAndStockSeq: number, newQuantity: number) => void;
+};
 
 const SelectedOptionCardUnit = ({
+  depthLevel,
   option,
   sellingPrice,
   seq,
   deleteOption,
   onQuantityChange,
-}: {
-  option: SelectedOptionAndQuantity;
-  sellingPrice: number;
-  seq: number;
-  deleteOption: (optionCombId: number) => void;
-  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
-}) => {
+}: Props) => {
   const handleQuantity = (count: number) => {
     if (option.quantity + count <= 0) {
       alert("1회 최소 구매 가능한 수량은 1개입니다.");
       return;
     }
-    onQuantityChange(option.optionCombId, option.quantity + count);
+    onQuantityChange(option.optionAndStockSeq, option.quantity + count);
   };
 
-  console.log(seq);
+  console.log(option);
 
   return (
     <div
@@ -45,9 +37,7 @@ const SelectedOptionCardUnit = ({
     >
       <div className="overflow-hidden">
         <span className="pr-[27px]  text-[13px] tracking-normal ">
-          {option.optionComb
-            .map((item) => `${item.type}:${item.data}`)
-            .join(" / ")}
+          {option.optionString}
         </span>
         {/* 수량 옵션 편집*/}
         <div className="relative">
@@ -81,12 +71,14 @@ const SelectedOptionCardUnit = ({
         </div>
 
         {/* 삭제 버튼 */}
-        <button
-          className="absolute top-0 right-0 p-[8px]"
-          onClick={() => deleteOption(option.optionCombId)}
-        >
-          <div className=" w-[16px] h-[16px] mr-[4px] bg-product-opt-icon bg-[position:-176px_-106px] bg-[size:194px_171px] align-middle" />
-        </button>
+        {depthLevel > 0 && (
+          <button
+            className="absolute top-0 right-0 p-[8px]"
+            onClick={() => deleteOption(option.optionAndStockSeq)}
+          >
+            <div className=" w-[16px] h-[16px] mr-[4px] bg-product-opt-icon bg-[position:-176px_-106px] bg-[size:194px_171px] align-middle" />
+          </button>
+        )}
       </div>
     </div>
   );

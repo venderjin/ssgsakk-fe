@@ -1,28 +1,19 @@
 import React from "react";
 import SelectedOptionCardUnit from "./SelectedOptionCardUnit";
-
-interface SelectedOption {
-  type: string;
-  optionId?: number;
-  data?: string;
-}
-
-interface SelectedOptionAndQuantity {
-  optionCombId: number;
-  optionComb: SelectedOption[];
-  quantity: number;
-}
+import { SelectedOptionAndQuantity } from "@/types/optionType";
 
 const SelectedOptionCardList = ({
+  depthLevel,
   selectOption,
   sellingPrice,
   deleteOption,
   onQuantityChange,
 }: {
+  depthLevel: number;
   selectOption: SelectedOptionAndQuantity[];
   sellingPrice: number;
-  deleteOption: (optionCombId: number) => void;
-  onQuantityChange: (optionCombId: number, newQuantity: number) => void;
+  deleteOption: (optionAndStockSeq: number) => void;
+  onQuantityChange: (optionAndStockSeq: number, newQuantity: number) => void;
 }) => {
   return (
     <div className="overflow-hidden  pt-[12px] px-[15px]">
@@ -33,6 +24,7 @@ const SelectedOptionCardList = ({
           <SelectedOptionCardUnit
             key={index}
             seq={index}
+            depthLevel={depthLevel}
             option={option}
             sellingPrice={sellingPrice}
             deleteOption={deleteOption}

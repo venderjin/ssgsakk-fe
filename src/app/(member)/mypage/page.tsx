@@ -5,20 +5,20 @@ import MyReviewSummary from "@/components/pages/mypage/MyReviewSummary";
 import QuickMenu from "@/components/pages/mypage/QuickMenu";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import BottomNav from "@/components/layouts/BottomNav";
+import Footer from "@/components/layouts/Footer";
 
 const Page = () => {
     return (
-        <>
-            <div className="font-Pretendard">
-                <BackArrowHeader title="MY SSG" />
-                <MyPoint />
-                <MyOrderSummary />
-                <QuickMenu />
-                <MyReviewSummary />
-                <MyMenuGroup />
-            </div>
+        <div className="font-Pretendard">
+            <BackArrowHeader title="MY SSG" />
+            <MyPoint />
+            <MyOrderSummary />
+            <QuickMenu />
+            <MyReviewSummary />
+            <MyMenuGroup />
+            <Footer />
             <BottomNav />
-        </>
+        </div>
     );
 };
 

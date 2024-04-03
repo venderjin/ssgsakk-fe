@@ -37,13 +37,6 @@ const EventProductList: React.FC<EventProductListProps> = ({
     fetchData();
   }, [visiableProductList]);
 
-  const handleLike = (id: any) => {
-    console.log("like");
-    console.log(id);
-  };
-
-  // console.log(data);
-
   return (
     <div className="bg-white">
       {data &&
@@ -82,7 +75,7 @@ const EventProductList: React.FC<EventProductListProps> = ({
                 </p>
               </div>
               <div className="my-2 w-2/3 flex flex-row gap-2 justify-end pr-2 items-start ">
-                <HeartIcon handleLike={() => handleLike(item.id)} />
+                <HeartIcon />
                 <Cart />
               </div>
             </div>
