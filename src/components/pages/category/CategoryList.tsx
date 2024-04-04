@@ -1,14 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
 import { categoryData } from "@/libs/categoryData";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CategoryList() {
+interface middleCategory {
+    categoryName: string;
+    categorySeq: number;
+    level: number;
+}
+[];
+
+const CategoryList = () => {
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
+    const [middleCategory, setMiddleCategory] = useState<middleCategory[]>([]);
     const handleClick = (id: number) => {
         setSelectedCategory(id);
     };
+
+    useEffect(() => {
+        const getMiddleCategory = async () => {
+            const res = await fetch(`${process.env.BASE_URL}/category/mid-by-big?parentCategoryId=${selectedCategory}`, { method: "GET" });
+            const data = await res.json();
+            setMiddleCategory(data.result);
+        };
+        getMiddleCategory();
+    }, [selectedCategory]);
 
     return (
         <div>
@@ -26,12 +43,15 @@ export default function CategoryList() {
                             <div style={{ height: `${category.height}px` }}>
                                 <div className="absolute left-0 w-full ">
                                     <ul className="bg-[#f5f5f5] my-[5px] grid grid-cols-2 pl-[13px] pt-[12px] pr-[12px] pb-[20px]">
-                                        {category.subCategories.map((item) => (
+                                        <li className="font-Pretendard text-[14px] min-h-[38px] pl-[12px] pr-[13px] tracking-tight flex items-center">
+                                            <Link href={`/category/${category.id}`}>상품전체보기</Link>
+                                        </li>
+                                        {middleCategory.map((item, idx) => (
                                             <li
                                                 className="font-Pretendard text-[14px] min-h-[38px] pl-[12px] pr-[13px] tracking-tight flex items-center"
-                                                key={item.id}
+                                                key={idx}
                                             >
-                                                <Link href={`/category/${item.id}`}>{item.name}</Link>
+                                                <Link href={`/category/${item.categorySeq}`}>{item.categoryName}</Link>
                                             </li>
                                         ))}
                                     </ul>
@@ -43,4 +63,6 @@ export default function CategoryList() {
             </ul>
         </div>
     );
-}
+};
+
+export default CategoryList;
