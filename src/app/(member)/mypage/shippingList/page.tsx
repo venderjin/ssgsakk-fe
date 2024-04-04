@@ -66,8 +66,6 @@ const ShippingList = async () => {
     session?.user?.token || ""
   );
 
-  console.log(shippingData);
-
   return (
     <>
       <BackArrowHeader title="배송지 관리" />

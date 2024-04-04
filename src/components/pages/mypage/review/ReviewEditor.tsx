@@ -123,22 +123,22 @@ const ReviewEditor = ({
 
         <div className="mt-[20px]">
           <ul className="flex gap-2">
-            {images.map((image, index) => (
-              <li key={index}>
-                <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
-                  <Image
-                    src={image}
-                    alt="첨부이미지"
-                    fill={true}
-                    sizes="(max-width: 600px) 100vw, 600px"
-                  />
-                  <div
-                    onClick={() => deleteHandler(index)}
-                    className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]"
-                  />
-                </div>
-              </li>
-            ))}
+            {/* {images.map((image, index) => ( */}
+            {/* <li key={index}> */}
+            <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
+              <Image
+                src={`${process.env.REVIEW_IMAGE}/1712233632336_1`}
+                alt="첨부이미지"
+                fill={true}
+                sizes="(max-width: 600px) 100vw, 600px"
+              />
+              <div
+                // onClick={() => deleteHandler(index)}
+                className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]"
+              />
+            </div>
+            {/* </li> */}
+            {/* ))} */}
           </ul>
         </div>
       </div>
