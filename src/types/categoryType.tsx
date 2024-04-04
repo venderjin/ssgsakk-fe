@@ -5,7 +5,6 @@ export interface categoryType {
 
 export interface topCategoryType extends categoryType {
     categorySeq: number;
-    subCategories: categoryType[];
     height: number;
     imgUrl: string;
 }
