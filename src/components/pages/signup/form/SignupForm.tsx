@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -51,7 +51,13 @@ const schema = yup.object().shape({
   zipCode: yup.string().required("주소를 입력해주세요"),
 });
 
-const SignupFormComponent = ({ userEmail }: { userEmail: string }) => {
+const SignupFormComponent = ({
+  userEmail,
+  oauthId,
+}: {
+  userEmail: string;
+  oauthId: string;
+}) => {
   const router = useRouter();
   const [marketingAgreement, setMarketingAgreement] = useState<CheckBoxType>({
     emailS: false,
@@ -149,6 +155,7 @@ const SignupFormComponent = ({ userEmail }: { userEmail: string }) => {
         roadAddress: selectedAddress.roadAddress,
         jibunAddress: selectedAddress.jibunAddress,
         detailAddress: selectedAddress.detailAddress,
+        oauthId: oauthId,
       }),
     });
 

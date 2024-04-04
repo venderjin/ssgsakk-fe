@@ -41,11 +41,11 @@ export const options: NextAuthOptions = {
       },
     }),
     CredentialsProvider({
-      id: "google",
+      id: "social-account",
       name: "Credentials",
       credentials: {
-        loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
-        password: { label: "Password", type: "password" },
+        userName: { label: "userName", type: "text" },
+        token: { label: "token", type: "password" },
       },
       async authorize(credentials) {
         console.log("여기야");

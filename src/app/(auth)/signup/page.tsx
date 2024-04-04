@@ -5,7 +5,14 @@ const Page = async ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
-  return <SignupForm userEmail={searchParams.userEmail} />;
+  return (
+    <>
+      <SignupForm
+        userEmail={searchParams.userEmail}
+        oauthId={searchParams.oauthId}
+      />
+    </>
+  );
 };
 
 export default Page;
