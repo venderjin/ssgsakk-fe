@@ -83,7 +83,7 @@ const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
 
   const resetHandler = () => {
     setValue("addressNickname", "");
-    setValue("addressNickname", "");
+    setValue("receiverName", "");
     setValue("receiverMobileNum", "");
     setValue("zipCode", "");
     setAddressData({
@@ -126,10 +126,13 @@ const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
           }
         );
         const response = await res.json();
-        console.log(data);
-        if (res.ok) return response.msg;
-        if (res.status === 500) alert(response.message);
-        return null;
+        if (res.ok) {
+          alert("배송지가 수정되었습니다.");
+          router.push("/mypage/shippingList");
+        } else {
+          console.log(response.message);
+          alert("배송지 수정에 실패했습니다");
+        }
       };
 
       updateShippingData();
@@ -145,12 +148,13 @@ const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
           body: JSON.stringify(updateData),
         });
         const response = await res.json();
-
         if (res.ok) {
           alert("배송지가 등록되었습니다.");
-          window.history.back();
+          router.push("/mypage/shippingList");
+        } else {
+          console.log(response.message);
+          alert("배송지 등록에 실패했습니다.");
         }
-        if (res.status === 500) alert(response.message);
       };
 
       addShippingData();

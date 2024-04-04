@@ -30,6 +30,7 @@ const getShippingData = async (shippingAddressSeq: number[], token: string) => {
     const res = await fetch(
       `${process.env.BASE_URL}/shipping-addr/${shippingAddressSeq}`,
       {
+        cache: "no-cache",
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
