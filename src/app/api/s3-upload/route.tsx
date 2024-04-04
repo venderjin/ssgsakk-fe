@@ -29,13 +29,16 @@ export async function POST(request: any) {
   try {
     const formData = await request.formData();
     const file = formData.get("file");
+    const type = formData.get("type");
+    const priority = formData.get("priority");
+    const imgName = `${type}/${String(Date.now())}_${priority}`;
 
     if (!file) {
       return NextResponse.json({ error: "File is required." }, { status: 400 });
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const fileName = await uploadFileToS3(buffer, file.name);
+    const fileName = await uploadFileToS3(buffer, imgName);
 
     return NextResponse.json({ success: true, fileName });
   } catch (error) {

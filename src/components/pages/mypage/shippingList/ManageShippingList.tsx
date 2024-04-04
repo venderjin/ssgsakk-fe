@@ -2,13 +2,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShippingInfoBox from "./ShippingInfoBox";
-import { ShippingInfo } from "@/app/(member)/mypage/shippingList/page";
+import { ShippingInfoType } from "@/types/memberInfoType";
+import { useSession } from "next-auth/react";
 
 const ManageShippingList = ({
   shippingData,
 }: {
-  shippingData: ShippingInfo[];
+  shippingData: ShippingInfoType[];
 }) => {
+  const { data: session } = useSession();
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
 
@@ -24,6 +26,7 @@ const ManageShippingList = ({
       {
         method: "PATCH",
         headers: {
+          Authorization: session?.user?.token || "",
           "Content-Type": "application/json",
         },
       }
@@ -31,6 +34,7 @@ const ManageShippingList = ({
 
     if (res.ok) {
       alert("기본 배송지로 설정되었습니다.");
+      location.reload();
     } else {
       alert("기본 배송지 설정에 실패했습니다.");
     }
@@ -46,9 +50,9 @@ const ManageShippingList = ({
       <section className="pt-[15px]">
         <ul>
           {shippingData &&
-            shippingData.map((item: ShippingInfo, idx) => (
+            shippingData.map((item: ShippingInfoType) => (
               <li
-                key={idx}
+                key={item.shippingAddressSeq}
                 className="relative block py-[20px] pl-[40px] border-b border-b-[#f1f1f1] h-min-[19px]"
               >
                 <ShippingInfoBox

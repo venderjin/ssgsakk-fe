@@ -25,13 +25,17 @@ const ReviewEditor = ({
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetFiles = (e.target as HTMLInputElement).files as FileList;
     if (!targetFiles) return;
-    //if (images.length >= 3)
-    // return alert("이미지는 최대 3개까지 첨부 가능합니다.");
+
+    if (images.length >= 3)
+      return alert("이미지는 최대 3개까지 첨부 가능합니다.");
+
     const targetFilesArray = Array.from(targetFiles);
     const file = targetFilesArray[0];
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("type", "review");
+    formData.append("priority", (images.length + 1).toString());
 
     try {
       const response = await fetch("/api/s3-upload", {
