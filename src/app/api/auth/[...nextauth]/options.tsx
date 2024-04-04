@@ -40,6 +40,42 @@ export const options: NextAuthOptions = {
         return null;
       },
     }),
+    CredentialsProvider({
+      id: "google",
+      name: "Credentials",
+      credentials: {
+        loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log("여기야");
+        // if (!credentials?.loginId || !credentials?.password) {
+        //   return null;
+        // }
+
+        // const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     userId: credentials.loginId,
+        //     userPassword: credentials.password,
+        //   }),
+        // });
+
+        // const data = await res.json();
+
+        // if (res.ok) {
+        //   return data.result;
+        // }
+        // if (res.status === 409) {
+        //   return null;
+        // }
+
+        return null;
+      },
+    }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || "",
       clientSecret: process.env.KAKAO_CLIENT_SECRET || "",
