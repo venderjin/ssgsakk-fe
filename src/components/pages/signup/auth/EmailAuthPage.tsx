@@ -52,7 +52,6 @@ const EmailAuthPage = () => {
 
     //정상적으로 발송
     if (res.ok) {
-      console.log(res);
       alert("인증코드가 발송되었습니다.");
       setIsOpen(true);
       setRemainingTime(INIT_TIME);

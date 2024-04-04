@@ -12,22 +12,12 @@ import ErrorMessage from "@/components/UI/ErrorMessage";
 import MarketingAgreeList from "@/components/pages/signup/form/MarketingAgreeList";
 import TextField from "@/components/pages/signup/form/TextField";
 import BeforeSignupAgreement from "@/components/pages/signup/auth/BeforeSignupAgreement";
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { SignupFormData } from "@/types/authType";
 
 type CheckBoxType = {
   [key: string]: boolean;
 };
-
-interface SignupFormData {
-  id: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  phone: string;
-  email: string;
-  zipCode: string;
-}
 
 type Address = {
   zipCode: string;
@@ -61,7 +51,7 @@ const schema = yup.object().shape({
   zipCode: yup.string().required("주소를 입력해주세요"),
 });
 
-const SignupFormComponent = () => {
+const SignupFormComponent = ({ userEmail }: { userEmail: string }) => {
   const router = useRouter();
   const [marketingAgreement, setMarketingAgreement] = useState<CheckBoxType>({
     emailS: false,
@@ -80,9 +70,6 @@ const SignupFormComponent = () => {
     jibunAddress: "",
     detailAddress: "",
   });
-
-  const params = useSearchParams();
-  const userEmail = params.get("userEmail") || "";
 
   const onChangeAgreement = useCallback(() => {
     setAgreement(true);

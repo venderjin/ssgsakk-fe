@@ -1,13 +1,11 @@
-// "use client";
-import React, { Suspense } from "react";
 import SignupForm from "@/components/pages/signup/form/SignupForm";
 
-const Page = () => {
-    return (
-        <Suspense>
-            <SignupForm />;
-        </Suspense>
-    );
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
+}) => {
+  return <SignupForm userEmail={searchParams.userEmail} />;
 };
 
 export default Page;

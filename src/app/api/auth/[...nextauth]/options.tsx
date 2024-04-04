@@ -16,6 +16,7 @@ export const options: NextAuthOptions = {
         if (!credentials?.loginId || !credentials?.password) {
           return null;
         }
+
         const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
           method: "POST",
           headers: {
@@ -28,11 +29,12 @@ export const options: NextAuthOptions = {
         });
 
         const data = await res.json();
+
         if (res.ok) {
           return data.result;
         }
         if (res.status === 409) {
-          return alert(data.message);
+          return null;
         }
 
         return null;
@@ -79,6 +81,7 @@ export const options: NextAuthOptions = {
     },
   },
   pages: {
+    signOut: "/",
     signIn: "/login",
     error: "/auth_error",
   },
