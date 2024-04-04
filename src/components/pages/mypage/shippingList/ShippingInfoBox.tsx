@@ -1,24 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-
-interface ShippingInfo {
-  shippingAddressId: number;
-  addressNickname: string;
-  zipCode: string;
-  roadAddress: string;
-  jibunAddress: string;
-  detailAddress: string;
-  defaultAddressCheck: number;
-}
+import { ShippingInfoType } from "@/types/memberInfoType";
 
 const ShippingInfoBox = ({
   shippingData,
   setCheckedAddressId,
   checkedAddressId,
 }: {
-  shippingData: ShippingInfo;
+  shippingData: ShippingInfoType;
   setCheckedAddressId: (id: number) => void;
   checkedAddressId: number | null;
 }) => {
@@ -27,30 +17,29 @@ const ShippingInfoBox = ({
 
   const modifyHandler = () => {
     router.push(
-      `/mypage/shippingForm?shippingAddressId=${shippingData.shippingAddressId}`
+      `/mypage/shippingForm?shippingAddressSeq=${shippingData.shippingAddressSeq}`
     );
   };
 
   const deleteHandler = async () => {
     if (confirm("선택한 주소를 삭제하시겠습니까?")) {
-      console.log(shippingData.shippingAddressId, "삭제");
-    }
+      const res = await fetch(
+        `${process.env.BASE_URL}/shipping-addr/${shippingData.shippingAddressSeq}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: session?.user?.token || "",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const res = await fetch(
-      `${process.env.BASE_URL}/shipping-adr/${shippingData.shippingAddressId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: session?.user?.token || "",
-          "Content-Type": "application/json",
-        },
+      if (res.ok) {
+        alert("배송지가 삭제되었습니다.");
+        location.reload();
+      } else {
+        alert("배송지 삭제에 실패했습니다.");
       }
-    );
-
-    if (res.ok) {
-      alert("배송지가 삭제되었습니다.");
-    } else {
-      alert("배송지 삭제에 실패했습니다.");
     }
   };
 
@@ -58,15 +47,15 @@ const ShippingInfoBox = ({
     <div className="block">
       <input
         type="radio"
-        checked={shippingData.shippingAddressId === checkedAddressId}
-        onChange={() => setCheckedAddressId(shippingData.shippingAddressId)}
+        checked={shippingData.shippingAddressSeq === checkedAddressId}
+        onChange={() => setCheckedAddressId(shippingData.shippingAddressSeq)}
         className="block absolute left-0 top-[50%] w-[20px] h-[20px]"
       />
 
       <div className="relative block text-[13px] text-[#222]">
         <strong className="block pr-[35px]">
           <span>{shippingData.addressNickname}</span>
-          {shippingData.defaultAddressCheck && (
+          {shippingData.defaultAddressCheck === 1 && (
             <span className="px-[10px] ml-[6px] text-[12px] text-[#fff] bg-primary-red rounded-[10px] py-[1px] font-medium">
               기본배송지
             </span>

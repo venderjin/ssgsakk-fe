@@ -4,7 +4,7 @@ import ErrorMessage from "@/components/UI/ErrorMessage";
 interface ShippingFormData {
   addressNickname: string;
   receiverName: string;
-  receiverPhone: string;
+  receiverMobileNum: string;
   zipCode: string;
 }
 
