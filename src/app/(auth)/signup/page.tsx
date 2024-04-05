@@ -5,13 +5,24 @@ const Page = async ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
+  async function createUser(signupForm: FormData) {
+    "use server";
+    const userForm = {
+      loginId: signupForm.get("id"),
+      userName: signupForm.get("userName"),
+      userEmail: signupForm.get("userEmail"),
+      password: signupForm.get("password"),
+    };
+
+    console.log(userForm);
+  }
+
   return (
-    <>
-      <SignupForm
-        userEmail={searchParams.userEmail}
-        oauthId={searchParams.oauthId}
-      />
-    </>
+    <SignupForm
+      createUser={createUser}
+      userEmail={searchParams.userEmail}
+      oauthId={searchParams.oauthId}
+    />
   );
 };
 

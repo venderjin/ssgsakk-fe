@@ -11,8 +11,16 @@ export const options: NextAuthOptions = {
       credentials: {
         loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
         password: { label: "Password", type: "password" },
+        userName: { label: "userName", type: "text" },
+        token: { label: "token", type: "password" },
       },
       async authorize(credentials) {
+        // 소셜 로그인인 경우
+        // if (credentials?.userName && credentials?.token) {
+        //   return { userName: credentials.userName, token: credentials.token };
+        // }
+
+        //통합 로그인인 경우
         if (!credentials?.loginId || !credentials?.password) {
           return null;
         }
@@ -36,42 +44,6 @@ export const options: NextAuthOptions = {
         if (res.status === 409) {
           return null;
         }
-
-        return null;
-      },
-    }),
-    CredentialsProvider({
-      id: "social-account",
-      name: "Credentials",
-      credentials: {
-        userName: { label: "userName", type: "text" },
-        token: { label: "token", type: "password" },
-      },
-      async authorize(credentials) {
-        console.log("여기야");
-        // if (!credentials?.loginId || !credentials?.password) {
-        //   return null;
-        // }
-
-        // const res = await fetch(`${process.env.BASE_URL}/auth/signin`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     userId: credentials.loginId,
-        //     userPassword: credentials.password,
-        //   }),
-        // });
-
-        // const data = await res.json();
-
-        // if (res.ok) {
-        //   return data.result;
-        // }
-        // if (res.status === 409) {
-        //   return null;
-        // }
 
         return null;
       },

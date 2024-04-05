@@ -7,7 +7,7 @@ export default async function Page() {
     <>
       <BackArrowHeader title="회원가입" />
       <JoinIntroCard />
-      <SimpleJoinList />
+      {/* <SimpleJoinList /> */}
     </>
   );
 }

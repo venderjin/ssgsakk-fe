@@ -1,5 +1,5 @@
-import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
+import SocialSignIn from "@/components/pages/login/SocialSignIn";
 
 const Page = ({
   params,
@@ -9,13 +9,16 @@ const Page = ({
   searchParams: { [key: string]: string | undefined };
 }) => {
   const { state, oAuthId, userName, userEmail, token } = searchParams;
-  console.log(searchParams);
 
   if (state === "2") {
     redirect(`/signup/social?userEmail=${userEmail}&oauthId=${oAuthId}`);
   }
 
-  return <></>;
+  return (
+    <>
+      {userName && token && <SocialSignIn userName={userName} token={token} />}
+    </>
+  );
 };
 
 export default Page;
