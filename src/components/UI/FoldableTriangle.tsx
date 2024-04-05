@@ -13,7 +13,7 @@ const FoldableTriangle = () => {
     };
 
     return (
-        <div onClick={foldHandler} className="bg-red-300 w-[10%] flex justify-center">
+        <div onClick={foldHandler} className="w-[10%] flex justify-center">
             <FlipTriangle width={20} height={20} rotate={rotate} />
         </div>
     );
