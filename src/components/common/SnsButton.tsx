@@ -10,10 +10,6 @@ type Props = {
 export default function SnsButton({ snsType, snsName, iconPosition }: Props) {
   const requestSnsLogin = async (snsType: string) => {
     window.location.href = `https://ssgssak.site/oauth2/authorization/${snsType}`;
-    const params = new URLSearchParams(
-      `https://ssgssak.site/oauth2/authorization/${snsType}`
-    );
-    console.log(params);
   };
 
   return (
