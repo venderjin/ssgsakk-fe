@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client({
   region: process.env.AWS_S3_REGION!,
@@ -9,9 +13,19 @@ const s3Client = new S3Client({
   },
 });
 
+async function deleteFileToS3(fileName: string) {
+  const params = {
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: `${fileName}`,
+  };
+
+  const command = new DeleteObjectCommand(params);
+  await s3Client.send(command);
+  return fileName;
+}
+
 async function uploadFileToS3(file: Buffer, fileName: string) {
   const fileBuffer = file;
-  console.log(fileName);
 
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,

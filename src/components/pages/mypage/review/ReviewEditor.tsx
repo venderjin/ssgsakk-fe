@@ -131,7 +131,9 @@ const ReviewEditor = ({
             {/* <li key={index}> */}
             <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
               <Image
-                src={`${process.env.REVIEW_IMAGE}/1712233632336_1`}
+                src={
+                  "https://ssgsakk-bucket.s3.ap-northeast-2.amazonaws.com/review/1712233632336_1"
+                }
                 alt="첨부이미지"
                 fill={true}
                 sizes="(max-width: 600px) 100vw, 600px"
