@@ -51,7 +51,7 @@ const CategoryList = () => {
                                                 className="font-Pretendard text-[14px] min-h-[38px] pl-[12px] pr-[13px] tracking-tight flex items-center"
                                                 key={idx}
                                             >
-                                                <Link href={`/category/${item.categorySeq}`}>{item.categoryName}</Link>
+                                                <Link href={`/category/${item.categorySeq}?parents=${category.id}`}>{item.categoryName}</Link>
                                             </li>
                                         ))}
                                     </ul>
