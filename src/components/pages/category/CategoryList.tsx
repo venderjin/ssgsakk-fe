@@ -44,7 +44,7 @@ const CategoryList = () => {
                                 <div className="absolute left-0 w-full ">
                                     <ul className="bg-[#f5f5f5] my-[5px] grid grid-cols-2 pl-[13px] pt-[12px] pr-[12px] pb-[20px]">
                                         <li className="font-Pretendard text-[14px] min-h-[38px] pl-[12px] pr-[13px] tracking-tight flex items-center">
-                                            <Link href={`/category/${category.id}?big=${category.id}`}>상품전체보기</Link>
+                                            <Link href={`/category/${category.id}?big=${category.id}&mid=total`}>상품전체보기</Link>
                                         </li>
                                         {middleCategory.map((item, idx) => (
                                             <li

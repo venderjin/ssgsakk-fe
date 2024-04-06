@@ -2,8 +2,10 @@ import Footer from "@/components/layouts/Footer";
 import TopHeader from "@/components/layouts/TopHeader";
 import CategoryHeader from "@/components/pages/category/CategoryHeader";
 import CategoryProductList from "@/components/pages/category/CategoryProductList";
+import BottomNav from "@/components/layouts/BottomNav";
 import FloatingLeft from "@/components/UI/FloatingLeft";
 import React from "react";
+import FloatingUp from "@/components/UI/FloatingUp";
 
 async function GetCategoryProductList(categorySeq: number) {
     const res = await fetch(`${process.env.BASE_URL}/products/filter?categorySeq=${categorySeq}`, { cache: "no-store" });
@@ -29,6 +31,8 @@ export default async function Page({
             <TopHeader />
             <CategoryHeader categorySeq={params.categoryId} bigCategorySeq={big as string} midCategorySeq={mid as string} smallCategorySeq={small as string} />
             <CategoryProductList categorySeqList={categoryProductList} />
+            <BottomNav />
+            <FloatingUp />
             <FloatingLeft />
             <Footer />
         </>

@@ -1,6 +1,3 @@
-// "use client";
-// import React, { useState } from "react";
-
 import RouterBackArrow from "@/components/UI/RouterBackArrow";
 import HeartIcon from "@/components/UI/HeartIcon";
 import Share from "@/components/images/Share";
@@ -14,32 +11,59 @@ interface CategoryInheritance {
     smallCategorySeq?: string;
 }
 
+interface SiblingCategory {
+    categoryName: string;
+    level: number;
+    categorySeq: number;
+}
+[];
+
 async function GetCategoryInfo(categorySeq: number) {
     const res = await fetch(`${process.env.BASE_URL}/category/search/${categorySeq}`, { cache: "no-store" });
     const data = await res.json();
     return data.result[0];
 }
 
-// async function GetSiblingCategoryInfo(categorySeq: number, categoryLevel: number) {
-
-// }
+async function GetChildCategoryInfo(categorySeq: number, categoryLevel: number) {
+    if (categoryLevel === 1) {
+        const res = await fetch(`${process.env.BASE_URL}/category/mid-by-big?parentCategoryId=${categorySeq}`, { cache: "no-store" });
+        const data = await res.json();
+        return data.result;
+    } else if (categoryLevel === 2) {
+        const res = await fetch(`${process.env.BASE_URL}/category/small-by-mid?parentCategoryId=${categorySeq}`, { cache: "no-store" });
+        const data = await res.json();
+        return data.result;
+    }
+}
 
 const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, smallCategorySeq }: CategoryInheritance) => {
     let parents = undefined;
     let child = undefined;
-    if (midCategorySeq === undefined && smallCategorySeq === undefined) {
-        parents = await GetCategoryInfo(bigCategorySeq as unknown as number);
+    let sibling = undefined;
+    if (bigCategorySeq !== undefined && midCategorySeq === "total" && smallCategorySeq === undefined) {
+        // 대분류 카테고리 exist & 중분류 카테고리 전체보기 & 소분류 카테고리 없음
+        parents = await GetCategoryInfo(Number(bigCategorySeq));
         child = "전체보기";
-    } else if (smallCategorySeq === undefined) {
-        parents = await GetCategoryInfo(bigCategorySeq as unknown as number);
-        child = await GetCategoryInfo(midCategorySeq as unknown as number);
-    } else {
-        parents = await GetCategoryInfo(midCategorySeq as unknown as number);
-        child = await GetCategoryInfo(smallCategorySeq as unknown as number);
+        sibling = await GetChildCategoryInfo(Number(bigCategorySeq), 1);
+    } else if (bigCategorySeq !== undefined && midCategorySeq !== undefined && smallCategorySeq === undefined) {
+        // 대분류 카테고리 exist & 중분류 카테고리 exist & 소분류 카테고리 없음
+        parents = await GetCategoryInfo(Number(bigCategorySeq));
+        child = await GetCategoryInfo(Number(midCategorySeq));
+        sibling = await GetChildCategoryInfo(Number(bigCategorySeq), 1);
+    } else if (bigCategorySeq !== undefined && midCategorySeq !== undefined && smallCategorySeq === "total") {
+        // 대분류 카테고리 exist & 중분류 카테고리 exist & 소분류 카테고리 전체보기
+        parents = await GetCategoryInfo(Number(midCategorySeq));
+        child = "전체보기";
+        sibling = await GetChildCategoryInfo(Number(midCategorySeq), 2);
+    } else if (bigCategorySeq !== undefined && midCategorySeq !== undefined && smallCategorySeq !== undefined) {
+        // 대분류 카테고리 exist & 중분류 카테고리 exist & 소분류 카테고리 exist
+        parents = await GetCategoryInfo(Number(midCategorySeq));
+        child = await GetCategoryInfo(Number(smallCategorySeq));
+        sibling = await GetChildCategoryInfo(Number(midCategorySeq), 2);
     }
 
-    // console.log("parents = ", parents);
-    // console.log("child = ", child);
+    console.log(child);
+    console.log(sibling);
 
     return (
         <>
@@ -53,6 +77,25 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
                 </div>
                 <HeartIcon width={20} height={20} />
                 <Share width={24} height={24} />
+            </div>
+            <div className="h-[50px] flex flex-row items-center px-[16px] gap-2 overflow-x-auto">
+                <div
+                    className={`flex h-[70%] px-3 items-center text-center whitespace-nowrap font-Pretendard text-[13px]
+                ${child == "전체보기" ? "bg-black text-white" : "bg-gray-100"}
+                `}
+                >
+                    전체보기
+                </div>
+                {sibling.map((sibling: SiblingCategory) => (
+                    <div
+                        key={sibling.categorySeq}
+                        className={`flex h-[70%] px-3 items-center text-center whitespace-nowrap font-Pretendard text-[13px]
+                        ${child.categoryName == sibling.categoryName ? "bg-black text-white" : "bg-gray-100"}
+                        `}
+                    >
+                        {sibling.categoryName}
+                    </div>
+                ))}
             </div>
         </>
     );
