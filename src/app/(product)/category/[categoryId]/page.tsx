@@ -31,10 +31,10 @@ export default async function Page({
             <TopHeader />
             <CategoryHeader categorySeq={params.categoryId} bigCategorySeq={big as string} midCategorySeq={mid as string} smallCategorySeq={small as string} />
             <CategoryProductList categorySeqList={categoryProductList} />
-            <BottomNav />
             <FloatingUp />
             <FloatingLeft />
             <Footer />
+            <BottomNav />
         </>
     );
 }

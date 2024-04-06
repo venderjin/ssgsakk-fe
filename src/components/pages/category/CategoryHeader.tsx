@@ -3,6 +3,9 @@ import HeartIcon from "@/components/UI/HeartIcon";
 import Share from "@/components/images/Share";
 import RightArrow from "@/components/images/RightArrow";
 import FoldableTriangle from "@/components/UI/FoldableTriangle";
+import React from "react";
+import CategoryNavigation from "@/components/pages/category/CategoryNavigation";
+import CategorySmall from "@/components/pages/category/CategorySmall";
 
 interface CategoryInheritance {
     categorySeq: number;
@@ -10,13 +13,6 @@ interface CategoryInheritance {
     midCategorySeq?: string;
     smallCategorySeq?: string;
 }
-
-interface SiblingCategory {
-    categoryName: string;
-    level: number;
-    categorySeq: number;
-}
-[];
 
 async function GetCategoryInfo(categorySeq: number) {
     const res = await fetch(`${process.env.BASE_URL}/category/search/${categorySeq}`, { cache: "no-store" });
@@ -62,41 +58,32 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
         sibling = await GetChildCategoryInfo(Number(midCategorySeq), 2);
     }
 
-    console.log(child);
-    console.log(sibling);
-
     return (
         <>
-            <div className="bg-red-200 w-full h-[50px] flex flex-row items-center px-[16px] justify-between gap-2">
-                <RouterBackArrow />
-                <div className="px-[10px] flex flex-1 flex-row items-center">
-                    <p className="mr-2 font-Pretendard text-[14px]">{parents.categoryName}</p>
+            <div className="w-full h-[50px] flex flex-row items-center px-[16px] justify-between gap-2">
+                <div className="flex justify-center items-center">
+                    <RouterBackArrow />
+                </div>
+
+                <div className="pl-[10px] w-[75%] flex flex-row items-center ">
+                    <p className="mr-2  font-Pretendard text-[14px] truncate ">{parents.categoryName}</p>
                     <RightArrow width={13} height={13} />
-                    <p className="ml-2 mr-1 font-Pretendard text-[14px] font-bold">{child == "전체보기" ? child : child.categoryName}</p>
+                    <p className="ml-2 mr-1  font-Pretendard text-[14px] font-bold truncate">{child == "전체보기" ? child : child.categoryName}</p>
                     <FoldableTriangle />
                 </div>
-                <HeartIcon width={20} height={20} />
-                <Share width={24} height={24} />
-            </div>
-            <div className="h-[50px] flex flex-row items-center px-[16px] gap-2 overflow-x-auto">
-                <div
-                    className={`flex h-[70%] px-3 items-center text-center whitespace-nowrap font-Pretendard text-[13px]
-                ${child == "전체보기" ? "bg-black text-white" : "bg-gray-100"}
-                `}
-                >
-                    전체보기
+                <div className="flex justify-center items-center gap-1">
+                    <HeartIcon width={20} height={20} />
+                    <Share width={24} height={24} />
                 </div>
-                {sibling.map((sibling: SiblingCategory) => (
-                    <div
-                        key={sibling.categorySeq}
-                        className={`flex h-[70%] px-3 items-center text-center whitespace-nowrap font-Pretendard text-[13px]
-                        ${child.categoryName == sibling.categoryName ? "bg-black text-white" : "bg-gray-100"}
-                        `}
-                    >
-                        {sibling.categoryName}
-                    </div>
-                ))}
             </div>
+            <CategoryNavigation
+                child={child}
+                sibling={sibling}
+                big={bigCategorySeq as string}
+                mid={midCategorySeq as string}
+                small={smallCategorySeq as string}
+            />
+            {midCategorySeq !== "total" && <CategorySmall midCategorySeq={midCategorySeq as unknown as number} />}
         </>
     );
 };
