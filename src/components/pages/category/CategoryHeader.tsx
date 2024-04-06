@@ -20,6 +20,10 @@ async function GetCategoryInfo(categorySeq: number) {
     return data.result[0];
 }
 
+// async function GetSiblingCategoryInfo(categorySeq: number, categoryLevel: number) {
+
+// }
+
 const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, smallCategorySeq }: CategoryInheritance) => {
     let parents = undefined;
     let child = undefined;
@@ -34,12 +38,12 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
         child = await GetCategoryInfo(smallCategorySeq as unknown as number);
     }
 
-    console.log("parents = ", parents);
-    console.log("child = ", child);
+    // console.log("parents = ", parents);
+    // console.log("child = ", child);
 
     return (
         <>
-            <div className="w-full h-[45px] flex flex-row items-center px-[16px] justify-between gap-2">
+            <div className="bg-red-200 w-full h-[50px] flex flex-row items-center px-[16px] justify-between gap-2">
                 <RouterBackArrow />
                 <div className="px-[10px] flex flex-1 flex-row items-center">
                     <p className="mr-2 font-Pretendard text-[14px]">{parents.categoryName}</p>
