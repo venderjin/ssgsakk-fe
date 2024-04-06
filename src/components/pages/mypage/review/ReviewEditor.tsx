@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
+import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
 
 interface ReviewForm {
   content: string;
@@ -8,13 +9,16 @@ interface ReviewForm {
 }
 
 const ReviewEditor = ({
-  saveReviewForm,
+  createReview,
+  type,
 }: {
-  saveReviewForm: (reviewData: ReviewForm) => void;
+  createReview: (reviewForm: FormData) => void;
+  type: string;
 }) => {
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
+  const [reviewRating, setReviewRaing] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,19 +48,31 @@ const ReviewEditor = ({
       });
 
       const data = await response.json();
-      console.log(data);
+      if (response.ok) setImages([...images, data.fileName]);
     } catch (error) {
       console.log(error);
     }
-
-    //const file = URL.createObjectURL(targetFilesArray[0]);
-    //const updateImages = [...images, file];
-    //setImages(updateImages);
   };
 
-  const deleteHandler = (index: number) => {
-    const updateImages = images.filter((_, i) => i !== index);
-    setImages(updateImages);
+  const deleteHandler = async (index: number) => {
+    const fileName = images[index];
+
+    const formData = new FormData();
+    formData.append("fileName", fileName);
+
+    try {
+      const response = await fetch("/api/s3-upload", {
+        method: "DELETE",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const updateImages = images.filter((_, i) => i !== index);
+        setImages(updateImages);
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -65,12 +81,27 @@ const ReviewEditor = ({
 
   const submitHandler = () => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
+    if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
-    saveReviewForm({ content, images });
+    const imageData = images.map((imageName, index) => ({
+      priority: index,
+      imageUrl: imageName,
+    }));
+
+    const formData = new FormData();
+    formData.append("content", content);
+    formData.append("images", JSON.stringify(imageData));
+    formData.append("rating", reviewRating.toString());
+
+    createReview(formData);
   };
 
   return (
-    <div className="px-[15px]">
+    <div className="px-[15px] font-Pretendard ">
+      <hr className="border-t border-t-[#e5e5e5]" />
+      {/* 리뷰 작성 별점 */}
+      <ReviewStar setReviewRaing={setReviewRaing} />
+
       <h3 className="text-primary-red text-[14px] font-bold text-left pt-[30px] pb-[10px]">
         상품의 어떤 점이 좋았나요?
       </h3>
@@ -127,24 +158,22 @@ const ReviewEditor = ({
 
         <div className="mt-[20px]">
           <ul className="flex gap-2">
-            {/* {images.map((image, index) => ( */}
-            {/* <li key={index}> */}
-            <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
-              <Image
-                src={
-                  "https://ssgsakk-bucket.s3.ap-northeast-2.amazonaws.com/review/1712233632336_1"
-                }
-                alt="첨부이미지"
-                fill={true}
-                sizes="(max-width: 600px) 100vw, 600px"
-              />
-              <div
-                // onClick={() => deleteHandler(index)}
-                className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]"
-              />
-            </div>
-            {/* </li> */}
-            {/* ))} */}
+            {images.map((image, index) => (
+              <li key={index}>
+                <div className="overflow-hidden relative w-[80px] min-h-[80px] rounded-[8px] flex-shrink: 0">
+                  <Image
+                    src={`${process.env.REVIEW_IMAGE_URL}${image}`}
+                    alt="첨부이미지"
+                    fill={true}
+                    sizes="(max-width: 600px) 100vw, 600px"
+                  />
+                  <div
+                    onClick={() => deleteHandler(index)}
+                    className="absolute top-[7px] right-[5px] bg-review-icon bg-[position:-104px_-54px] bg-[length:220px_179px] w-[25px] h-[25px] mr-[5px]"
+                  />
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -154,7 +183,7 @@ const ReviewEditor = ({
           onClick={submitHandler}
           className="bg-[#222] text-[#fbfbfb] text-[15px] rounded-[8px] h-[40px] w-full"
         >
-          등록
+          {type === "write" ? "등록" : "수정"}
         </button>
       </div>
     </div>

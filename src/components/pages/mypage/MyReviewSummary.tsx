@@ -1,6 +1,24 @@
 import Link from "next/link";
+import WritableReviewSummary from "@/components/pages/mypage/review/WritableReviewSummary";
+
+//작성가능한 리뷰 리스트 가져오기
+const getWriteableReviewList = async () => {
+  const res = await fetch(`http://localhost:3300/writableReviewList`, {
+    cache: "no-store",
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    return data.slice(0, 3);
+  }
+  if (!res.ok) {
+    throw new Error("network error");
+  }
+};
 
 const MyReviewSummary = async () => {
+  const reviewList = await getWriteableReviewList();
+
   return (
     <div className="px-[16px] pb-[50px]">
       <div className="flex items-center justify-between">
@@ -30,7 +48,7 @@ const MyReviewSummary = async () => {
             className="w-full flex justify-center items-center "
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">일반</span>
-            <strong className="text-[#cfcfcf]">0</strong>
+            <strong className="text-[#cfcfcf]">{reviewList.length}</strong>
           </Link>
           <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
           <Link
@@ -43,9 +61,7 @@ const MyReviewSummary = async () => {
         </div>
       </div>
 
-      <p className="mt-[50px] text-[14px] text-[#969696] text-center">
-        당신의 소중한 리뷰를 기다립니다.
-      </p>
+      <WritableReviewSummary reviewList={reviewList} />
     </div>
   );
 };

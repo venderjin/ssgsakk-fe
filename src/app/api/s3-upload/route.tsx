@@ -13,17 +13,6 @@ const s3Client = new S3Client({
   },
 });
 
-async function deleteFileToS3(fileName: string) {
-  const params = {
-    Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: `${fileName}`,
-  };
-
-  const command = new DeleteObjectCommand(params);
-  await s3Client.send(command);
-  return fileName;
-}
-
 async function uploadFileToS3(file: Buffer, fileName: string) {
   const fileBuffer = file;
 
@@ -35,6 +24,18 @@ async function uploadFileToS3(file: Buffer, fileName: string) {
   };
 
   const command = new PutObjectCommand(params);
+  await s3Client.send(command);
+  return fileName;
+}
+
+async function deleteFileToS3(fileName: string) {
+  console.log(fileName);
+  const params = {
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: fileName,
+  };
+
+  const command = new DeleteObjectCommand(params);
   await s3Client.send(command);
   return fileName;
 }
@@ -55,6 +56,25 @@ export async function POST(request: any) {
     const fileName = await uploadFileToS3(buffer, imgName);
 
     return NextResponse.json({ success: true, fileName });
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
+}
+
+export async function DELETE(request: any) {
+  try {
+    const formData = await request.formData();
+    const fileName = formData.get("fileName");
+
+    if (!fileName) {
+      return NextResponse.json(
+        { error: "fileName is required." },
+        { status: 400 }
+      );
+    }
+
+    await deleteFileToS3(fileName);
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error });
   }

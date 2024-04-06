@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import ManageShippingList from "@/components/pages/mypage/shippingList/ManageShippingList";
 import ManageShippingListTitle from "@/components/pages/mypage/shippingList/ManageShippingListTitle";
 import Footer from "@/components/layouts/Footer";
 import { ShippingInfoType } from "@/types/memberInfoType";
+import { getServerToken } from "@/actions/getServerToken";
 
 const fetchShippingList = async (token: string) => {
   const res = await fetch(`${process.env.BASE_URL}/shipping-addr/list`, {
@@ -61,13 +60,11 @@ const getShippingData = async (shippingAddressSeq: number[], token: string) => {
 };
 
 const ShippingList = async () => {
-  const session = await getServerSession(options);
-  const shippingAddressList = await fetchShippingList(
-    session?.user?.token || ""
-  );
+  const session = await getServerToken();
+  const shippingAddressList = await fetchShippingList(session);
   const shippingData: ShippingInfoType[] = await getShippingData(
     shippingAddressList,
-    session?.user?.token || ""
+    session
   );
 
   return (
