@@ -9,9 +9,9 @@ const MyLikePage = () => {
         <>
             <BackArrowHeader title="좋아요" />
             <LikeHeader />
-            <BottomNav />
             <FloatingLeft />
             <FloatingUp />
+            <BottomNav />
         </>
     );
 };
