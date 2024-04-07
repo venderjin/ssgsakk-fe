@@ -25,18 +25,23 @@ async function fetchProductList(productId: number) {
     return data.result;
 }
 
-const ProductListCard = async ({ productSeq }: { productSeq: number }) => {
+const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?: number }) => {
     const productData: ProductData = await fetchProductList(productSeq);
 
     return (
         <>
             <div className="h-[350px] my-3 flex justify-start flex-col">
-                <div className="w-auto h-auto">
+                <div className="w-auto h-auto relative">
                     <Link href={`/products/${productSeq}`}>
                         <Image src={productData.contentsUrl.contentUrl} alt="productImage" width={200} height={200} />
                     </Link>
+                    {best && (
+                        <div className="bg-[#222222] bg-opacity-70 absolute top-0 right-0 w-[20px] h-[20px] flex justify-center items-center">
+                            <p className="font-Pretendard text-center text-[11px] text-white">{best.toString().padStart(2, "0")}</p>
+                        </div>
+                    )}
                 </div>
-                <div className=" flex flex-row gap-2 justify-between py-2 items-center ">
+                <div className=" flex flex-row gap-2 justify-between py-2 items-center">
                     <DeliveryLabel deliveryType={productData.deliveryType} />
                     <div className="flex flex-row gap-2 items-center">
                         <HeartIcon productSeq={productSeq} />

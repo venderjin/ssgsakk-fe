@@ -1,45 +1,32 @@
-"use client";
-import React, { useState, useEffect } from "react";
+// "use client";
+// import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import HeartIcon from "@/components/UI/HeartIcon";
 import Cart from "@/components/images/Cart";
 
 async function getProductData() {
-  const res = await fetch("https://dummyjson.com/products");
-  const data = await res.json();
-  return data;
+    const res = await fetch(`${process.env.BASE_URL}/events`);
+    const data = await res.json();
+    console.log(data.result);
+    return data.result;
 }
 
 interface EventProductListProps {
-  visiableProductList?: number;
+    visiableProductList?: number;
 }
 
-const EventProductList: React.FC<EventProductListProps> = ({
-  visiableProductList,
-}) => {
-  interface Product {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    brand: string;
-    thumbnail: string;
-  }
+interface EventProductList {
+    prodcutSeq: number;
+}
+[];
+const EventProductList = async ({ visiableProductList }: EventProductListProps) => {
+    console.log(visiableProductList);
+    const eventProductList = await getProductData();
+    console.log(eventProductList);
 
-  const [data, setData] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getProductData();
-      if (visiableProductList === undefined) setData(result.products);
-      else setData(result.products.slice(0, visiableProductList));
-    };
-    fetchData();
-  }, [visiableProductList]);
-
-  return (
-    <div className="bg-white">
-      {data &&
+    return (
+        <div className="bg-white">
+            {/* {data &&
         Array.isArray(data) &&
         data.map((item: any) => (
           <div key={item.id} className="px-3 mb-3">
@@ -80,9 +67,9 @@ const EventProductList: React.FC<EventProductListProps> = ({
               </div>
             </div>
           </div>
-        ))}
-    </div>
-  );
+        ))} */}
+        </div>
+    );
 };
 
 export default EventProductList;
