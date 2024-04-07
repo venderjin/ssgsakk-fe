@@ -1,53 +1,67 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, Fragment } from "react";
+import { useRouter } from "next/navigation";
 
-interface CategorySmallProps {
-    midCategorySeq: number;
+interface SmallCategoryProps {
+    big: string;
+    mid: string;
+    small: string;
+    smallCategory: SmallCategory[];
 }
 
 interface SmallCategory {
     categoryName: string;
-    level: number;
-    categorySeq: number;
+    level: number | null;
+    categorySeq: number | null;
 }
+[];
 
-async function GetSmallCategoryInfo(categorySeq: number) {
-    const res = await fetch(`${process.env.BASE_URL}/category/small-by-mid?parentCategoryId=${categorySeq}`, { cache: "no-store" });
-    const data = await res.json();
-    return data.result;
-}
+const CategorySmall = ({ smallCategory, big, mid, small }: SmallCategoryProps) => {
+    const router = useRouter();
 
-function chunkArray<T>(array: T[], chunkSize: number): T[][] {
-    const results = [];
-    while (array.length) {
-        const chunk: T[] = array.splice(0, chunkSize);
-        while (chunk.length < chunkSize) {
-            chunk.push({ categoryName: "null", level: null, categorySeq: null } as T); // 빈 요소 추가
+    const remainder = 3 - (smallCategory.length % 3); // 3의 배수가 아닌 나머지 계산
+    const extendedCategories: SmallCategory[] = smallCategory.slice(); // 기존 데이터 복사
+    if (remainder < 3) {
+        for (let i = 0; i < remainder; i++) {
+            extendedCategories.push({ categoryName: "null", level: null, categorySeq: null }); // 나머지 만큼 null 데이터 추가
         }
-        results.push(chunk);
     }
-    return results;
-}
 
-const CategorySmall = async ({ midCategorySeq }: CategorySmallProps) => {
-    const smallCategoryInfo = await GetSmallCategoryInfo(midCategorySeq);
-    const chunkedSmallCategoryInfo: SmallCategory[][] = chunkArray(smallCategoryInfo, 3);
+    // 데이터를 3열로 나누어 배열로 그룹화합니다.
+    const groupedCategories: SmallCategory[][] = extendedCategories.reduce((acc: SmallCategory[][], category: SmallCategory, index: number) => {
+        const chunkIndex: number = Math.floor(index / 3); // 3으로 나눈 몫을 인덱스로 사용하여 그룹을 만듭니다.
+        if (!acc[chunkIndex]) {
+            acc[chunkIndex] = []; // 새 그룹을 만듭니다.
+        }
+        acc[chunkIndex].push(category); // 현재 요소를 현재 그룹에 추가합니다.
+        return acc;
+    }, []);
+
+    const handleClick = (categorySeq: number) => {
+        router.push(`/category/${categorySeq}?big=${big}&mid=${mid}&small=${categorySeq}`);
+    };
 
     return (
-        <div>
-            {chunkedSmallCategoryInfo.map((chunk: SmallCategory[], i) => (
-                <div key={i} className="flex flex-row">
-                    {chunk.map((item, j) => (
-                        <p
-                            key={j}
-                            className={`flex-1 border-[1px] px-[15px] py-3 font-Pretendard text-[13px] border-gray-100 truncate ${
-                                item.categoryName === "null" ? "text-transparent" : ""
-                            }`}
-                        >
-                            {item.categoryName}
-                        </p>
+        <div className="w-[100%]">
+            <table className="w-[100%]">
+                <tbody>
+                    {groupedCategories.map((row: SmallCategory[], rowIndex: number) => (
+                        <tr key={rowIndex} className="flex">
+                            {row.map((category: SmallCategory, columnIndex: number) => (
+                                <td
+                                    onClick={() => handleClick(category.categorySeq as number)}
+                                    key={columnIndex}
+                                    className={`flex-1 px-[15px] py-3 border-[1px]
+                                                font-Pretendard text-[13px] border-gray-200 
+                                                truncate ${category.categoryName === "null" ? "text-transparent" : ""}`}
+                                >
+                                    {category.categoryName}
+                                </td>
+                            ))}
+                        </tr>
                     ))}
-                </div>
-            ))}
+                </tbody>
+            </table>
         </div>
     );
 };

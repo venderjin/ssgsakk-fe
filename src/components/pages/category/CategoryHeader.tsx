@@ -32,10 +32,17 @@ async function GetChildCategoryInfo(categorySeq: number, categoryLevel: number) 
     }
 }
 
+async function GetSmallCategoryInfo(categorySeq: number) {
+    const res = await fetch(`${process.env.BASE_URL}/category/small-by-mid?parentCategoryId=${categorySeq}`, { cache: "no-store" });
+    const data = await res.json();
+    return data.result;
+}
+
 const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, smallCategorySeq }: CategoryInheritance) => {
     let parents = undefined;
     let child = undefined;
     let sibling = undefined;
+    let smallCategoryInfo = undefined;
     if (bigCategorySeq !== undefined && midCategorySeq === "total" && smallCategorySeq === undefined) {
         // 대분류 카테고리 exist & 중분류 카테고리 전체보기 & 소분류 카테고리 없음
         parents = await GetCategoryInfo(Number(bigCategorySeq));
@@ -58,8 +65,12 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
         sibling = await GetChildCategoryInfo(Number(midCategorySeq), 2);
     }
 
+    if (midCategorySeq !== "total") {
+        smallCategoryInfo = await GetSmallCategoryInfo(Number(midCategorySeq));
+    }
+
     return (
-        <>
+        <div>
             <div className="w-full h-[50px] flex flex-row items-center px-[16px] justify-between gap-2">
                 <div className="flex justify-center items-center">
                     <RouterBackArrow />
@@ -83,8 +94,10 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
                 mid={midCategorySeq as string}
                 small={smallCategorySeq as string}
             />
-            {midCategorySeq !== "total" && <CategorySmall midCategorySeq={midCategorySeq as unknown as number} />}
-        </>
+            {midCategorySeq !== "total" && smallCategorySeq == undefined ? (
+                <CategorySmall smallCategory={smallCategoryInfo} big={bigCategorySeq as string} mid={midCategorySeq as string} small={smallCategorySeq ?? ""} />
+            ) : null}
+        </div>
     );
 };
 

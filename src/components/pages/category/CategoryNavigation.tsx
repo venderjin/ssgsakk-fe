@@ -64,7 +64,7 @@ const CategoryNavigation = ({ child, sibling, big, mid, small }: CategoryNavigat
             </div>
             {sibling.map((sibling: SiblingCategory) => (
                 <div
-                    ref={typeof child !== "string" && child.categoryName == sibling.categoryName ? activeRef : null}
+                    ref={typeof child !== "string" && child.categoryName == sibling.categoryName ? (activeRef as React.RefObject<HTMLDivElement>) : null}
                     onClick={() => navToSibling(sibling.categorySeq)}
                     key={sibling.categorySeq}
                     className={`flex h-[70%] px-3 items-center text-center whitespace-nowrap font-Pretendard text-[13px]
