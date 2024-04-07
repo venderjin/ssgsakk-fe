@@ -32,6 +32,8 @@ const config: Config = {
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/line_xdot_d9d9d9.gif')",
         "review-icon":
           "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_myssg_review_20240208@2x.png')",
+        "tool-icon":
+          "url('https://sui.ssgcdn.com/ui/m_ssg/img/sprites/sp_mnodr_20211124@2x.png')",
       },
       fontFamily: {
         Pretendard: ["Pretendard"],
