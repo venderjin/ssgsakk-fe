@@ -5,6 +5,10 @@ import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
+import ProductReview from "@/components/pages/products/detail/ProductReview";
+import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
+import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
+
 import "./productDetail.css";
 
 async function getProductData(productId: number) {
@@ -33,16 +37,10 @@ const page = async ({ params }: { params: { productId: number } }) => {
       <TopHeader />
       <ProductPageSwitchHeader />
       <ImageSlider imageList={productData.contents} />
-      <ProductInformation
-        productId={productData.productId}
-        vendor={productData.vendor}
-        productName={productData.productName}
-        productPrice={productData.productPrice}
-        discountPercent={productData.discountPercent}
-        reviewCount={productData.reviewCount}
-        averageRating={productData.averageRating}
-        productDescription={productData.productDescription}
-      />
+      <ProductInformation productData={productData} />
+      <ProductReview />
+      <QuestionAndAnswer />
+      <ProductCatogoryCard />
       <BottomActionButtons
         productId={params.productId}
         productName={productData.productName}

@@ -4,6 +4,7 @@ import UniverseBanner from "./UniverseBanner";
 import ReviewReference from "./ReviewReference";
 import ProductPrice from "@/components/pages/products/detail/ProductPrice";
 import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailInfo";
+import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 
 type ProductData = {
   productId: number;
@@ -16,16 +17,7 @@ type ProductData = {
   productDescription: string;
 };
 
-const ProductInformation = ({
-  productId,
-  vendor,
-  productName,
-  productPrice,
-  discountPercent,
-  reviewCount,
-  averageRating,
-  productDescription,
-}: ProductData) => {
+const ProductInformation = ({ productData }: { productData: ProductData }) => {
   return (
     <>
       {/* 상품 요약 상단 */}
@@ -42,29 +34,32 @@ const ProductInformation = ({
         <div className="my-[15px] px-[16px]">
           {/* -------------상품명------------- */}
           <h2 className="text-[16px] text-[#222222]">
-            <div className="font-bold text-[13px] mb-[10px]">
-              {/* <Link href={"/"}>{productData.vendor}</Link> */}
+            <div className="font-bold text-[13px] mb-[10px] flex items-center">
+              <Link href={"/"}>{productData.vendor}</Link>
+              <RightHalfTriangle />
             </div>
-            <span className="text-[16px] text-[#222222]">{productName}</span>
+            <span className="text-[16px] text-[#222222]">
+              {productData.productName}
+            </span>
           </h2>
 
           <ProductPrice
-            productPrice={productPrice}
-            discountPer={discountPercent}
+            productPrice={productData.productPrice}
+            discountPer={productData.discountPercent}
           />
           <UniverseBanner />
-          {reviewCount > 0 && (
+          {productData.reviewCount > 0 && (
             <ReviewReference
-              productId={productId}
-              reviewCount={reviewCount}
-              averageRating={averageRating}
+              productId={productData.productId}
+              reviewCount={productData.reviewCount}
+              averageRating={productData.averageRating}
             />
           )}
         </div>
       </div>
 
       {/* 상품 상세 */}
-      <ProductDetailInfo productDescription={productDescription} />
+      <ProductDetailInfo productDescription={productData.productDescription} />
     </>
   );
 };

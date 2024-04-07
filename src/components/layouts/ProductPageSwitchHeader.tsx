@@ -5,6 +5,26 @@ import Link from "next/link";
 
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
+  const links = [
+    {
+      id: 1,
+      name: "상세",
+      targetId: "productDetail",
+      count: "",
+    },
+    {
+      id: 2,
+      name: "리뷰",
+      targetId: "reviews",
+      count: 12,
+    },
+    {
+      id: 3,
+      name: "Q&A",
+      targetId: "qna",
+      count: 6,
+    },
+  ];
 
   const onScroll = useCallback(() => {
     const { scrollY } = window;
@@ -19,6 +39,10 @@ const ProductPageSwitchHeader = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, [onScroll]);
+
+  const handleClick = (targetId: string) => {
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
@@ -47,34 +71,28 @@ const ProductPageSwitchHeader = () => {
 
         <div className="w-full h-full  font-Pretendard">
           <ul className="flex h-full items-center justify-center pr-[11px] pl-[12px] text-center text-[14px]">
-            <li className="w-[55px] h-full pt-[15px] pr-[7px] pl-[8px]">
-              <Link
-                href={"/"}
-                className="font-bold text-[#222222] tracking-tight"
+            {links.map((link, index) => (
+              <li
+                key={link.id}
+                className={`w-[55px] h-full pt-[15px] pr-[7px] pl-[8px] ${
+                  index === 0 ? "" : "pt-[18px]"
+                }`}
               >
-                상세
-              </Link>
-            </li>
-
-            <li className="w-[55px] h-full pt-[18px] pr-[7px] pl-[8px]">
-              <Link
-                href={"/"}
-                className="flex flex-col font-bold text-[#222222] leading-none tracking-tight"
-              >
-                리뷰
-                <span className="text-[10px] text-[#999] mt-[-1px]">12</span>
-              </Link>
-            </li>
-
-            <li className="w-[55px] h-full pt-[18px] pr-[7px] pl-[8px]">
-              <Link
-                href={"/"}
-                className="flex flex-col font-bold text-[#222222] leading-none tracking-tight"
-              >
-                Q&A
-                <span className="text-[10px] text-[#999] mt-[-1px]">6</span>
-              </Link>
-            </li>
+                <button
+                  onClick={() => handleClick(link.targetId)}
+                  className={`font-bold text-[#222222] tracking-tight ${
+                    index === 0 ? "" : "flex flex-col leading-none items-center"
+                  }`}
+                >
+                  {link.name}
+                  {link.count && (
+                    <span className="text-[10px] text-[#999] mt-[-1px]">
+                      {link.count}
+                    </span>
+                  )}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
 

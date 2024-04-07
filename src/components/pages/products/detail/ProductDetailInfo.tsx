@@ -15,19 +15,20 @@ const ProductDetailInfo = ({
   useEffect(() => {
     if (detailRef.current) {
       setDetailHeight(detailRef.current.clientHeight);
-      console.log(detailRef.current.clientHeight);
     }
   }, []);
 
   // 펼치기/접기 버튼 클릭 시 상세정보의 높이 조절
   const toggleDetail = () => {
-    console.log(detailRef.current?.scrollHeight);
     setDetailMore(!detailMore);
     setDetailHeight(detailMore ? 1200 : detailRef.current?.scrollHeight || 0);
   };
 
   return (
-    <div className=" px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard">
+    <div
+      id="productDetail"
+      className=" px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard"
+    >
       <div className="relative ml-[2px] mb-[15px] pt-[40px]">
         <h3 className="text-[19px] relative inline-block text-[#222222] pb-[4px] font-semibold">
           상세정보
