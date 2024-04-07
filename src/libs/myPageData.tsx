@@ -1,5 +1,26 @@
 import { LinkType, MenuGroupType } from "@/types/commonType";
 
+export const myInfoManageMenu: LinkType[] = [
+  {
+    id: 1,
+    name: "회원정보 변경",
+    value: "changeInfo",
+    url: "/mypage/myInfoManage/changeInfo",
+  },
+  {
+    id: 2,
+    name: "비밀번호 변경",
+    value: "changePassword",
+    url: "/mypage/changePassword",
+  },
+  {
+    id: 3,
+    name: "배송지 관리",
+    value: "shippingList",
+    url: "/mypage/shippingList",
+  },
+];
+
 export const myPagDeliveryStatusBoxData: LinkType[] = [
   {
     id: 1,
