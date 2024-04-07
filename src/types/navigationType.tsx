@@ -22,3 +22,18 @@ export interface MainNavigationType {
     url: string;
     icon: string;
 }
+
+export interface deliveryType {
+    id: number;
+    deliveryType: string;
+    unCheckedImgpath: string;
+    checkedImgpath: string;
+    route: string;
+}
+
+export interface categoryType {
+    id: number;
+    title: string;
+    categorySeq: number | null;
+    route: string;
+}
