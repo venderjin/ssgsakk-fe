@@ -47,7 +47,6 @@ const SearchPage = ({ onChangeModal }: SearchPageProps) => {
     };
 
     const test = () => {
-        console.log("searchValue is", searchValue);
         router.push(`/productList/searchProductList?keyword=${searchValue}`);
     };
 
@@ -55,7 +54,7 @@ const SearchPage = ({ onChangeModal }: SearchPageProps) => {
         <Modal>
             <div className="h-[55px] w-full py-[8px] flex flex-row justify-center items-center">
                 <div onClick={onChangeModal} className="mx-[4px] w-[45px] flex-initial flex justify-center items-center">
-                    <RightArrow width="20" height="20" rotate="180" />
+                    <RightArrow width={20} height={20} rotate="180" />
                 </div>
                 <div className=" flex-1">
                     <form className="relative w-full">
@@ -82,9 +81,6 @@ const SearchPage = ({ onChangeModal }: SearchPageProps) => {
                 <div onClick={test} className="mx-[4px] w-[40px] flex-initial flex justify-center items-center">
                     <Cart width={25} height={25} />
                 </div>
-            </div>
-            <div>
-                <p>Modal Content</p>
             </div>
         </Modal>
     );

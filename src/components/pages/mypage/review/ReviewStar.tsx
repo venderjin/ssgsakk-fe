@@ -11,7 +11,11 @@ const starMessage: Record<number, string> = {
   5: "최고예요!",
 };
 
-const ReviewStar = () => {
+const ReviewStar = ({
+  setReviewRaing,
+}: {
+  setReviewRaing: (rating: number) => void;
+}) => {
   const [starRating, setStarRating] = useState<number>(0);
   const [star, setStar] = useState<{ [key: number]: boolean }>({
     1: false,
@@ -28,6 +32,7 @@ const ReviewStar = () => {
     }
     setStar(newStar);
     setStarRating(key);
+    setReviewRaing(key);
   };
 
   return (
