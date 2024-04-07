@@ -7,7 +7,7 @@ import Cart from "@/components/images/Cart";
 async function getProductData() {
     const res = await fetch(`${process.env.BASE_URL}/events`);
     const data = await res.json();
-    console.log(data.result);
+    // console.log(data.result);
     return data.result;
 }
 
@@ -20,9 +20,9 @@ interface EventProductList {
 }
 [];
 const EventProductList = async ({ visiableProductList }: EventProductListProps) => {
-    console.log(visiableProductList);
+    // console.log(visiableProductList);
     const eventProductList = await getProductData();
-    console.log(eventProductList);
+    // console.log(eventProductList);
 
     return (
         <div className="bg-white">

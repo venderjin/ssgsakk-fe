@@ -1,28 +1,58 @@
 import React from "react";
+import BestProductResult from "@/components/pages/productList/BestProductResult";
 import DataNotFound from "@/components/common/DataNotFound";
-import ProductListCard from "@/components/pages/productList/ProductListCard";
+import BestProductNavigation from "@/components/pages/productList/BestProductNavigation";
 
 interface BestProduct {
     productSeq: number;
 }
-async function getBestProductData() {
-    const res = await fetch(`${process.env.BASE_URL}/products/best`);
-    const data = await res.json();
-    return data.result;
+
+interface GetBestProductList {
+    category: string | undefined;
+    delivery: string | undefined;
 }
 
-const BestProductListpage = async () => {
-    const bestProductList: BestProduct[] = await getBestProductData();
-    console.log(bestProductList);
+async function getBestProductData({ category, delivery }: GetBestProductList) {
+    if (category === undefined && delivery === undefined) {
+        const res = await fetch(`${process.env.BASE_URL}/products/best`);
+        const data = await res.json();
+        return data.result;
+    } else if (category !== undefined && delivery === undefined) {
+        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}`);
+        const data = await res.json();
+        return data.result;
+    } else if (category === undefined && delivery !== undefined) {
+        const res = await fetch(`${process.env.BASE_URL}/products/best?deliveryType=${delivery}`);
+        const data = await res.json();
+        return data.result;
+    } else if (category !== undefined && delivery !== undefined) {
+        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}&deliveryType=${delivery}`);
+        const data = await res.json();
+        return data.result;
+    }
+}
+
+const BestProductListpage = async ({
+    params,
+    searchParams,
+}: {
+    params: { categoryId: number };
+    searchParams: { [key: string]: string | undefined };
+}): Promise<JSX.Element> => {
+    const category = searchParams?.category;
+    const delivery = searchParams?.delivery;
+    let catogoryToNumber = undefined;
+    if (category !== undefined) {
+        catogoryToNumber = parseInt(category);
+    } else if (category === undefined) {
+        catogoryToNumber = 0;
+    }
+
+    const bestProductList: BestProduct[] = await getBestProductData({ category, delivery });
     return (
         <>
-            <div className="flex flex-row h-auto px-3 w-full flex-wrap justify-between ">
-                {bestProductList.map((item: BestProduct, idx: number) => (
-                    <div key={idx} className="basis-[48%]">
-                        <ProductListCard productSeq={item.productSeq} best={idx + 1} />
-                    </div>
-                ))}
-            </div>
+            <BestProductNavigation deliveryType={delivery} categorySeq={catogoryToNumber} />
+            {bestProductList === undefined || bestProductList.length === 0 ? <DataNotFound /> : <BestProductResult bestProductSeqList={bestProductList} />}
         </>
     );
 };

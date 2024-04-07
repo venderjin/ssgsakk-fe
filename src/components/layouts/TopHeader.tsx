@@ -24,7 +24,7 @@ const TopHeader = () => {
                 <div className="w-full flex justify-between items-center py-[8px] pl-[16px] pr-[10px] gap-2">
                     <div className="flex gap-[3px] items-center w-[113px] h-[14px]">
                         <Link href="/">
-                            <Image src="/images/home/ssgLogo.svg" alt="SSG" width={86} height={40} />
+                            <Image src="/images/home/ssgLogo.svg" alt="SSG" width={86} height={40} priority={true} />
                         </Link>
                         <Image
                             onClick={modalController}
