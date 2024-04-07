@@ -5,6 +5,8 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 
+const imageUrl = process.env.REVIEW_IMAGE_URL;
+
 const s3Client = new S3Client({
   region: process.env.AWS_S3_REGION!,
   credentials: {
@@ -25,14 +27,15 @@ async function uploadFileToS3(file: Buffer, fileName: string) {
 
   const command = new PutObjectCommand(params);
   await s3Client.send(command);
-  return fileName;
+  return imageUrl + fileName;
 }
 
 async function deleteFileToS3(fileName: string) {
-  console.log(fileName);
+  const deleteFilName = fileName.replace(imageUrl || "", "");
+
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: fileName,
+    Key: deleteFilName,
   };
 
   const command = new DeleteObjectCommand(params);
