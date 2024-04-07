@@ -14,7 +14,7 @@ export const homeHeaderCategoryData: HomeHeaderNavigationType[] = [
     {
         id: 3,
         title: "베스트",
-        url: "/page/best",
+        url: "/productList/bestProductList",
     },
     {
         id: 4,
