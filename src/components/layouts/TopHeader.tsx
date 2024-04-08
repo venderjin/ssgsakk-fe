@@ -43,7 +43,7 @@ const TopHeader = () => {
                     </div>
                 </div>
             </header>
-            <SliderModal isModalOpen={isModalOpen} onChangeModal={modalController}>
+            <SliderModal isModalOpen={isModalOpen} onChangeModal={modalController} backgroundClose={true}>
                 <ModalSlider />
                 <div className="py-[20px] px-[16px]">
                     <p className="font-Pretendard text-[17px] text-black font-semibold">어떤 쇼핑을 원하시나요?</p>

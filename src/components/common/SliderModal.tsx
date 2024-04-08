@@ -5,9 +5,10 @@ interface SliderModalProps {
     children: React.ReactNode;
     isModalOpen: boolean;
     onChangeModal: () => void;
+    backgroundClose: boolean;
 }
 
-function SliderModal({ children, isModalOpen, onChangeModal }: SliderModalProps) {
+function SliderModal({ children, isModalOpen, onChangeModal, backgroundClose }: SliderModalProps) {
     // 모달 오픈시 body 스크롤 막기
     useEffect(() => {
         if (isModalOpen) {
@@ -23,7 +24,7 @@ function SliderModal({ children, isModalOpen, onChangeModal }: SliderModalProps)
     return (
         <>
             <div
-                onClick={onChangeModal}
+                onClick={backgroundClose ? onChangeModal : () => {}}
                 className={`
                     fixed top-0  z-[200]
                     w-screen h-full 
