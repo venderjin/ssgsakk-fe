@@ -30,6 +30,18 @@ const nextConfig = {
     AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION,
     REVIEW_IMAGE: process.env.REVIEW_IMAGE,
   },
+
+  reactStrictMode: true,
+  swcMinify: true,
+  async rewrites() {
+    return [
+      {
+        source: "/login/social",
+        destination:
+          "http://localhost:3000/login/social?token=secret&userName=secret",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
