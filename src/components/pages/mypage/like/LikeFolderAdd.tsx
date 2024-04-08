@@ -1,16 +1,15 @@
 "use client";
-import Modal from "@/components/common/Modal";
-import SliderModalHeader from "@/components/common/SliderModalHeader";
-import SliderModal from "@/components/common/SliderModal";
 import React, { useState } from "react";
 
+import SliderModalHeader from "@/components/common/SliderModalHeader";
+import SliderModal from "@/components/common/SliderModal";
+
 const LikeFolderAdd = () => {
-    const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState(false);
-    const [newFolderNameLength, setNewFolderNameLength] = useState(0);
+    const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState<boolean>(false);
+    const [newFolderNameLength, setNewFolderNameLength] = useState<number>(0);
 
     const ModalHandler = () => {
         setIsAddFolderModalOpen(!isAddFolderModalOpen);
-        console.log("ModalHandler");
     };
 
     const handleFolderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +18,8 @@ const LikeFolderAdd = () => {
 
     return (
         <>
-            <div className="flex-none w-[57px] bg-green-200 mx-2">
-                <div onClick={ModalHandler} className="rounded-full bg-white border-[1px] border-gray-300 w-[57px] h-[57px] flex justify-center items-center">
+            <div onClick={ModalHandler} className="flex-none w-[57px] bg-green-200 mx-2">
+                <div className="rounded-full bg-white border-[1px] border-gray-300 w-[57px] h-[57px] flex justify-center items-center">
                     <div className="bg-like-icon position bg-[position:0px_0px] bg-[size:180px_147px] w-[57px] h-[57px]"></div>
                 </div>
                 <div className="font-Pretendard text-[12px] text-center">새폴더</div>
