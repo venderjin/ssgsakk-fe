@@ -1,9 +1,16 @@
 "use client";
 import Toggle from "@/components/UI/Toggle";
 import { useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { cartState, cartItemState } from "@/store/cartAtom";
 
 const CartControl = () => {
   const [isCheck, setIsCheck] = useState(false);
+  const [displayList, setDiplayList] = useRecoilState(cartState);
+
+  const toggleHandler = (onlyChecked: boolean) => {
+    setDiplayList(displayList.filter((item) => item.checkbox));
+  };
 
   return (
     <div className="px-[16px] py-[10px] font-Pretendard">

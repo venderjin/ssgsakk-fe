@@ -1,97 +1,37 @@
-import React from "react";
+"use client";
 import CartItemCard from "@/components/pages/cart/CartItemCard";
 import CartControl from "@/components/pages/cart/CartControl";
 import { CartStateType } from "@/types/cartType";
-import { useGetServerToken } from "@/actions/useGetServerToken";
+import { useGetClientToken } from "@/actions/useGetClientToken";
+import { useRecoilState } from "recoil";
+import { cartState, cartItemState } from "@/store/cartAtom";
+import { useEffect } from "react";
 
-const CartProductList = async ({
+const CartProductList = ({
   cartItemList,
+  updateQunaity,
+  deleteCartItem,
+  fixCartItem,
+  checkCartItem,
 }: {
   cartItemList: CartStateType[];
+  updateQunaity: (cartSeq: number, quantity: number) => void;
+  deleteCartItem: (cartSeq: number) => void;
+  fixCartItem: (cartSeq: number, fix: boolean) => void;
+  checkCartItem: (cartSeq: number, check: boolean) => void;
 }) => {
-  const token = await useGetServerToken();
+  const [displayList, setDiplayList] = useRecoilState(cartState);
+  const [cartItemInfoList, setCartItemInfoList] = useRecoilState(cartItemState);
+  const token = useGetClientToken();
 
-  const checkCartItem = async (cartSeq: number, check: boolean) => {
-    "use server";
-    if (!token) return;
-    const res = await fetch(
-      `${process.env.BASE_URL}/carts/${cartSeq}/checkbox?checkbox=${Number(
-        check
-      )}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      }
-    );
-    const data = await res.json();
-    if (res.ok) console.log(data);
-    else console.log(data);
-  };
-
-  const fixCartItem = async (cartSeq: number, fix: boolean) => {
-    "use server";
-    if (!token) return;
-    const res = await fetch(
-      `${process.env.BASE_URL}/carts/${cartSeq}/pin?fix=${Number(fix)}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      }
-    );
-    const data = await res.json();
-    if (res.ok) console.log(data);
-    else console.log(data);
-  };
-
-  const deleteCartItem = async (cartSeq: number) => {
-    "use server";
-    if (!token) return;
-    const res = await fetch(`${process.env.BASE_URL}/carts/${cartSeq}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
-    const data = await res.json();
-    if (res.ok) console.log(data);
-    else console.log(data);
-  };
-
-  const updateQunaity = async (cartSeq: number, quantity: number) => {
-    "use server";
-
-    if (!token) return;
-    const res = await fetch(
-      `${process.env.BASE_URL}/carts/${cartSeq}/quantity?quantity=${quantity}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      }
-    );
-
-    const data = await res.json();
-    if (res.ok) console.log(data);
-    else console.log(data);
-  };
+  useEffect(() => {
+    setDiplayList(cartItemList);
+  }, [cartItemList]);
 
   return (
     <div className="pb-[120px]">
       <CartControl />
-      {cartItemList.map((cartItem) => (
+      {displayList.map((cartItem) => (
         <CartItemCard
           key={cartItem.cartSeq}
           cartItemState={cartItem}

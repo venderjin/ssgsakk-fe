@@ -6,6 +6,86 @@ import NonMemberCard from "@/components/pages/cart/NonMemberCard";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
 
+const checkCartItem = async (cartSeq: number, check: boolean) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/checkbox?checkbox=${Number(
+      check
+    )}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const fixCartItem = async (cartSeq: number, fix: boolean) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/pin?fix=${Number(fix)}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const deleteCartItem = async (cartSeq: number) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(`${process.env.BASE_URL}/carts/${cartSeq}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const updateQunaity = async (cartSeq: number, quantity: number) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/quantity?quantity=${quantity}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
 const fetchShippingList = async (token: string) => {
   if (!token) return;
   const res = await fetch(`${process.env.BASE_URL}/shipping-addr/all`, {
@@ -76,7 +156,13 @@ const Cart = async ({
       ) : (
         <NonMemberCard />
       )}
-      <CartProductList cartItemList={cartItemList} />
+      <CartProductList
+        cartItemList={cartItemList}
+        updateQunaity={updateQunaity}
+        deleteCartItem={deleteCartItem}
+        fixCartItem={fixCartItem}
+        checkCartItem={checkCartItem}
+      />
       <CartToolBar />
     </>
   );
