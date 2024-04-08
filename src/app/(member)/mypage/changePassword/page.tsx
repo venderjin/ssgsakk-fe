@@ -5,13 +5,14 @@ import Footer from "@/components/layouts/Footer";
 import { useGetServerToken } from "@/actions/useGetServerToken";
 import { redirect } from "next/navigation";
 
-const changePassword = async () => {
-  async function changePassword(formData: FormData) {
+const ChangePassword = async () => {
+  const token = await useGetServerToken();
+
+  async function changePasswordHandler(formData: FormData) {
     "use server";
-
+    if (!token) return;
     const password = formData.get("password") as string;
-    const token = await useGetServerToken();
-
+    if (!token) return;
     const res = await fetch(`${process.env.BASE_URL}/auth/password-change`, {
       method: "POST",
       headers: {
@@ -35,10 +36,10 @@ const changePassword = async () => {
   return (
     <>
       <BackArrowHeader title="비밀번호 변경" />
-      <ChagnePasswordForm changePassword={changePassword} />
+      <ChagnePasswordForm changePassword={changePasswordHandler} />
       <Footer />
     </>
   );
 };
 
-export default changePassword;
+export default ChangePassword;

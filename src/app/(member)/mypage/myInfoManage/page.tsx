@@ -4,7 +4,7 @@ import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 import Footer from "@/components/layouts/Footer";
 import { myInfoManageMenu } from "@/libs/myPageData";
 
-const myInfoManage = () => {
+const MyInfoManage = () => {
   return (
     <>
       <BackArrowHeader title="내 정보 관리" />
@@ -25,4 +25,4 @@ const myInfoManage = () => {
   );
 };
 
-export default myInfoManage;
+export default MyInfoManage;
