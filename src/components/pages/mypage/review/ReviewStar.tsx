@@ -36,22 +36,29 @@ const ReviewStar = ({
   };
 
   return (
-    <div className="flex mt-[30px] mb-[17px] justify-center">
-      <div className="w-[142px] h-[18px] ml-[-10px]">
-        {Object.keys(star).map((key) => (
-          <button className="ml-[10px]" key={key}>
-            <CheckedStar
-              checked={star[parseInt(key)]}
-              onStarClick={() => {
-                onStarClick(parseInt(key));
-              }}
-            />
-          </button>
-        ))}
+    <div className="mt-[30px]">
+      <div className="flex flex-col items-center">
+        <h3 className="font-bold text-[17px]">구매하신 상품은 어떠셨나요?</h3>
+        <p className="font-bold text-[15px]">별점으로 평가해 보세요.</p>
       </div>
-
-      <div className="pl-[8px] w-[80px] flex items-center">
-        <span className="text-[14px] font-bold">{starMessage[starRating]}</span>
+      <div className="flex flex-col  mt-[30px] mb-[10px] items-center">
+        <div className="h-[18px] ml-[-10px]">
+          {Object.keys(star).map((key) => (
+            <button className="ml-[10px]" key={key}>
+              <CheckedStar
+                checked={star[parseInt(key)]}
+                onStarClick={() => {
+                  onStarClick(parseInt(key));
+                }}
+              />
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center mt-[10px]">
+          <span className="text-[14px] font-bold">
+            {starMessage[starRating]}
+          </span>
+        </div>
       </div>
     </div>
   );

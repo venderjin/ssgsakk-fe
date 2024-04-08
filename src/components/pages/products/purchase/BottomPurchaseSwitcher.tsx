@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
+import { useGetClientToken } from "@/actions/useGetClientToken";
 
 interface Props {
   productId: number;
@@ -20,6 +21,7 @@ const BottomPurchaseSwitcher = ({
   changeMode,
   mode,
 }: Props) => {
+  const token = useGetClientToken();
   const [orderData, setOrderData] = useState<OrderData>({
     productId: productId,
     optionList: [],
@@ -43,10 +45,53 @@ const BottomPurchaseSwitcher = ({
     console.log(orderData);
   };
 
+  const addCartHandler = async () => {
+    if (orderData.optionList.length === 0)
+      return alert("상품 옵션을 선택해주세요.");
+
+    const promises = orderData.optionList.map((option) =>
+      fetch(`${process.env.BASE_URL}/carts/add`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productSeq: Number(orderData.productId),
+          optionAndStockSeq: option.optionAndStockSeq,
+          quantity: option.quantity,
+          checkbox: 0,
+          fixItem: 0,
+        }),
+      })
+    );
+
+    const responses = await Promise.all(promises);
+    const data = await Promise.all(
+      responses.map((response) => {
+        if (!response.ok) {
+          alert("서버로부터 응답이 없습니다.");
+        }
+        return response.json();
+      })
+    );
+
+    const duplicate = data.filter((item) => item.result !== "success");
+    if (duplicate.length > 0) {
+      alert(duplicate[0].result);
+    } else {
+      alert("장바구니에 상품이 추가되었습니다.");
+    }
+    changeMode("default");
+  };
+
   return (
     <>
       <div className="w-full h-[52px] fixed left-0 right-0 bottom-0 bg-white flex font-Pretendard ">
-        <button className="w-1/2 border-t-[1px] bg-[#121314] flex justify-center items-center">
+        <button
+          onClick={() => addCartHandler()}
+          className="w-1/2 border-t-[1px] bg-[#121314] flex justify-center items-center"
+        >
           <span className="text-[17px] text-[#fff]">장바구니</span>
         </button>
 
