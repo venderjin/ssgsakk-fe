@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
