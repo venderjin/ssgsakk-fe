@@ -3,10 +3,13 @@ import React, { useState } from "react";
 
 import SliderModalHeader from "@/components/common/SliderModalHeader";
 import SliderModal from "@/components/common/SliderModal";
+import { useGetClientToken } from "@/actions/useGetClientToken";
 
 const LikeFolderAdd = () => {
     const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState<boolean>(false);
     const [newFolderNameLength, setNewFolderNameLength] = useState<number>(0);
+    const [newFolderName, setNewFolderName] = useState<string>("");
+    const token = useGetClientToken();
 
     const ModalHandler = () => {
         setIsAddFolderModalOpen(!isAddFolderModalOpen);
@@ -14,6 +17,21 @@ const LikeFolderAdd = () => {
 
     const handleFolderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewFolderNameLength(e.target.value.length);
+        setNewFolderName(e.target.value);
+    };
+
+    const GetCreateFolder = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log(newFolderName);
+        e.preventDefault();
+        const res = await fetch(`${process.env.BASE_URL}/likes/folder/add?folder-name=${newFolderName}`, {
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        console.log(data);
+        return data;
     };
 
     return (
@@ -50,6 +68,15 @@ const LikeFolderAdd = () => {
                                 </p>
                             </div>
                             <button
+                                onClick={(e) => {
+                                    GetCreateFolder(e)
+                                        .then(() => {
+                                            window.location.reload();
+                                        })
+                                        .catch((error) => {
+                                            console.error("Failed to create folder: ", error);
+                                        });
+                                }}
                                 type="submit"
                                 className={`${
                                     newFolderNameLength > 0 ? "bg-primary-red text-white" : "bg-[#e5e5e5]"
