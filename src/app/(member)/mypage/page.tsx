@@ -8,18 +8,18 @@ import BottomNav from "@/components/layouts/BottomNav";
 import Footer from "@/components/layouts/Footer";
 
 const Page = () => {
-  return (
-    <div className="font-Pretendard">
-      <BackArrowHeader title="MY SSG" />
-      <MyPoint />
-      <MyOrderSummary />
-      <QuickMenu />
-      <MyReviewSummary />
-      <MyMenuGroup />
-      <Footer />
-      <BottomNav />
-    </div>
-  );
+    return (
+        <div className="font-Pretendard">
+            <BackArrowHeader title="MY SSG" />
+            <MyPoint />
+            <MyOrderSummary />
+            <QuickMenu />
+            <MyReviewSummary />
+            <MyMenuGroup />
+            <Footer />
+            <BottomNav />
+        </div>
+    );
 };
 
 export default Page;

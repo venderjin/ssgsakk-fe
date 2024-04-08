@@ -83,7 +83,7 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
                     <FoldableTriangle />
                 </div>
                 <div className="flex justify-center items-center gap-1">
-                    <HeartIcon width={20} height={20} />
+                    <HeartIcon width={20} height={20} categorySeq={categorySeq} />
                     <Share width={24} height={24} />
                 </div>
             </div>

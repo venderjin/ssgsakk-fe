@@ -141,7 +141,7 @@ const SpecialPriceNavigation = () => {
                         ))
                     )}
             </div>
-            <SliderModal isModalOpen={isModalOpen} onChangeModal={() => ModalHandler()}>
+            <SliderModal isModalOpen={isModalOpen} onChangeModal={() => ModalHandler()} backgroundClose={true}>
                 <ModalSlider />
                 <SliderModalHeader title="전체 카테고리" onChangeModal={() => ModalHandler()} />
                 <div className="flex flex-col gap-2 p-3">
