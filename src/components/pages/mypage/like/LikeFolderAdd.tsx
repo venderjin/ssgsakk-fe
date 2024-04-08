@@ -20,7 +20,7 @@ const LikeFolderAdd = () => {
         setNewFolderName(e.target.value);
     };
 
-    const GetCreateFolder = async (e: React.FormEvent<HTMLFormElement>) => {
+    const GetCreateFolder = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         console.log(newFolderName);
         e.preventDefault();
         const res = await fetch(`${process.env.BASE_URL}/likes/folder/add?folder-name=${newFolderName}`, {
