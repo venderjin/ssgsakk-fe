@@ -3,10 +3,11 @@ import ManageShippingList from "@/components/pages/mypage/shippingList/ManageShi
 import ManageShippingListTitle from "@/components/pages/mypage/shippingList/ManageShippingListTitle";
 import Footer from "@/components/layouts/Footer";
 import { ShippingInfoType } from "@/types/memberInfoType";
-import { getServerToken } from "@/actions/getServerToken";
+import { useGetServerToken } from "@/actions/useGetServerToken";
 
 const fetchShippingList = async (token: string) => {
-  const res = await fetch(`${process.env.BASE_URL}/shipping-addr/list`, {
+  if (!token) return;
+  const res = await fetch(`${process.env.BASE_URL}/shipping-addr/all`, {
     headers: {
       Authorization: token,
       "Content-Type": "application/json",
@@ -16,7 +17,19 @@ const fetchShippingList = async (token: string) => {
 
   const data = await res.json();
   if (res.ok) {
-    return data.result.shippingAddressList;
+    const result = data.result;
+    //기본배송지인 주소지를 상단에 정렬
+    result.sort((a: ShippingInfoType, b: ShippingInfoType) => {
+      if (a.defaultAddressCheck === 1) {
+        return -1;
+      }
+      if (b.defaultAddressCheck === 1) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return result;
   }
 
   if (res.status === 500) {
@@ -24,48 +37,9 @@ const fetchShippingList = async (token: string) => {
   }
 };
 
-const getShippingData = async (shippingAddressSeq: number[], token: string) => {
-  const data = shippingAddressSeq.map(async (shippingAddressSeq: number) => {
-    const res = await fetch(
-      `${process.env.BASE_URL}/shipping-addr/${shippingAddressSeq}`,
-      {
-        cache: "no-cache",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const data = await res.json();
-    if (res.ok) {
-      return data.result;
-    }
-    if (res.status === 500) {
-      alert(data.message);
-    }
-  });
-  const result = await Promise.all(data);
-  //기본배송지인 주소지를 상단에 정렬
-  result.sort((a, b) => {
-    if (a.defaultAddressCheck === 1) {
-      return -1;
-    }
-    if (b.defaultAddressCheck === 1) {
-      return 1;
-    }
-    return 0;
-  });
-  return result;
-};
-
 const ShippingList = async () => {
-  const session = await getServerToken();
-  const shippingAddressList = await fetchShippingList(session);
-  const shippingData: ShippingInfoType[] = await getShippingData(
-    shippingAddressList,
-    session
-  );
+  const token = await useGetServerToken();
+  const shippingData = await fetchShippingList(token);
 
   return (
     <>

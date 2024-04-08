@@ -97,11 +97,15 @@ const CartShippingInfo = ({
         </div>
       </div>
 
-      <SliderModal isModalOpen={isModalOpen} onChangeModal={ModalHandler}>
+      <SliderModal
+        isModalOpen={isModalOpen}
+        onChangeModal={ModalHandler}
+        backgroundClose={false}
+      >
         <ModalSlider />
         <SliderModalHeader title="배송지 변경" onChangeModal={ModalHandler} />
-        <section className="font-Pretendard h-full">
-          <ul className="px-[20px] mb-[80px] max-h-[600px] overflow-y-auto">
+        <section className="font-Pretendard h-[75vh] overflow-y-auto">
+          <ul className="px-[20px] mb-[80px] ">
             {shippingData &&
               shippingData.map((item: ShippingInfoType) => (
                 <li

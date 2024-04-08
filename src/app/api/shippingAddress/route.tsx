@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { getServerToken } from "@/actions/getServerToken";
+import { useGetServerToken } from "@/actions/useGetServerToken";
 
 async function setDefaultShippingAddress(shippingAddressSeq: number) {
-  const token = await getServerToken();
+  const token = await useGetServerToken();
   const res = await fetch(
     `${process.env.BASE_URL}/shipping-addr/${shippingAddressSeq}/default`,
     {

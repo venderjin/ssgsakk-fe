@@ -2,7 +2,7 @@ import React from "react";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import ChagnePasswordForm from "@/components/pages/mypage/manageMyInfo/ChagnePasswordForm";
 import Footer from "@/components/layouts/Footer";
-import { getServerToken } from "@/actions/getServerToken";
+import { useGetServerToken } from "@/actions/useGetServerToken";
 import { redirect } from "next/navigation";
 
 const changePassword = async () => {
@@ -10,7 +10,7 @@ const changePassword = async () => {
     "use server";
 
     const password = formData.get("password") as string;
-    const token = await getServerToken();
+    const token = await useGetServerToken();
 
     const res = await fetch(`${process.env.BASE_URL}/auth/password-change`, {
       method: "POST",

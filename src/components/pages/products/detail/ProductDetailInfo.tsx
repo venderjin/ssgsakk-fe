@@ -15,7 +15,6 @@ const ProductDetailInfo = ({
   useEffect(() => {
     if (detailRef.current) {
       setDetailHeight(detailRef.current.clientHeight);
-      console.log(detailRef.current.clientHeight);
     }
   }, []);
 
