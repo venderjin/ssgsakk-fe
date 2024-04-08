@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { getCookies, setCookie, deleteCookie } from "cookies-next";
 import { LoginType } from "@/types/authType";
 
-export default function LoginForm() {
+export default function LoginForm({ retUrl }: { retUrl: string }) {
   const router = useRouter();
   const cookies = getCookies();
   const [saveIdCheck, setCheck] = useState(false);
@@ -54,10 +54,13 @@ export default function LoginForm() {
       password,
       //로그인 실패 시 새로고침 여부
       redirect: false,
-      callbackUrl: "/",
+      // callbackUrl: "/",
     });
 
-    if (response?.ok) return router.push("/");
+    if (response?.ok) {
+      if (retUrl) router.push(retUrl);
+      router.push("/mypage");
+    }
     if (response?.error) {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
       location.reload();

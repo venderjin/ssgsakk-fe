@@ -5,21 +5,18 @@ const Page = async ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
-  async function createUser(signupForm: FormData) {
-    "use server";
-    const userForm = {
-      loginId: signupForm.get("id"),
-      userName: signupForm.get("userName"),
-      userEmail: signupForm.get("userEmail"),
-      password: signupForm.get("password"),
-    };
-
-    console.log(userForm);
-  }
+  // async function createUser(signupForm: FormData) {
+  //   "use server";
+  //   const userForm = {
+  //     loginId: signupForm.get("id"),
+  //     userName: signupForm.get("userName"),
+  //     userEmail: signupForm.get("userEmail"),
+  //     password: signupForm.get("password"),
+  //   };
+  // }
 
   return (
     <SignupForm
-      createUser={createUser}
       userEmail={searchParams.userEmail}
       oauthId={searchParams.oauthId}
     />
