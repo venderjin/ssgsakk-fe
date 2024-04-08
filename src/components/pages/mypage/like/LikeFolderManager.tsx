@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import SliderModalHeader from "@/components/common/SliderModalHeader";
 import SliderModal from "@/components/common/SliderModal";
+import { useGetClientToken } from "@/actions/useGetClientToken";
 
 interface LikeFolderManagerProps {
     folder: string[];
@@ -11,7 +12,10 @@ interface LikeFolderManagerProps {
 const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
     const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState<boolean>(false);
     const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState<boolean>(false);
-    const [modifyFolderNameLength, setModifyFolderNameLength] = useState<number>(0);
+    // const [modifyFolderNameLength, setModifyFolderNameLength] = useState<number>(0);
+    const [newFolderNameLength, setNewFolderNameLength] = useState<number>(0);
+    const [newFolderName, setNewFolderName] = useState<string>("");
+    const token = useGetClientToken();
 
     const ModalHandler = () => {
         setIsAddFolderModalOpen(!isAddFolderModalOpen);
@@ -23,7 +27,22 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
     };
 
     const handleFolderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setModifyFolderNameLength(e.target.value.length);
+        setNewFolderNameLength(e.target.value.length);
+        setNewFolderName(e.target.value);
+    };
+
+    const GetCreateFolder = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log(newFolderName);
+        e.preventDefault();
+        const res = await fetch(`${process.env.BASE_URL}/likes/folder/add?folder-name=${newFolderName}`, {
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        console.log(data);
+        return data;
     };
 
     return (
@@ -77,7 +96,7 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
                                         placeholder="폴더명을 입력해주세요."
                                     />
                                     <p className="absolute bottom-0 right-0 mr-[15px] mb-[15px] text-[#959595] text-[13px]">
-                                        <span>{modifyFolderNameLength}</span>
+                                        <span>{newFolderNameLength}</span>
                                         <span> / 6</span>
                                     </p>
                                 </div>
@@ -90,9 +109,18 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
                                         이전
                                     </button>
                                     <button
+                                        onClick={(e) => {
+                                            GetCreateFolder(e)
+                                                .then(() => {
+                                                    window.location.reload();
+                                                })
+                                                .catch((error) => {
+                                                    console.error("Failed to create folder: ", error);
+                                                });
+                                        }}
                                         type="submit"
                                         className={`${
-                                            modifyFolderNameLength > 0 ? "bg-primary-red text-white" : "bg-[#e5e5e5]"
+                                            newFolderNameLength > 0 ? "bg-primary-red text-white" : "bg-[#e5e5e5]"
                                         } flex-none w-[25%] h-[45px] rounded-full font-Pretendard text-[18px]`}
                                     >
                                         만들기

@@ -16,7 +16,10 @@ const LikeHeader = () => {
                 <LikeFolderAdd />
                 <LikeFolderManager folder={customFolder} />
             </div>
-            <div className="bg-[#f5f5f5] h-[50px] px-[15px] flex items-center">test</div>
+            <div className="bg-[#f5f5f5] h-[50px] px-[15px] flex items-center gap-5 pl-6">
+                <div className="font-Pretendard text-[14px]">상품</div>
+                <div className="font-Pretendard text-[14px]">카테고리</div>
+            </div>
         </div>
     );
 };
