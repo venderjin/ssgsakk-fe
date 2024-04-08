@@ -7,7 +7,7 @@ import Cart from "@/components/images/Cart";
 async function getProductData() {
     const res = await fetch(`${process.env.BASE_URL}/events`);
     const data = await res.json();
-    // console.log(data.result);
+    // console.log(data);
     return data.result;
 }
 

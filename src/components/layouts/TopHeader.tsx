@@ -51,14 +51,12 @@ const TopHeader = () => {
               height={26}
               className="mr-[10px]"
             />
-            <Link href={"/cart"}>
-              <Image
-                src="/images/home/cartLogo.png"
-                alt="Cart"
-                width={26}
-                height={26}
-              />
-            </Link>
+            <Image
+              src="/images/home/cartLogo.png"
+              alt="Cart"
+              width={26}
+              height={26}
+            />
           </div>
         </div>
       </header>

@@ -158,7 +158,6 @@ const BestProductNavigation = ({
         onChangeModal={() => ModalHandler()}
         backgroundClose={true}
       >
-        {" "}
         <ModalSlider />
         <SliderModalHeader
           title="전체 카테고리"
