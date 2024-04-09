@@ -1,40 +1,44 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useGetServerToken } from "@/actions/useGetServerToken";
+import { useGetClientToken } from "@/actions/useGetClientToken";
 
-const getCartItemCount = async (token: string) => {
-  if (!token) return 0;
-  const res = await fetch(`${process.env.BASE_URL}/carts/count`, {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
+const CartIcon = () => {
+  const token = useGetClientToken();
+  const [cartCount, setCartCount] = useState(0);
 
-  const data = await res.json();
-  if (res.ok) {
-    return data.result;
-  }
-  console.log(data);
-};
+  useEffect(() => {
+    const getCartItemCount = async () => {
+      if (!token) return;
+      const res = await fetch(`${process.env.BASE_URL}/carts/count`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      });
 
-const CartIcon = async () => {
-  const token = await useGetServerToken();
-  const cartCount = await getCartItemCount(token);
+      const data = await res.json();
+      if (res.ok) {
+        console.log(data.result);
+        setCartCount(data.result);
+      }
+    };
+    getCartItemCount();
+  }, []);
 
   return (
     <>
-      <Link href={"/cart"}>
+      <Link href={"/cart"} className="relative">
         <Image
           src="/images/etc/cart.svg"
           alt="cart-icon"
           width={24}
           height={24}
-          className="ml-[12px]"
         />
         {cartCount > 0 && (
-          <div className="absolute top-0 right-[3px]">
+          <div className="absolute top-[-5px] right-[0px]">
             <p className="bg-primary-red text-center text-[10px] text-[#fff] rounded-[50%] min-w-[16px] transform translate-x-1/2">
               {cartCount}
             </p>

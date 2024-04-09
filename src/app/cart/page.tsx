@@ -5,6 +5,118 @@ import CartToolBar from "@/components/pages/cart/CartToolBar";
 import NonMemberCard from "@/components/pages/cart/NonMemberCard";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
+import CartTotalCard from "@/components/pages/cart/CartTotalCard";
+
+const Cart = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: number };
+}) => {
+  const token = await useGetServerToken();
+  const isModalOpen = Boolean(searchParams.isModalOpen);
+  const shippingData = await fetchShippingList(token);
+  const cartItemList = await getCartList(token);
+
+  return (
+    <>
+      <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
+      {token ? (
+        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
+      ) : (
+        <NonMemberCard />
+      )}
+      <CartProductList
+        cartItemList={cartItemList}
+        updateQunaity={useUpdateQunaity}
+        deleteCartItem={useDeleteCartItem}
+        fixCartItem={useFixCartItem}
+        checkCartItem={useCheckCartItem}
+      />
+      <CartTotalCard />
+      <CartToolBar />
+    </>
+  );
+};
+
+const useCheckCartItem = async (cartSeq: number, check: boolean) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/checkbox?checkbox=${Number(
+      check
+    )}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const useFixCartItem = async (cartSeq: number, fix: boolean) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/pin?fix=${Number(fix)}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const useDeleteCartItem = async (cartSeq: number) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(`${process.env.BASE_URL}/carts/${cartSeq}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
+
+const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/${cartSeq}/quantity?quantity=${quantity}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  const data = await res.json();
+  if (res.ok) console.log(data);
+  else console.log(data);
+};
 
 const fetchShippingList = async (token: string) => {
   if (!token) return;
@@ -56,30 +168,6 @@ const getCartList = async (token: string) => {
   if (res.status === 500) {
     return data.msg;
   }
-};
-
-const Cart = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: number };
-}) => {
-  const token = await useGetServerToken();
-  const isModalOpen = Boolean(searchParams.isModalOpen);
-  const shippingData = await fetchShippingList(token);
-  const cartItemList = await getCartList(token);
-
-  return (
-    <>
-      <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
-      {token ? (
-        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
-      ) : (
-        <NonMemberCard />
-      )}
-      <CartProductList cartItemList={cartItemList} />
-      <CartToolBar />
-    </>
-  );
 };
 
 export default Cart;
