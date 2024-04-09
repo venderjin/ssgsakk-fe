@@ -2,10 +2,10 @@
 import CartItemCard from "@/components/pages/cart/CartItemCard";
 import CartControl from "@/components/pages/cart/CartControl";
 import { CartStateType } from "@/types/cartType";
-import { useGetClientToken } from "@/actions/useGetClientToken";
-import { useRecoilState } from "recoil";
-import { cartState, cartItemState } from "@/store/cartAtom";
-import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartState } from "@/recoil/atoms/cartState";
+import { cartSortState } from "@/recoil/selectors/cartSortState";
+import { useEffect, useState } from "react";
 
 const CartProductList = ({
   cartItemList,
@@ -20,18 +20,18 @@ const CartProductList = ({
   fixCartItem: (cartSeq: number, fix: boolean) => void;
   checkCartItem: (cartSeq: number, check: boolean) => void;
 }) => {
-  const [displayList, setDiplayList] = useRecoilState(cartState);
-  const [cartItemInfoList, setCartItemInfoList] = useRecoilState(cartItemState);
-  const token = useGetClientToken();
+  const [showCheckedItem, setShowCheckedItem] = useState(false);
+  const [cartList, setCartList] = useRecoilState(cartState);
+  const sortList = useRecoilValue(cartSortState(showCheckedItem));
 
   useEffect(() => {
-    setDiplayList(cartItemList);
+    setCartList(cartItemList);
   }, [cartItemList]);
 
   return (
-    <div className="pb-[120px]">
-      <CartControl />
-      {displayList.map((cartItem) => (
+    <div className="pb-[10px]">
+      <CartControl setShowCheckedItem={setShowCheckedItem} />
+      {sortList.map((cartItem) => (
         <CartItemCard
           key={cartItem.cartSeq}
           cartItemState={cartItem}

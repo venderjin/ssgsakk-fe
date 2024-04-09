@@ -31,7 +31,11 @@ const TopHeaderIncludeIcon = ({
             width={24}
             height={24}
           />
-          {icon === "cart" && <CartIcon />}
+          {icon === "cart" && (
+            <div className="ml-[10px]">
+              <CartIcon />
+            </div>
+          )}
           {icon === "home" && (
             <Link href={"/"}>
               <Image

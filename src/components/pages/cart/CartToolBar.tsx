@@ -1,6 +1,11 @@
+"use client";
 import React from "react";
+import { cartSelectedCountState } from "@/recoil/selectors/cartSortState";
+import { useRecoilValue } from "recoil";
 
 const CartToolBar = () => {
+  const selectedCount = useRecoilValue(cartSelectedCountState);
+
   return (
     <div className="fixed bottom-0 left-0 right-0 font-Pretendard">
       <div
@@ -12,7 +17,7 @@ const CartToolBar = () => {
       ></div>
       <div className="relative p-[18px] bg-[#fff] rounded-t-[8px]">
         <p className="text-[14px] text-[#222] ">
-          <span>전체상품 5개</span>
+          <span>전체상품 {selectedCount}개</span>
           <span>원 + 배송비 9000원</span>
           <span className="font-bold">원</span>
         </p>

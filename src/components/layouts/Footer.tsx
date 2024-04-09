@@ -6,8 +6,11 @@ import {
 } from "@/libs/footerNavigationData";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { loginState } from "@/recoil/atoms/userState";
+import { useRecoilState } from "recoil";
 
 const Footer = () => {
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
   const { data: session } = useSession();
 
   //const session = await getServerSession(options);
@@ -52,7 +55,14 @@ const Footer = () => {
                 }`}
               >
                 {category.title === "로그아웃" ? (
-                  <button onClick={() => signOut()}>{category.title}</button>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsLogin(false);
+                    }}
+                  >
+                    {category.title}
+                  </button>
                 ) : (
                   <Link
                     href={category.url}

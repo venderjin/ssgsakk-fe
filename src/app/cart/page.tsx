@@ -5,8 +5,40 @@ import CartToolBar from "@/components/pages/cart/CartToolBar";
 import NonMemberCard from "@/components/pages/cart/NonMemberCard";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
+import CartTotalCard from "@/components/pages/cart/CartTotalCard";
 
-const checkCartItem = async (cartSeq: number, check: boolean) => {
+const Cart = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: number };
+}) => {
+  const token = await useGetServerToken();
+  const isModalOpen = Boolean(searchParams.isModalOpen);
+  const shippingData = await fetchShippingList(token);
+  const cartItemList = await getCartList(token);
+
+  return (
+    <>
+      <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
+      {token ? (
+        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
+      ) : (
+        <NonMemberCard />
+      )}
+      <CartProductList
+        cartItemList={cartItemList}
+        updateQunaity={useUpdateQunaity}
+        deleteCartItem={useDeleteCartItem}
+        fixCartItem={useFixCartItem}
+        checkCartItem={useCheckCartItem}
+      />
+      <CartTotalCard />
+      <CartToolBar />
+    </>
+  );
+};
+
+const useCheckCartItem = async (cartSeq: number, check: boolean) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -28,7 +60,7 @@ const checkCartItem = async (cartSeq: number, check: boolean) => {
   else console.log(data);
 };
 
-const fixCartItem = async (cartSeq: number, fix: boolean) => {
+const useFixCartItem = async (cartSeq: number, fix: boolean) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -48,7 +80,7 @@ const fixCartItem = async (cartSeq: number, fix: boolean) => {
   else console.log(data);
 };
 
-const deleteCartItem = async (cartSeq: number) => {
+const useDeleteCartItem = async (cartSeq: number) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -65,7 +97,7 @@ const deleteCartItem = async (cartSeq: number) => {
   else console.log(data);
 };
 
-const updateQunaity = async (cartSeq: number, quantity: number) => {
+const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -136,36 +168,6 @@ const getCartList = async (token: string) => {
   if (res.status === 500) {
     return data.msg;
   }
-};
-
-const Cart = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: number };
-}) => {
-  const token = await useGetServerToken();
-  const isModalOpen = Boolean(searchParams.isModalOpen);
-  const shippingData = await fetchShippingList(token);
-  const cartItemList = await getCartList(token);
-
-  return (
-    <>
-      <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
-      {token ? (
-        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
-      ) : (
-        <NonMemberCard />
-      )}
-      <CartProductList
-        cartItemList={cartItemList}
-        updateQunaity={updateQunaity}
-        deleteCartItem={deleteCartItem}
-        fixCartItem={fixCartItem}
-        checkCartItem={checkCartItem}
-      />
-      <CartToolBar />
-    </>
-  );
 };
 
 export default Cart;
