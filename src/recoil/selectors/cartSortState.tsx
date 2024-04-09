@@ -15,14 +15,14 @@ export const cartSortState = selectorFamily({
     },
 });
 
-export const cartSelectedCountState = selector({
-  key: "cartSelectedCountState",
+export const cartSelectedState = selector({
+  key: "cartSelectedState",
   get: ({ get }) => {
     const cartList = get(cartState);
-    const selectedCount = cartList.filter(
+    const selectedCartList = cartList.filter(
       (cartItem) => cartItem.checkbox === 1
     );
-    if (selectedCount.length === 0) return cartList.length;
-    return selectedCount.length;
+    if (selectedCartList.length === 0) return cartList;
+    return selectedCartList;
   },
 });
