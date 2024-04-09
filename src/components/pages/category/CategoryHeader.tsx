@@ -3,7 +3,7 @@ import HeartIcon from "@/components/UI/HeartIcon";
 import Share from "@/components/images/Share";
 import RightArrow from "@/components/images/RightArrow";
 import FoldableTriangle from "@/components/UI/FoldableTriangle";
-import React from "react";
+import React, { Suspense } from "react";
 import CategoryNavigation from "@/components/pages/category/CategoryNavigation";
 import CategorySmall from "@/components/pages/category/CategorySmall";
 
@@ -83,7 +83,9 @@ const CategoryHeader = async ({ categorySeq, bigCategorySeq, midCategorySeq, sma
                     <FoldableTriangle />
                 </div>
                 <div className="flex justify-center items-center gap-1">
-                    <HeartIcon width={20} height={20} categorySeq={categorySeq} />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <HeartIcon width={20} height={20} categorySeq={child == "전체보기" ? parents.categorySeq : categorySeq} />
+                    </Suspense>
                     <Share width={24} height={24} />
                 </div>
             </div>

@@ -16,7 +16,8 @@ interface BestProductNavigationProps {
 
 const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigationProps) => {
     const router = useRouter();
-    const [selectedCategory, setSelectedCategory] = useState<number | undefined>(categorySeq);
+    let categorySeqNumber = categorySeq === undefined ? 0 : categorySeq;
+    const [selectedCategory, setSelectedCategory] = useState<number | undefined>(categorySeqNumber);
     const [selectedDelivery, setSelectedDelivery] = useState<string | undefined>(deliveryType);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const activeDeliveryRef = useRef<HTMLElement | null>(null);
@@ -46,7 +47,16 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
     const handleDeliveryClick = (deliveryType: string, route: string) => {
         if (selectedDelivery === deliveryType) {
             setSelectedDelivery(undefined);
-            router.push("/productList/bestProductList");
+            const queryString = new URLSearchParams();
+            if (selectedCategory !== undefined) {
+                if (selectedCategory === 0) {
+                    queryString.set("category", "");
+                } else if (selectedCategory > 0) {
+                    queryString.set("category", selectedCategory.toString());
+                }
+            }
+            queryString.set("delivery", "");
+            router.push(`/productList/bestProductList?${queryString.toString()}`);
         } else {
             setSelectedDelivery(deliveryType);
             const queryString = new URLSearchParams();
@@ -60,19 +70,26 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
             queryString.set("delivery", deliveryType);
             router.push(`/productList/bestProductList?${queryString.toString()}`);
         }
+
+        // router.refresh();
     };
 
     const handleCategoryClick = (categoryId: number) => {
         setSelectedCategory(categoryId);
         const queryString = new URLSearchParams();
         queryString.set("delivery", selectedDelivery || "");
-        if (categoryId === 0) {
-            queryString.set("category", "");
-        } else if (categoryId > 0) {
+        if (categoryId > 0) {
             queryString.set("category", categoryId.toString());
+            router.push(`/productList/bestProductList?${queryString.toString()}`);
+        } else {
+            if (selectedDelivery) {
+                queryString.set("delivery", selectedDelivery);
+                router.push(`/productList/bestProductList?${queryString.toString()}`);
+            } else {
+                router.push(`/productList/bestProductList`);
+            }
         }
-        queryString.set("category", categoryId.toString());
-        router.push(`/productList/bestProductList?${queryString.toString()}`);
+        // router.refresh();
     };
 
     return (
