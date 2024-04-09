@@ -1,22 +1,39 @@
 "use client";
 import Toggle from "@/components/UI/Toggle";
 import { cartState } from "@/recoil/atoms/cartState";
-import { useRecoilState } from "recoil";
+import { cartSelectedState } from "@/recoil/selectors/cartSortState";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 
 const CartControl = ({
   setShowCheckedItem,
+  useCheckAllCartItem,
+  deleteCartItem,
 }: {
   setShowCheckedItem: (check: boolean) => void;
+  useCheckAllCartItem: (check: boolean) => void;
+  deleteCartItem: (cartSeq: number) => void;
 }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [cartList, setCartList] = useRecoilState(cartState);
+  const selectedItem = useRecoilValue(cartSelectedState);
+
+  const deleteHandler = () => {
+    if (selectedItem.length === 0) return;
+    if (confirm("선택된 상품을 삭제하시겠습니까?")) {
+      selectedItem.forEach((item) => {
+        deleteCartItem(item.cartSeq);
+      });
+    }
+  };
+
   useEffect(() => {
-    setCartList((prev) =>
-      prev.map((item) => {
-        return { ...item, checkbox: Number(isCheckAll) };
-      })
-    );
+    useCheckAllCartItem(isCheckAll);
+    // setCartList((prev) =>
+    //   prev.map((item) => {
+    //     return { ...item, checkbox: Number(isCheckAll) };
+    //   })
+    // );
   }, [isCheckAll]);
 
   return (
@@ -33,9 +50,9 @@ const CartControl = ({
 
         <div className="text-[13px] text-[#444444] flex items-center">
           <span className="mr-[10px]">전체</span>
-          <span className="mr-[10px]">
-            {isCheckAll ? "선택삭제" : "품절삭제"}
-          </span>
+          <button onClick={deleteHandler} className="mr-[10px]">
+            {selectedItem.length > 0 ? "선택삭제" : "품절삭제"}
+          </button>
           <span className="mr-[2px]">선택상품만 보기</span>
           <Toggle onChangeHandler={setShowCheckedItem} />
         </div>

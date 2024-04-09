@@ -2,10 +2,12 @@
 import CartItemCard from "@/components/pages/cart/CartItemCard";
 import CartControl from "@/components/pages/cart/CartControl";
 import { CartStateType } from "@/types/cartType";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState } from "@/recoil/atoms/cartState";
 import { cartSortState } from "@/recoil/selectors/cartSortState";
 import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
+import { set } from "react-hook-form";
 
 const CartProductList = ({
   cartItemList,
@@ -13,24 +15,34 @@ const CartProductList = ({
   deleteCartItem,
   fixCartItem,
   checkCartItem,
+  useCheckAllCartItem,
 }: {
   cartItemList: CartStateType[];
   updateQunaity: (cartSeq: number, quantity: number) => void;
   deleteCartItem: (cartSeq: number) => void;
   fixCartItem: (cartSeq: number, fix: boolean) => void;
   checkCartItem: (cartSeq: number, check: boolean) => void;
+  useCheckAllCartItem: (check: boolean) => void;
 }) => {
   const [showCheckedItem, setShowCheckedItem] = useState(false);
   const [cartList, setCartList] = useRecoilState(cartState);
   const sortList = useRecoilValue(cartSortState(showCheckedItem));
+  const [totalPrice, setTotalPrice] = useRecoilState(cartProductPrice);
+  const [discountPrice, setDiscountPrice] = useRecoilState(cartDiscountPrice);
 
   useEffect(() => {
     setCartList(cartItemList);
+    setTotalPrice(0);
+    setDiscountPrice(0);
   }, [cartItemList]);
 
   return (
     <div className="pb-[10px]">
-      <CartControl setShowCheckedItem={setShowCheckedItem} />
+      <CartControl
+        deleteCartItem={deleteCartItem}
+        setShowCheckedItem={setShowCheckedItem}
+        useCheckAllCartItem={useCheckAllCartItem}
+      />
       {sortList.map((cartItem) => (
         <CartItemCard
           key={cartItem.cartSeq}

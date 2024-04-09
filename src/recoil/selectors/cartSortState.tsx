@@ -15,6 +15,14 @@ export const cartSortState = selectorFamily({
     },
 });
 
+export const cartCountState = selector({
+  key: "cartCountState",
+  get: ({ get }) => {
+    const cartList = get(cartState);
+    return cartList.length;
+  },
+});
+
 export const cartSelectedState = selector({
   key: "cartSelectedState",
   get: ({ get }) => {
@@ -22,7 +30,7 @@ export const cartSelectedState = selector({
     const selectedCartList = cartList.filter(
       (cartItem) => cartItem.checkbox === 1
     );
-    if (selectedCartList.length === 0) return cartList;
+    //if (selectedCartList.length === 0) return cartList;
     return selectedCartList;
   },
 });

@@ -26,7 +26,6 @@ const CartItemCard = ({
   const router = useRouter();
   const token = useGetClientToken();
   const [cartItem, setCartItem] = useState<CartItemType | null>(null);
-
   const [totalPrice, setTotalPrice] = useRecoilState(cartProductPrice);
   const [discountPrice, setDiscountPrice] = useRecoilState(cartDiscountPrice);
 
@@ -48,6 +47,7 @@ const CartItemCard = ({
       if (res.ok) {
         const cartItem = data.result;
         setCartItem(cartItem);
+
         if (cartItemState.checkbox) {
           setTotalPrice(
             (prev) => prev + cartItem.productPrice * cartItem.quantity
@@ -81,19 +81,16 @@ const CartItemCard = ({
     if (!cartItem) return;
     if (confirm("해당 상품을 삭제하시겠습니까?"))
       deleteCartItem(cartItemState.cartSeq);
-    router.refresh();
   };
 
   const pinHandler = () => {
     if (!cartItem) return;
     fixCartItem(cartItemState.cartSeq, !cartItemState.fixItem);
-    router.refresh();
   };
 
   const checkHandler = () => {
     if (!cartItem) return;
     checkCartItem(cartItemState.cartSeq, !cartItemState.checkbox);
-    router.refresh();
   };
 
   return (

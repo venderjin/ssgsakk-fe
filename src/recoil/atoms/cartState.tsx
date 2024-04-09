@@ -1,11 +1,17 @@
 import { atom } from "recoil";
-import { CartStateType } from "@/types/cartType";
+import { CartStateType, CartItemInfoType } from "@/types/cartType";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
 export const cartState = atom<CartStateType[]>({
   key: "cartState",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const cartProductList = atom<CartItemInfoType[]>({
+  key: "cartProductList",
   default: [],
   effects_UNSTABLE: [persistAtom],
 });

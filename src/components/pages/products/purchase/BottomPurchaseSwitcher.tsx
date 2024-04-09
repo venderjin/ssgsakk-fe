@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 
 interface Props {
   productId: number;
@@ -85,6 +86,7 @@ const BottomPurchaseSwitcher = ({
     } else {
       alert("장바구니에 상품이 추가되었습니다.");
     }
+    useRevalidateTag("cart");
     changeMode("default");
   };
 
