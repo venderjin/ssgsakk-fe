@@ -7,6 +7,8 @@ import CartItemPrice from "@/components/pages/cart/CartItemPrice";
 import CartQunatityHandler from "./CartQunatityHandler";
 import { CartItemType, CartStateType } from "@/types/cartType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
+import { useRecoilState } from "recoil";
+import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
 
 const CartItemCard = ({
   cartItemState,
@@ -25,6 +27,9 @@ const CartItemCard = ({
   const token = useGetClientToken();
   const [cartItem, setCartItem] = useState<CartItemType | null>(null);
 
+  const [totalPrice, setTotalPrice] = useRecoilState(cartProductPrice);
+  const [discountPrice, setDiscountPrice] = useRecoilState(cartDiscountPrice);
+
   useEffect(() => {
     const getCartItem = async () => {
       if (!token) return;
@@ -41,7 +46,23 @@ const CartItemCard = ({
 
       const data = await res.json();
       if (res.ok) {
-        setCartItem(data.result);
+        const cartItem = data.result;
+        setCartItem(cartItem);
+        if (cartItemState.checkbox) {
+          setTotalPrice(
+            (prev) => prev + cartItem.productPrice * cartItem.quantity
+          );
+          setDiscountPrice(
+            (prev) =>
+              prev +
+              Math.round(
+                (cartItem.productPrice *
+                  cartItem.quantity *
+                  cartItem.discountPercent) /
+                  100
+              )
+          );
+        }
       } else {
         console.log(data);
       }

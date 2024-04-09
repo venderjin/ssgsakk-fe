@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
@@ -21,6 +22,7 @@ const BottomPurchaseSwitcher = ({
   changeMode,
   mode,
 }: Props) => {
+  const router = useRouter();
   const token = useGetClientToken();
   const [orderData, setOrderData] = useState<OrderData>({
     productId: productId,
@@ -72,6 +74,7 @@ const BottomPurchaseSwitcher = ({
         if (!response.ok) {
           alert("서버로부터 응답이 없습니다.");
         }
+
         return response.json();
       })
     );

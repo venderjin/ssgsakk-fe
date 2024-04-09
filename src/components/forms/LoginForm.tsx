@@ -9,8 +9,11 @@ import SnsButton from "@/components/common/SnsButton";
 import { useRouter } from "next/navigation";
 import { getCookies, setCookie, deleteCookie } from "cookies-next";
 import { LoginType } from "@/types/authType";
+import { loginState } from "@/recoil/atoms/userState";
+import { useRecoilState } from "recoil";
 
 export default function LoginForm({ retUrl }: { retUrl: string }) {
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
   const router = useRouter();
   const cookies = getCookies();
   const [saveIdCheck, setCheck] = useState(false);
@@ -58,6 +61,7 @@ export default function LoginForm({ retUrl }: { retUrl: string }) {
     });
 
     if (response?.ok) {
+      setIsLogin(true);
       if (retUrl) router.push(retUrl);
       router.push("/mypage");
     }
