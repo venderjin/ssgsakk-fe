@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 
 const CartControl = ({
   setShowCheckedItem,
-  useCheckAllCartItem,
+  checkAllCartItem,
   deleteCartItem,
 }: {
   setShowCheckedItem: (check: boolean) => void;
-  useCheckAllCartItem: (check: boolean) => void;
+  checkAllCartItem: (check: boolean) => void;
   deleteCartItem: (cartSeq: number) => void;
 }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
@@ -36,7 +36,7 @@ const CartControl = ({
   };
 
   useEffect(() => {
-    useCheckAllCartItem(isCheckAll);
+    checkAllCartItem(isCheckAll);
     // setCartList((prev) =>
     //   prev.map((item) => {
     //     return { ...item, checkbox: Number(isCheckAll) };

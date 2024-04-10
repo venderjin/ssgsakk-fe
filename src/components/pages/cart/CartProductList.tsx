@@ -14,14 +14,14 @@ const CartProductList = ({
   deleteCartItem,
   fixCartItem,
   checkCartItem,
-  useCheckAllCartItem,
+  checkAllCartItem,
 }: {
   cartItemList: CartStateType[];
   updateQuantity: (cartSeq: number, quantity: number) => void;
   deleteCartItem: (cartSeq: number) => void;
   fixCartItem: (cartSeq: number, fix: boolean) => void;
   checkCartItem: (cartSeq: number, check: boolean) => void;
-  useCheckAllCartItem: (check: boolean) => void;
+  checkAllCartItem: (check: boolean) => void;
 }) => {
   const [showCheckedItem, setShowCheckedItem] = useState(false);
   const [cartList, setCartList] = useRecoilState(cartState);
@@ -50,7 +50,7 @@ const CartProductList = ({
           <CartControl
             deleteCartItem={deleteCartItem}
             setShowCheckedItem={setShowCheckedItem}
-            useCheckAllCartItem={useCheckAllCartItem}
+            checkAllCartItem={checkAllCartItem}
           />
           {sortList.map((cartItem) => (
             <CartItemCard

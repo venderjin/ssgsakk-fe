@@ -33,7 +33,7 @@ const Cart = async ({
             deleteCartItem={useDeleteCartItem}
             fixCartItem={useFixCartItem}
             checkCartItem={useCheckCartItem}
-            useCheckAllCartItem={useCheckAllCartItem}
+            checkAllCartItem={useCheckAllCartItem}
           />
           {cartItemList.length > 0 && (
             <>
