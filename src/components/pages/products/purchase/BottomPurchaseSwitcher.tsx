@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
-import useRevalidateTag from "@/actions/useRevalidateTag";
+import { cartState } from "@/recoil/atoms/cartState";
+import { useRecoilState } from "recoil";
 
 interface Props {
   productId: number;
@@ -23,6 +24,7 @@ const BottomPurchaseSwitcher = ({
   changeMode,
   mode,
 }: Props) => {
+  const [cartList, setCartList] = useRecoilState(cartState);
   const router = useRouter();
   const token = useGetClientToken();
   const [orderData, setOrderData] = useState<OrderData>({
@@ -86,8 +88,28 @@ const BottomPurchaseSwitcher = ({
     } else {
       alert("장바구니에 상품이 추가되었습니다.");
     }
-    useRevalidateTag("cart");
+    updateCartCount();
     changeMode("default");
+  };
+
+  const updateCartCount = async () => {
+    if (!token) return;
+    const res = await fetch(`${process.env.BASE_URL}/carts/list`, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      setCartList(data.result);
+    }
+
+    if (res.status === 500) {
+      console.log(data.msg);
+    }
   };
 
   return (

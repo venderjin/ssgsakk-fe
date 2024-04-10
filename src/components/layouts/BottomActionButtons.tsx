@@ -4,40 +4,48 @@ import BottomPurchaseMain from "@/components/pages/products/purchase/BottomPurch
 import BottomPurchaseSwitcher from "@/components/pages/products/purchase/BottomPurchaseSwitcher";
 
 type Props = {
-    productId: number;
-    productName: string;
-    productPrice: number;
-    discountPercent: number;
+  productId: number;
+  productName: string;
+  productPrice: number;
+  discountPercent: number;
 };
 
-const BottomActionButtons = ({ productId, productName, productPrice, discountPercent }: Props) => {
-    const [bottomMode, setBottomMode] = useState<string>("default");
-    const onChangeBottomMode = (mode: string) => {
-        setBottomMode(mode);
-    };
+const BottomActionButtons = ({
+  productId,
+  productName,
+  productPrice,
+  discountPercent,
+}: Props) => {
+  const [bottomMode, setBottomMode] = useState<string>("default");
+  const onChangeBottomMode = (mode: string) => {
+    setBottomMode(mode);
+  };
 
-    return (
+  return (
+    <>
+      {bottomMode === "default" ? (
+        <BottomPurchaseMain
+          changeMode={onChangeBottomMode}
+          productSeq={productId}
+        />
+      ) : (
         <>
-            {bottomMode === "default" ? (
-                <BottomPurchaseMain changeMode={onChangeBottomMode} productSeq={productId} />
-            ) : (
-                <>
-                    <BottomPurchaseSwitcher
-                        productId={productId}
-                        productName={productName}
-                        productPrice={productPrice}
-                        discountPercent={discountPercent}
-                        changeMode={onChangeBottomMode}
-                        mode={bottomMode}
-                    />
-                    {/* <BottomPurchaseOptionBox
+          <BottomPurchaseSwitcher
+            productId={productId}
+            productName={productName}
+            productPrice={productPrice}
+            discountPercent={discountPercent}
+            changeMode={onChangeBottomMode}
+            mode={bottomMode}
+          />
+          {/* <BottomPurchaseOptionBox
             changeMode={onChangeBottomMode}
             onChangeOrderData={onChangeOrderData}
           /> */}
-                </>
-            )}
         </>
-    );
+      )}
+    </>
+  );
 };
 
 export default BottomActionButtons;

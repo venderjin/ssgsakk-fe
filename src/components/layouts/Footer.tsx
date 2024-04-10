@@ -7,9 +7,11 @@ import {
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { loginState } from "@/recoil/atoms/userState";
+import { cartState } from "@/recoil/atoms/cartState";
 import { useRecoilState } from "recoil";
 
 const Footer = () => {
+  const [cartLists, setCartLists] = useRecoilState(cartState);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const { data: session } = useSession();
 
@@ -59,6 +61,7 @@ const Footer = () => {
                     onClick={() => {
                       signOut();
                       setIsLogin(false);
+                      setCartLists([]);
                     }}
                   >
                     {category.title}

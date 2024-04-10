@@ -10,12 +10,6 @@ export const cartState = atom<CartStateType[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const cartProductList = atom<CartItemInfoType[]>({
-  key: "cartProductList",
-  default: [],
-  effects_UNSTABLE: [persistAtom],
-});
-
 export const cartProductPrice = atom<number>({
   key: "cartProductPrice",
   default: 0,

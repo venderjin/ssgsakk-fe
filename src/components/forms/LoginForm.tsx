@@ -12,7 +12,7 @@ import { LoginType } from "@/types/authType";
 import { loginState } from "@/recoil/atoms/userState";
 import { useRecoilState } from "recoil";
 
-export default function LoginForm({ retUrl }: { retUrl: string }) {
+export default function LoginForm({ retUrl }: { retUrl: string | null }) {
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const router = useRouter();
   const cookies = getCookies();
@@ -62,7 +62,8 @@ export default function LoginForm({ retUrl }: { retUrl: string }) {
 
     if (response?.ok) {
       setIsLogin(true);
-      if (retUrl) router.push(retUrl);
+
+      if (retUrl && retUrl !== "undefined") router.push(retUrl);
       router.push("/mypage");
     }
     if (response?.error) {

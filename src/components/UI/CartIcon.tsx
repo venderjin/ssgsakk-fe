@@ -2,33 +2,35 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { cartCountState } from "@/recoil/selectors/cartSortState";
+import { useRecoilState } from "recoil";
+import { cartState } from "@/recoil/atoms/cartState";
 
 const CartIcon = () => {
-  const cartCount = useRecoilValue(cartCountState);
-  const [cartItemNum, setCartItemNum] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+  const [cartList, setCartList] = useRecoilState(cartState);
+
   useEffect(() => {
-    console.log("갱신");
-    setCartItemNum(cartCount);
-  }, []);
+    setCartCount(cartList.length);
+  }, [cartList]);
 
   return (
     <>
-      <Link href={"/cart"} className="relative">
-        <Image
-          src="/images/etc/cart.svg"
-          alt="cart-icon"
-          width={24}
-          height={24}
-        />
-        {cartItemNum > 0 && (
-          <div className="absolute top-[-5px] right-[0px]">
-            <p className="bg-primary-red text-center text-[10px] text-[#fff] rounded-[50%] min-w-[16px] transform translate-x-1/2">
-              {cartItemNum}
-            </p>
-          </div>
-        )}
+      <Link href={"/cart"}>
+        <div className="relative">
+          <Image
+            src="/images/etc/cart.svg"
+            alt="cart-icon"
+            width={24}
+            height={24}
+          />
+          {cartCount > 0 && (
+            <div className="absolute top-[-5px] right-[0px]">
+              <p className="bg-primary-red text-center text-[10px] text-[#fff] rounded-[50%] min-w-[16px] transform translate-x-1/2">
+                {cartCount}
+              </p>
+            </div>
+          )}
+        </div>
       </Link>
     </>
   );

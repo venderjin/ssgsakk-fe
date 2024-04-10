@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import ProductInformation from "@/components/pages/products/detail/ProductInformation";
 import TopHeader from "@/components/layouts/TopHeader";
@@ -5,7 +6,9 @@ import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
+import { useGetServerToken } from "@/actions/useGetServerToken";
 import "./productDetail.css";
+import Footer from "@/components/layouts/Footer";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {

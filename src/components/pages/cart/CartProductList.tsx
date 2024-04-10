@@ -7,7 +7,6 @@ import { cartSortState } from "@/recoil/selectors/cartSortState";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
-import { set } from "react-hook-form";
 
 const CartProductList = ({
   cartItemList,

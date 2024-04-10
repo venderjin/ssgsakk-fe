@@ -15,14 +15,6 @@ export const cartSortState = selectorFamily({
     },
 });
 
-export const cartCountState = selector({
-  key: "cartCountState",
-  get: ({ get }) => {
-    const cartList = get(cartState);
-    return cartList.length;
-  },
-});
-
 export const cartSelectedState = selector({
   key: "cartSelectedState",
   get: ({ get }) => {

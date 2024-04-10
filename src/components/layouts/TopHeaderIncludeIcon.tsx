@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CartIcon from "@/components/UI/CartIcon";
 import GoBackIcon from "@/components/UI/GoBackIcon";
+import { CartStateType } from "@/types/cartType";
 
 const TopHeaderIncludeIcon = ({
   title,
