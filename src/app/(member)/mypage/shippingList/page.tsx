@@ -12,6 +12,7 @@ const fetchShippingList = async (token: string) => {
       Authorization: token,
       "Content-Type": "application/json",
     },
+    next: { tags: ["address"] },
     cache: "no-store",
   });
 

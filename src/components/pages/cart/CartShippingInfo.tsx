@@ -58,6 +58,7 @@ const CartShippingInfo = ({
 
       if (response.ok) {
         alert("기본 배송지로 설정되었습니다.");
+        setIsModalOpen(false);
         location.reload();
       }
     } catch (error) {

@@ -63,7 +63,7 @@ const ShippingInfoBox = ({
             </span>
           )}
         </strong>
-        <span className="block mt-[5px]">(1234)</span>
+        <span className="block mt-[5px]">({shippingData.zipCode})</span>
         <span className="block mt-[5px]">
           도로명주소: {shippingData.roadAddress + shippingData.detailAddress}
         </span>
