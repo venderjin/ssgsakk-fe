@@ -6,11 +6,13 @@ import QuickMenu from "@/components/pages/mypage/QuickMenu";
 import BottomNav from "@/components/layouts/BottomNav";
 import Footer from "@/components/layouts/Footer";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
+import CartData from "@/components/pages/mypage/CartData";
 
-const Page = () => {
+const Page = async () => {
   return (
     <div className="font-Pretendard">
       <TopHeaderIncludeIcon title="MY SSG" icon="cart" />
+      <CartData />
       <MyPoint />
       <MyOrderSummary />
       <QuickMenu />

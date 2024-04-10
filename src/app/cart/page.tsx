@@ -6,6 +6,7 @@ import NonMemberCard from "@/components/pages/cart/NonMemberCard";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
 import CartTotalCard from "@/components/pages/cart/CartTotalCard";
+import { revalidateTag } from "next/cache";
 
 const Cart = async ({
   searchParams,
@@ -16,26 +17,57 @@ const Cart = async ({
   const isModalOpen = Boolean(searchParams.isModalOpen);
   const shippingData = await fetchShippingList(token);
   const cartItemList = await getCartList(token);
-
+  revalidateTag("cart");
   return (
     <>
       <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
       {token ? (
-        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
+        <>
+          <CartShippingInfo
+            shippingData={shippingData}
+            modalOpen={isModalOpen}
+          />
+          <CartProductList
+            cartItemList={cartItemList}
+            updateQuantity={useUpdateQunatity}
+            deleteCartItem={useDeleteCartItem}
+            fixCartItem={useFixCartItem}
+            checkCartItem={useCheckCartItem}
+            checkAllCartItem={useCheckAllCartItem}
+          />
+          {cartItemList.length > 0 && (
+            <>
+              <CartTotalCard />
+              <CartToolBar />
+            </>
+          )}
+        </>
       ) : (
         <NonMemberCard />
       )}
-      <CartProductList
-        cartItemList={cartItemList}
-        updateQunaity={useUpdateQunaity}
-        deleteCartItem={useDeleteCartItem}
-        fixCartItem={useFixCartItem}
-        checkCartItem={useCheckCartItem}
-      />
-      <CartTotalCard />
-      <CartToolBar />
     </>
   );
+};
+
+const useCheckAllCartItem = async (check: boolean) => {
+  "use server";
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/carts/allcheck?checkbox=${Number(check)}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  if (res.ok) {
+    revalidateTag("cart");
+  } else console.log(data);
 };
 
 const useCheckCartItem = async (cartSeq: number, check: boolean) => {
@@ -56,8 +88,9 @@ const useCheckCartItem = async (cartSeq: number, check: boolean) => {
     }
   );
   const data = await res.json();
-  if (res.ok) console.log(data);
-  else console.log(data);
+  if (res.ok) {
+    revalidateTag("cart");
+  } else console.log(data);
 };
 
 const useFixCartItem = async (cartSeq: number, fix: boolean) => {
@@ -76,7 +109,7 @@ const useFixCartItem = async (cartSeq: number, fix: boolean) => {
     }
   );
   const data = await res.json();
-  if (res.ok) console.log(data);
+  if (res.ok) revalidateTag("cart");
   else console.log(data);
 };
 
@@ -93,11 +126,11 @@ const useDeleteCartItem = async (cartSeq: number) => {
     cache: "no-store",
   });
   const data = await res.json();
-  if (res.ok) console.log(data);
+  if (res.ok) revalidateTag("cart");
   else console.log(data);
 };
 
-const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
+const useUpdateQunatity = async (cartSeq: number, quantity: number) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -114,7 +147,8 @@ const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
   );
 
   const data = await res.json();
-  if (res.ok) console.log(data);
+
+  if (res.ok) revalidateTag("cart");
   else console.log(data);
 };
 
@@ -157,6 +191,7 @@ const getCartList = async (token: string) => {
       Authorization: token,
       "Content-Type": "application/json",
     },
+    next: { tags: ["cart"] },
     cache: "no-store",
   });
 

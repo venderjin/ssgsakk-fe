@@ -93,4 +93,5 @@ export const options: NextAuthOptions = {
     signIn: "/login",
     error: "/auth_error",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };

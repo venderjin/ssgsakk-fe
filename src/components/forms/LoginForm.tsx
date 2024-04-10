@@ -12,7 +12,7 @@ import { LoginType } from "@/types/authType";
 import { loginState } from "@/recoil/atoms/userState";
 import { useRecoilState } from "recoil";
 
-export default function LoginForm({ retUrl }: { retUrl: string }) {
+export default function LoginForm({ retUrl }: { retUrl: string | null }) {
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const router = useRouter();
   const cookies = getCookies();
@@ -62,8 +62,9 @@ export default function LoginForm({ retUrl }: { retUrl: string }) {
 
     if (response?.ok) {
       setIsLogin(true);
-      if (retUrl) router.push(retUrl);
-      router.push("/mypage");
+
+      if (retUrl && retUrl !== "undefined") router.push(`/${retUrl}`);
+      else router.push("/mypage");
     }
     if (response?.error) {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");

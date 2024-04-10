@@ -22,6 +22,10 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
+      <meta
+        name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+      />
       <body className={inter.className}>
         <RecoilProvider>
           <AuthProvider>{children}</AuthProvider>
