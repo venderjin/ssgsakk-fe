@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeartIcon from "@/components/UI/HeartIcon";
 import Cart from "@/components/images/Cart";
 import DeliveryLabel from "@/components/UI/DeliveryLabel";
+import { Suspense } from "react";
 
 interface ProductData {
     productName: string;
@@ -30,7 +31,7 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
 
     return (
         <>
-            <div className="h-[350px] my-3 flex justify-start flex-col">
+            <div className="h-[310px] my-3 flex justify-start flex-col">
                 <div className="w-auto h-auto relative">
                     <Link href={`/products/${productSeq}`}>
                         <Image src={productData.contentsUrl.contentUrl} alt="productImage" width={200} height={200} />
@@ -44,7 +45,9 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
                 <div className=" flex flex-row gap-2 justify-between py-2 items-center">
                     <DeliveryLabel deliveryType={productData.deliveryType} />
                     <div className="flex flex-row gap-2 items-center">
-                        <HeartIcon productSeq={productSeq} />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <HeartIcon productSeq={productSeq} />
+                        </Suspense>
                         <Cart width={20} height={20} />
                     </div>
                 </div>

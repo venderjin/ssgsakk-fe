@@ -3,159 +3,146 @@ import React, { use, useEffect, useState } from "react";
 import RedHeart from "../images/RedHeart";
 import Heart from "../images/Heart";
 import { useGetClientToken } from "@/actions/useGetClientToken";
+import { useRecoilValue } from "recoil";
+import { loginState } from "@/recoil/atoms/userState";
+import { set } from "react-hook-form";
 
 interface Props {
-  productSeq?: number;
-  categorySeq?: number;
-  height?: number;
-  width?: number;
+    productSeq?: number;
+    categorySeq?: number;
+    height?: number;
+    width?: number;
 }
 
-export default function HeartIcon({
-  productSeq,
-  categorySeq,
-  height,
-  width,
-}: Props) {
-  const [isCheck, setIsCheck] = useState<Boolean | undefined>(undefined);
-  const token = useGetClientToken();
+export default function HeartIcon({ productSeq, categorySeq, height, width }: Props) {
+    const [isCheck, setIsCheck] = useState<Boolean>(false);
+    const token = useGetClientToken();
 
-  const handler = () => {
-    setIsCheck(!isCheck);
-  };
+    const handler = async () => {
+        if (productSeq) {
+            if (isCheck) {
+                await productUnlike();
+            } else {
+                await productLike();
+            }
+        } else if (categorySeq) {
+            if (isCheck) {
+                await categoryUnlike();
+            } else {
+                await categoryLike();
+            }
+        }
+    };
 
-  useEffect(() => {
-    //랜더링 되었을때 찜 상태인지 아닌지 확인하기 위한 fetch
-    if (productSeq !== undefined && categorySeq === undefined) {
-      const fetchCheckProduct = async () => {
-        if (!token) return;
-        const response = await fetch(
-          `${process.env.BASE_URL}/likes/check/product-seq/${productSeq}`,
-          {
+    //찜(상품,카테고리)하기 함수 -----------------------------------------------------------------
+    const productLike = async () => {
+        const response = await fetch(`${process.env.BASE_URL}/likes/add?product-seq=${productSeq}`, {
             method: "GET",
             headers: {
-              Authorization: token,
+                Authorization: token,
             },
-          }
-        );
+            cache: "no-cache",
+        });
         const data = await response.json();
-        // console.log("fetchCheckProduct data", data.result.likeState);
-        setIsCheck(data.result.likeState === 1 ? true : false);
-      };
-      fetchCheckProduct();
-    } else if (productSeq === undefined && categorySeq !== undefined) {
-      const fetchCheckCategory = async () => {
-        if (!token) return;
-        const response = await fetch(
-          `${process.env.BASE_URL}/likes/check/category-seq/${categorySeq}`,
-          {
+        setIsCheck(true);
+        return data;
+    };
+
+    const categoryLike = async () => {
+        const response = await fetch(`${process.env.BASE_URL}/likes/add?category-seq=${categorySeq}`, {
             method: "GET",
             headers: {
-              Authorization: token,
+                Authorization: token,
             },
-          }
-        );
+        });
         const data = await response.json();
-        // console.log("fetchCheckCategory data", data.result.likeState);
-        setIsCheck(data.result.likeState === 1 ? true : false);
-      };
-      fetchCheckCategory();
-    }
-  }, []);
+        setIsCheck(true);
+        return data;
+    };
 
-  useEffect(() => {
-    //상품 찜 하기
-    if (isCheck === true) {
-      if (productSeq !== undefined && categorySeq === undefined) {
-        // productSeq에 좋아요를 누른 경우 상품 좋아요 api에 fetch
-        const fetchLikeProduct = async () => {
-          if (!token) return;
-          const response = await fetch(
-            `${process.env.BASE_URL}/likes/add?product-seq=${productSeq}`,
-            {
-              method: "GET",
-              headers: {
+    //찜(상품,카테고리)취소 함수 -----------------------------------------------------------------
+    const productUnlike = async () => {
+        const response = await fetch(`${process.env.BASE_URL}/likes/delete?product-seq=${productSeq}`, {
+            method: "GET",
+            headers: {
                 Authorization: token,
-              },
-            }
-          );
-          const data = await response.json();
-          // console.log(data);
-        };
-        fetchLikeProduct();
-      } else if (productSeq === undefined && categorySeq !== undefined) {
-        // categorySeq에 좋아요를 누른 경우
-        const fetchLikeCategory = async () => {
-          if (!token) return;
-          const response = await fetch(
-            `${process.env.BASE_URL}/likes/add?category-seq=${categorySeq}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: token,
-              },
-            }
-          );
-          const data = await response.json();
-          // console.log(data);
-        };
-        fetchLikeCategory();
-      }
-    }
+            },
+            cache: "no-cache",
+        });
+        const data = await response.json();
+        setIsCheck(false);
+        return data;
+    };
 
-    //상품 찜 취소
-    if (isCheck === false) {
-      if (productSeq !== undefined && categorySeq === undefined) {
-        // productSeq에 좋아요를 취소한 경우 상품 좋아요 취소 api에 fetch
-        const fetchUnlikeProduct = async () => {
-          if (!token) return;
-          const response = await fetch(
-            `${process.env.BASE_URL}/likes/delete?product-seq=${productSeq}`,
-            {
-              method: "GET",
-              headers: {
+    const categoryUnlike = async () => {
+        const response = await fetch(`${process.env.BASE_URL}/likes/delete?category-seq=${categorySeq}`, {
+            method: "GET",
+            headers: {
                 Authorization: token,
-              },
-            }
-          );
-          const data = await response.json();
-          // console.log("fetchUnlikeProduct data", data);
-        };
-        fetchUnlikeProduct();
-      } else if (productSeq === undefined && categorySeq !== undefined) {
-        // categorySeq에 좋아요를 취소한 경우
-        const fetchUnlikeCategory = async () => {
-          if (!token) return;
-          const response = await fetch(
-            `${process.env.BASE_URL}/likes/delete?category-seq=${categorySeq}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: token,
-              },
-            }
-          );
-          const data = await response.json();
-          // console.log("fetchUnlikeCategory data", data);
-        };
-        fetchUnlikeCategory();
-      }
-    }
-  }, [isCheck]);
+            },
+        });
+        const data = await response.json();
+        setIsCheck(false);
+        return data;
+    };
 
-  return (
-    <div onClick={handler}>
-      {isCheck === true ? (
-        <div
-          style={{
-            animation: "smallScale 0.5s ease-in-out",
-          }}
-        >
-          <RedHeart height={height} width={width} />
-        </div>
-      ) : isCheck === false ? (
-        <Heart height={height} width={width} />
-      ) : null}
-    </div>
-  );
+    useEffect(() => {
+        const productChecker = async () => {
+            const response = await fetch(`${process.env.BASE_URL}/likes/check/product-seq/${productSeq}`, {
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                },
+                next: { tags: ["heart"] },
+                cache: "no-cache",
+            });
+            const data = await response.json();
+            setIsCheck(data.result.likeState === 1 ? true : false);
+        };
+
+        const categoryChecker = async () => {
+            const response = await fetch(`${process.env.BASE_URL}/likes/check/category-seq/${categorySeq}`, {
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                },
+            });
+            const data = await response.json();
+            setIsCheck(data.result.likeState === 1 ? true : false);
+        };
+
+        if (token && token !== "" && productSeq) {
+            productChecker();
+        } else if (token && token !== "" && categorySeq) {
+            categoryChecker();
+        }
+    }, [isCheck, token]); // Add token to the dependency array
+
+    return (
+        <>
+            {token ? (
+                <div onClick={handler}>
+                    {isCheck === true ? (
+                        <div
+                            style={{
+                                animation: "smallScale 0.5s ease-in-out",
+                            }}
+                        >
+                            <RedHeart height={height} width={width} />
+                        </div>
+                    ) : (
+                        <Heart height={height} width={width} />
+                    )}
+                </div>
+            ) : (
+                <div
+                    onClick={() => {
+                        alert("로그인이 필요한 서비스입니다.");
+                    }}
+                >
+                    <Heart height={height} width={width} />
+                </div>
+            )}
+        </>
+    );
 }

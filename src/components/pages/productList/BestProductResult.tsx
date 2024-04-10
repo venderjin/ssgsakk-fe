@@ -1,5 +1,3 @@
-import React from "react";
-
 import ProductListCard from "@/components/pages/productList/ProductListCard";
 
 interface BestProductList {
