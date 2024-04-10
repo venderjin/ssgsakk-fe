@@ -3,7 +3,8 @@ import BottomNav from "@/components/layouts/BottomNav";
 import FloatingUp from "@/components/UI/FloatingUp";
 import FloatingLeft from "@/components/UI/FloatingLeft";
 import LikeHeader from "@/components/pages/mypage/like/LikeHeader";
-import { useGetServerToken } from "@/actions/useGetServerToken";
+import LikeContents from "@/components/pages/mypage/like/LikeContents";
+import Footer from "@/components/layouts/Footer";
 
 const MyLikePage = async ({
     params,
@@ -13,14 +14,15 @@ const MyLikePage = async ({
     searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> => {
     const folder = searchParams.folder;
-    // const token = await useGetServerToken();
 
     return (
         <>
             <BackArrowHeader title="좋아요" />
             <LikeHeader />
+            <LikeContents />
             <FloatingLeft />
             <FloatingUp />
+            <Footer />
             <BottomNav />
         </>
     );
