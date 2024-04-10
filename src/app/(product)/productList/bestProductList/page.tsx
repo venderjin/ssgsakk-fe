@@ -14,19 +14,25 @@ interface GetBestProductList {
 
 async function getBestProductData({ category, delivery }: GetBestProductList) {
     if (category === undefined && delivery === undefined) {
-        const res = await fetch(`${process.env.BASE_URL}/products/best`);
+        const res = await fetch(`${process.env.BASE_URL}/products/best`, {
+            cache: "no-cache",
+        });
         const data = await res.json();
         return data.result;
     } else if (category !== undefined && delivery === undefined) {
-        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}`);
+        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}`, {});
         const data = await res.json();
         return data.result;
     } else if (category === undefined && delivery !== undefined) {
-        const res = await fetch(`${process.env.BASE_URL}/products/best?deliveryType=${delivery}`);
+        const res = await fetch(`${process.env.BASE_URL}/products/best?deliveryType=${delivery}`, {
+            cache: "no-cache",
+        });
         const data = await res.json();
         return data.result;
     } else if (category !== undefined && delivery !== undefined) {
-        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}&deliveryType=${delivery}`);
+        const res = await fetch(`${process.env.BASE_URL}/products/best?categorySeq=${category}&deliveryType=${delivery}`, {
+            cache: "no-cache",
+        });
         const data = await res.json();
         return data.result;
     }

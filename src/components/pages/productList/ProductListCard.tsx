@@ -31,7 +31,7 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
 
     return (
         <>
-            <div className="h-[350px] my-3 flex justify-start flex-col">
+            <div className="h-[310px] my-3 flex justify-start flex-col">
                 <div className="w-auto h-auto relative">
                     <Link href={`/products/${productSeq}`}>
                         <Image src={productData.contentsUrl.contentUrl} alt="productImage" width={200} height={200} />

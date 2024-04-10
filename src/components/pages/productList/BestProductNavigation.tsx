@@ -70,8 +70,6 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
             queryString.set("delivery", deliveryType);
             router.push(`/productList/bestProductList?${queryString.toString()}`);
         }
-
-        // router.refresh();
     };
 
     const handleCategoryClick = (categoryId: number) => {
@@ -95,8 +93,8 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
     return (
         <>
             <div className="py-2 bg-white">
-                <div className="flex flex-row gap-1">
-                    <div className="flex flex-row h-[40px] items-center overflow-x-auto px-3">
+                <div className="flex flex-row gap-1 h-[50px] py-[5px]">
+                    <div className="flex flex-row items-center overflow-x-auto px-3">
                         {categoryData.map((data) => (
                             <button
                                 ref={selectedCategory === data.id ? (activeCategoryRef as React.RefObject<HTMLButtonElement>) : null}
@@ -142,6 +140,7 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
                                 width={80}
                                 height={30}
                                 style={{ width: "auto", height: "30px" }}
+                                className="object-contain transition-opacity"
                             />
                         </div>
                     ))}
