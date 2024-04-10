@@ -45,10 +45,18 @@ const ProductDetailInfo = ({
       </div>
 
       {/* 상세정보 펼쳐보기 */}
-      <div className="bg-white">
+      <div className="relative">
+        <div
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, rgba(255, 255, 255,255), #fff)",
+            filter: "blur(15px)",
+          }}
+          className="absolute block top-[-30px] left-0 right-0 h-[40px] "
+        />
         <button
           onClick={toggleDetail}
-          className="w-full h-[50px] text-[14px] flex items-center justify-center"
+          className="w-full h-[50px]  text-[14px] flex items-center justify-center "
         >
           <span>{!detailMore ? "상세정보 펼쳐보기" : "상세정보 접기"}</span>
           <div className="ml-[5px]">
