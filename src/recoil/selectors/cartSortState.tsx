@@ -22,7 +22,7 @@ export const cartSelectedState = selector({
     const selectedCartList = cartList.filter(
       (cartItem) => cartItem.checkbox === 1
     );
-    if (selectedCartList.length === 0) return cartList;
+    //if (selectedCartList.length === 0) return cartList;
     return selectedCartList;
   },
 });

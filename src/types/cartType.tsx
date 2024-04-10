@@ -1,4 +1,5 @@
 export interface CartItemType {
+  cartSeq: number;
   productSeq: number;
   productOption: string;
   productVendor: string;
@@ -7,6 +8,10 @@ export interface CartItemType {
   productName: string;
   quantity: number;
   productImage: string;
+  optionAndStockSeq: number;
+  stock: number;
+  checkbox: number;
+  fixItem: number;
 }
 
 export interface CartStateType {
