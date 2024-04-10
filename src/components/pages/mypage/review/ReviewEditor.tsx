@@ -2,19 +2,14 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
+import { createReview } from "@/actions/review";
 
 interface ReviewForm {
   content: string;
   images: string[];
 }
 
-const ReviewEditor = ({
-  createReview,
-  type,
-}: {
-  createReview: (reviewForm: FormData) => void;
-  type: string;
-}) => {
+const ReviewEditor = ({ type }: { type: string }) => {
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
@@ -79,21 +74,22 @@ const ReviewEditor = ({
     }
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
     if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
-    const imageData = images.map((imageName, index) => ({
-      priority: index,
-      imageUrl: imageName,
-    }));
+    createReview(1, 1, "옵션", content, images, reviewRating);
+    // const imageData = images.map((imageName, index) => ({
+    //   priority: index,
+    //   imageUrl: imageName,
+    // }));
 
-    const formData = new FormData();
-    formData.append("content", content);
-    formData.append("images", JSON.stringify(imageData));
-    formData.append("rating", reviewRating.toString());
+    // const formData = new FormData();
+    // formData.append("content", content);
+    // formData.append("images", JSON.stringify(imageData));
+    // formData.append("rating", reviewRating.toString());
 
-    createReview(formData);
+    // createReview(formData);
   };
 
   return (
