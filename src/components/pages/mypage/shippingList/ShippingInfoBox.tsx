@@ -4,10 +4,12 @@ import { useSession } from "next-auth/react";
 import { ShippingInfoType } from "@/types/memberInfoType";
 
 const ShippingInfoBox = ({
+  type,
   shippingData,
   setCheckedAddressId,
   checkedAddressId,
 }: {
+  type: string;
   shippingData: ShippingInfoType;
   setCheckedAddressId: (id: number) => void;
   checkedAddressId: number | null;
@@ -70,19 +72,21 @@ const ShippingInfoBox = ({
         </span>
       </div>
 
-      <div className="absolute right-0 top-[20px] text-[12px] text-[#888] bg-none">
-        <button onClick={modifyHandler} className="px-[10px]">
-          <span>수정</span>
-        </button>
-        {!shippingData.defaultAddressCheck && (
-          <>
-            <span className="border-r border-r-[#e5e5e5] h-[12px]" />
-            <button onClick={deleteHandler} className="px-[10px]">
-              <span>삭제</span>
-            </button>
-          </>
-        )}
-      </div>
+      {type === "manage" && (
+        <div className="absolute right-0 top-[20px] text-[12px] text-[#888] bg-none">
+          <button onClick={modifyHandler} className="px-[10px]">
+            <span>수정</span>
+          </button>
+          {!shippingData.defaultAddressCheck && (
+            <>
+              <span className="border-r border-r-[#e5e5e5] h-[12px]" />
+              <button onClick={deleteHandler} className="px-[10px]">
+                <span>삭제</span>
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

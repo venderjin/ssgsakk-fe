@@ -1,88 +1,73 @@
-"use client";
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import HeartIcon from "@/components/UI/HeartIcon";
-import Cart from "@/components/images/Cart";
+import Link from "next/link";
 
 async function getProductData() {
-  const res = await fetch("https://dummyjson.com/products");
-  const data = await res.json();
-  return data;
+    const res = await fetch(`${process.env.BASE_URL}/events`);
+    const data = await res.json();
+    return data.result;
 }
 
 interface EventProductListProps {
-  visiableProductList?: number;
+    visibleProductList?: number;
 }
 
-const EventProductList: React.FC<EventProductListProps> = ({
-  visiableProductList,
-}) => {
-  interface Product {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    brand: string;
-    thumbnail: string;
-  }
+interface EventProductList {
+    eventSeq: number;
+    eventName: string;
+    eventEndDate: string;
+    eventLowestPrice: number;
+    eventThumbnail: string;
+    eventVendor: string;
+}
+[];
 
-  const [data, setData] = useState<Product[]>([]);
+const EventProductList = async ({ visibleProductList }: EventProductListProps) => {
+    let visiableEventCount = visibleProductList ? visibleProductList : 10;
+    const eventProductList = await getProductData();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getProductData();
-      if (visiableProductList === undefined) setData(result.products);
-      else setData(result.products.slice(0, visiableProductList));
-    };
-    fetchData();
-  }, [visiableProductList]);
-
-  return (
-    <div className="bg-white">
-      {data &&
-        Array.isArray(data) &&
-        data.map((item: any) => (
-          <div key={item.id} className="px-3 mb-3">
-            <div
-              style={{ width: "100%", height: "240px", position: "relative" }}
-            >
-              <Image
-                src={item.thumbnail}
-                alt={item.title}
-                // width={200}
-                // height={200}
-                // style={{ width: "100%", height: "auto", objectFit: "cover" }}
-                fill
-                sizes="(min-width: 808px) 50vw, 100vw"
-                style={{
-                  objectFit: "cover", // cover, contain, none
-                }}
-              />
-            </div>
-            <div className="flex flex-row">
-              <div className=" flex-none my-2 w-4/5 ">
-                <div className="flex flex-row gap-1">
-                  <p className="font-Pretendard text-[16px] font-bold">
-                    {item.brand}
-                  </p>
-                  <p className="font-Pretendard text-[16px]">{item.title}</p>
-                </div>
-                <p className="font-Pretendard text-[16px] whitespace-nowarp">
-                  {item.description}
-                </p>
-                <p className="font-Pretendard text-[16px] font-bold">
-                  {item.price.toLocaleString()}원~
-                </p>
-              </div>
-              <div className="my-2 w-2/3 flex flex-row gap-2 justify-end pr-2 items-start ">
-                <HeartIcon />
-                <Cart />
-              </div>
-            </div>
-          </div>
-        ))}
-    </div>
-  );
+    return (
+        <div className="bg-white mt-5">
+            {eventProductList.slice(0, visiableEventCount).map((item: EventProductList, idx: number) => {
+                const date = new Date(item.eventEndDate);
+                const formattedDate = date.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" });
+                const dDay = Math.floor((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+                return (
+                    <div key={idx} className="px-3 mb-3">
+                        <Link href={`/productList/eventProductList/${item.eventSeq}`} key={idx}>
+                            <div style={{ width: "100%", height: "240px", position: "relative" }}>
+                                <Image
+                                    src={item.eventThumbnail}
+                                    alt={item.eventName}
+                                    fill
+                                    sizes="(min-width: 808px) 50vw, 100vw"
+                                    style={{
+                                        objectFit: "cover", // cover, contain, none
+                                    }}
+                                />
+                            </div>
+                            <div className="flex flex-row">
+                                <div className="flex-none my-2 px-1 w-4/5 h-[80px]">
+                                    <div className="flex flex-row gap-1">
+                                        <p className="font-Pretendard text-[16px] font-bold">{item.eventVendor}</p>
+                                        <p className="font-Pretendard text-[16px]">{item.eventName}</p>
+                                    </div>
+                                    <p className="font-Pretendard text-[16px] font-bold">{item.eventLowestPrice.toLocaleString()}원 ~</p>
+                                    <p className="font-Pretendard text-[11px] text-gray-500 whitespace-nowarp">종료 : {formattedDate}</p>
+                                </div>
+                                <div className="flex my-2 px-1 w-1/5 h-[80px] justify-end">
+                                    <div>
+                                        <p className="flex-none font-Pretendard text-[16px] whitespace-nowarp font-bold text-primary-red border-2 border-primary-red px-1">
+                                            D-{dDay}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                );
+            })}
+        </div>
+    );
 };
 
 export default EventProductList;

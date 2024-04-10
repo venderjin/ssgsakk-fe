@@ -24,7 +24,10 @@ const BottomActionButtons = ({
   return (
     <>
       {bottomMode === "default" ? (
-        <BottomPurchaseMain changeMode={onChangeBottomMode} />
+        <BottomPurchaseMain
+          changeMode={onChangeBottomMode}
+          productSeq={productId}
+        />
       ) : (
         <>
           <BottomPurchaseSwitcher

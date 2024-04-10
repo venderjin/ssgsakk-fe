@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import GoBackIcon from "../UI/GoBackIcon";
+import CartIcon from "../UI/CartIcon";
 
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
@@ -61,12 +63,7 @@ const ProductPageSwitchHeader = () => {
         }`}
       >
         <div className="w-[50px] h-[50px] flex absolute left-0 top-0 bottom-0 items-center justify-center">
-          <Image
-            src="/images/etc/blackArrow.svg"
-            alt="search-icon"
-            width={24}
-            height={24}
-          />
+          <GoBackIcon />
         </div>
 
         <div className="w-full h-full  font-Pretendard">
@@ -103,13 +100,7 @@ const ProductPageSwitchHeader = () => {
             width={24}
             height={24}
           />
-          <Image
-            src="/images/etc/cart.svg"
-            alt="cart-icon"
-            width={24}
-            height={24}
-            className="ml-[12px]"
-          />
+          <CartIcon />
         </div>
       </nav>
     </>

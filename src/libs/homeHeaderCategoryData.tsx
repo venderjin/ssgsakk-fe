@@ -14,19 +14,22 @@ export const homeHeaderCategoryData: HomeHeaderNavigationType[] = [
     {
         id: 3,
         title: "베스트",
-        url: "/page/best",
+        url: "/productList/bestProductList",
     },
     {
         id: 4,
         title: "명품",
+        url: "/category/3?big=3&mid=total",
     },
     {
         id: 5,
         title: "뷰티",
+        url: "/category/4?big=4&mid=total",
     },
     {
         id: 6,
         title: "패션",
+        url: "/category/1?big=1&mid=total",
     },
     {
         id: 7,

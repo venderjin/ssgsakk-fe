@@ -8,8 +8,8 @@ import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeade
 import ProductReview from "@/components/pages/products/detail/ProductReview";
 import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
 import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
-
 import "./productDetail.css";
+import Footer from "@/components/layouts/Footer";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
