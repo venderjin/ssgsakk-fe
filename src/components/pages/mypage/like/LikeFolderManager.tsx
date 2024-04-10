@@ -6,33 +6,61 @@ import SliderModal from "@/components/common/SliderModal";
 import { useGetClientToken } from "@/actions/useGetClientToken";
 
 interface LikeFolderManagerProps {
-    folder: string[];
+    cumstomFolderList: CustomFolder[];
 }
 
-const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
+interface CustomFolder {
+    likeFolderSeq: number;
+    likeFolderName: string;
+}
+
+const LikeFolderManager = ({ cumstomFolderList }: LikeFolderManagerProps) => {
+    const [folderList, setFolderList] = useState<CustomFolder[]>(cumstomFolderList);
     const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState<boolean>(false);
     const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState<boolean>(false);
-    // const [modifyFolderNameLength, setModifyFolderNameLength] = useState<number>(0);
+    const [modifyFolderNameModalOpen, setModifyFolderNameModalOpen] = useState<boolean>(false);
+    const [modifyFolderNameLengths, setModifyFolderNameLengths] = useState<number[]>(Array(cumstomFolderList.length).fill(0));
     const [newFolderNameLength, setNewFolderNameLength] = useState<number>(0);
     const [newFolderName, setNewFolderName] = useState<string>("");
     const token = useGetClientToken();
 
+    const [modifyFolderStates, setModifyFolderStates] = useState<boolean[]>(Array(cumstomFolderList.length).fill(false));
+
+    const toggleModifyFolderModal = (index: number) => {
+        const newModifyFolderStates = [...modifyFolderStates];
+        newModifyFolderStates[index] = !newModifyFolderStates[index];
+        setModifyFolderStates(newModifyFolderStates);
+    };
+
     const ModalHandler = () => {
+        //폴더관리 모달창 열고닫기
         setIsAddFolderModalOpen(!isAddFolderModalOpen);
     };
 
     const CreateFolderModalHandler = () => {
+        //새폴더 만들기 모달창 열고닫기
         setIsCreateFolderModalOpen(!isCreateFolderModalOpen);
-        console.log("CreateFolderModalHandler");
     };
 
-    const handleFolderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCreateNewFolder = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //새폴더 만들기 모달창에서 폴더명 입력시 폴더명 길이 체크
         setNewFolderNameLength(e.target.value.length);
         setNewFolderName(e.target.value);
     };
 
+    const handleFolderNameChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        //폴더명 수정시 폴더명 길이 체크
+        const newFolders = [...folderList];
+        newFolders[index].likeFolderName = event.target.value;
+        setFolderList(newFolders);
+        const length = event.target.value.length;
+        const newLengths = [...modifyFolderNameLengths];
+        newLengths[index] = length;
+        setModifyFolderNameLengths(newLengths);
+    };
+
     const GetCreateFolder = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        console.log(newFolderName);
+        //새폴더 만들기
         e.preventDefault();
         const res = await fetch(`${process.env.BASE_URL}/likes/folder/add?folder-name=${newFolderName}`, {
             headers: {
@@ -41,7 +69,35 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
             },
         });
         const data = await res.json();
-        console.log(data);
+        return data;
+    };
+
+    const changeCustomFolderName = async (likeFolderSeq: number, likeFolderName: string) => {
+        //폴더명 수정
+        if (likeFolderName.length === 0) {
+            alert("폴더명을 입력해주세요.");
+            return false;
+        }
+        const res = await fetch(`${process.env.BASE_URL}/likes/folder/${likeFolderSeq}?name-modify=${likeFolderName}`, {
+            method: "PUT",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        return data;
+    };
+
+    const DeleteCustomFolder = async (likeFolderSeq: number) => {
+        const res = await fetch(`${process.env.BASE_URL}/likes/folder/delete?folder-seq=${likeFolderSeq}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
         return data;
     };
 
@@ -56,19 +112,82 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
             <SliderModal isModalOpen={isAddFolderModalOpen} onChangeModal={() => ModalHandler()} backgroundClose={false}>
                 <SliderModalHeader title="폴더 관리" onChangeModal={() => ModalHandler()} closeWidth="60px" closeHeight="50px" />
                 <div className="bg-white h-[40vh] overflow-y-auto flex-none">
-                    <div onClick={CreateFolderModalHandler} className="flex flex-row bg-white p-4 gap-4">
+                    <div onClick={CreateFolderModalHandler} className="flex flex-row bg-white p-4 gap-4 items-center">
                         <div className="bg-like-icon position bg-[position:-134px_0px] bg-[size:180px_147px] w-[20px] h-[20px]"></div>
                         <p className="font-Pretendard text-[16px] text-center">새폴더</p>
                     </div>
-                    {folder.map((folderName, index) => (
-                        <div key={index} className="flex flex-row bg-white justify-between p-4">
-                            <div className="flex flex-row gap-4">
-                                <div className="bg-like-icon position bg-[position:-134px_-90px] bg-[size:180px_147px] w-[20px] h-[20px]"></div>
-                                <p className="font-Pretendard text-[16px] text-center">{folderName}</p>
-                            </div>
-                            <div className="w-[20%] flex justify-center">
-                                <div className="bg-like-icon position bg-[position:-61px_-127px] bg-[size:180px_147px] w-[19px] h-[18px]"></div>
-                            </div>
+                    {folderList.map((folder, index) => (
+                        <div key={index} className="flex flex-row bg-white justify-between p-4 items-center">
+                            {!modifyFolderStates[index] ? (
+                                <>
+                                    <div className="flex flex-row gap-4 items-center">
+                                        <div
+                                            onClick={() => {
+                                                DeleteCustomFolder(folder.likeFolderSeq).then(() => {
+                                                    window.location.reload();
+                                                });
+                                            }}
+                                            className="bg-like-icon position bg-[position:-134px_-90px] bg-[size:180px_147px] w-[20px] h-[20px]"
+                                        ></div>
+                                        <p className="font-Pretendard text-[16px] text-center">{folder.likeFolderName}</p>
+                                    </div>
+                                    <div
+                                        onClick={() => {
+                                            toggleModifyFolderModal(index);
+                                        }}
+                                        className="w-[20%] flex justify-center"
+                                    >
+                                        <div className="bg-like-icon position bg-[position:-61px_-127px] bg-[size:180px_147px] w-[19px] h-[18px]"></div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex flex-row bg-red-100 items-center">
+                                        <div className="mr-4">
+                                            <div
+                                                onClick={() => {
+                                                    DeleteCustomFolder(folder.likeFolderSeq).then(() => {
+                                                        window.location.reload();
+                                                    });
+                                                }}
+                                                className="bg-like-icon position bg-[position:-134px_-90px] bg-[size:180px_147px] w-[20px] h-[20px]"
+                                            ></div>
+                                        </div>
+                                        <div className="relative w-[80%] bg-green-200">
+                                            <input
+                                                type="text"
+                                                maxLength={6}
+                                                onChange={(event) => handleFolderNameChange(event, index)}
+                                                value={folder.likeFolderName}
+                                                placeholder="폴더명을 입력해주세요."
+                                                className="flex-none w-[100%] h-[50px] p-[15px] font-Pretendard text-[18px] border-2 border-gray-300  focus:border-gray-400"
+                                            />
+                                            <p className="absolute bottom-0 right-0 mr-[15px] mb-[15px] text-[#959595] text-[13px]">
+                                                <span>
+                                                    {modifyFolderNameLengths[index] > 0 ? modifyFolderNameLengths[index] : folder.likeFolderName.length}
+                                                </span>
+                                                <span> / 6</span>
+                                            </p>
+                                        </div>
+                                        <div
+                                            onClick={() => {
+                                                changeCustomFolderName(folder.likeFolderSeq, folder.likeFolderName).then((result) => {
+                                                    if (result) {
+                                                        toggleModifyFolderModal(index);
+                                                    } else {
+                                                        console.log("fail");
+                                                    }
+                                                });
+                                            }}
+                                            className={`w-[20%] h-[50px] flex justify-center items-center font-Pretendard text-[18px]
+                                                ${modifyFolderNameLengths[index] > 0 ? "bg-primary-red text-white" : "bg-[#e5e5e5]"}
+                                            `}
+                                        >
+                                            <p>확인</p>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -91,7 +210,7 @@ const LikeFolderManager = ({ folder }: LikeFolderManagerProps) => {
                                     <input
                                         type="text"
                                         maxLength={6}
-                                        onChange={handleFolderNameChange}
+                                        onChange={handleCreateNewFolder}
                                         className="flex-none w-[100%] h-[50px] p-[15px] font-Pretendard text-[18px] border-2 rounded-[10px] border-gray-300  focus:border-gray-400"
                                         placeholder="폴더명을 입력해주세요."
                                     />
