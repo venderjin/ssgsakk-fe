@@ -1,7 +1,7 @@
 "use server";
 import { useGetServerToken } from "./useGetServerToken";
 
-export async function addCart(productSeq: number, optionSeq: number) {
+export async function AddCart(productSeq: number, optionSeq: number) {
   const token = await useGetServerToken();
   if (!token) return;
   const res = await fetch(`${process.env.BASE_URL}/carts/add`, {

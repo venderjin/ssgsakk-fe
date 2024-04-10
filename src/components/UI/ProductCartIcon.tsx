@@ -1,7 +1,7 @@
 "use client";
 import Cart from "@/components/images/Cart";
 import { useGetClientToken } from "@/actions/useGetClientToken";
-import { addCart } from "@/actions/cart";
+import { AddCart } from "@/actions/cart";
 import { useRouter } from "next/navigation";
 import { cartState } from "@/recoil/atoms/cartState";
 import { useRecoilState } from "recoil";
@@ -62,7 +62,7 @@ const ProductCartIcon = ({ productSeq }: { productSeq: number }) => {
     }
     //옵션이 존재하지 않으면 장바구니에 상품을 담는다.
     else {
-      const response = await addCart(
+      const response = await AddCart(
         productSeq,
         data.result.options[0].optionAndStockSeq
       );
