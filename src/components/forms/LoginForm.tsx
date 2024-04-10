@@ -63,8 +63,8 @@ export default function LoginForm({ retUrl }: { retUrl: string | null }) {
     if (response?.ok) {
       setIsLogin(true);
 
-      if (retUrl && retUrl !== "undefined") router.push(retUrl);
-      router.push("/mypage");
+      if (retUrl && retUrl !== "undefined") router.push(`/${retUrl}`);
+      else router.push("/mypage");
     }
     if (response?.error) {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");

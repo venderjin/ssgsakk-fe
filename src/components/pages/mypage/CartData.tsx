@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { useGetClientToken } from "@/actions/useGetClientToken";
 
 const CartData = () => {
+  console.log("이거실행하지롱");
   const token = useGetClientToken();
   const [cartList, setCartList] = useRecoilState(cartState);
   useEffect(() => {

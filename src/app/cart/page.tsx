@@ -17,25 +17,34 @@ const Cart = async ({
   const isModalOpen = Boolean(searchParams.isModalOpen);
   const shippingData = await fetchShippingList(token);
   const cartItemList = await getCartList(token);
-
+  revalidateTag("cart");
   return (
     <>
       <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
       {token ? (
-        <CartShippingInfo shippingData={shippingData} modalOpen={isModalOpen} />
+        <>
+          <CartShippingInfo
+            shippingData={shippingData}
+            modalOpen={isModalOpen}
+          />
+          <CartProductList
+            cartItemList={cartItemList}
+            updateQuantity={useUpdateQunatity}
+            deleteCartItem={useDeleteCartItem}
+            fixCartItem={useFixCartItem}
+            checkCartItem={useCheckCartItem}
+            useCheckAllCartItem={useCheckAllCartItem}
+          />
+          {cartItemList.length > 0 && (
+            <>
+              <CartTotalCard />
+              <CartToolBar />
+            </>
+          )}
+        </>
       ) : (
         <NonMemberCard />
       )}
-      <CartProductList
-        cartItemList={cartItemList}
-        updateQunaity={useUpdateQunaity}
-        deleteCartItem={useDeleteCartItem}
-        fixCartItem={useFixCartItem}
-        checkCartItem={useCheckCartItem}
-        useCheckAllCartItem={useCheckAllCartItem}
-      />
-      <CartTotalCard />
-      <CartToolBar />
     </>
   );
 };
@@ -121,7 +130,7 @@ const useDeleteCartItem = async (cartSeq: number) => {
   else console.log(data);
 };
 
-const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
+const useUpdateQunatity = async (cartSeq: number, quantity: number) => {
   "use server";
   const token = await useGetServerToken();
   if (!token) return;
@@ -138,6 +147,7 @@ const useUpdateQunaity = async (cartSeq: number, quantity: number) => {
   );
 
   const data = await res.json();
+
   if (res.ok) revalidateTag("cart");
   else console.log(data);
 };

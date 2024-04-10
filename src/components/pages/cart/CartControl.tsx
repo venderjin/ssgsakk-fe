@@ -19,7 +19,15 @@ const CartControl = ({
   const selectedItem = useRecoilValue(cartSelectedState);
 
   const deleteHandler = () => {
-    if (selectedItem.length === 0) return;
+    if (selectedItem.length === 0) {
+      return alert("삭제할 상품을 선택해주세요.");
+      // //품절상품 삭제
+      // if (confirm("품절된 상품을 모두 삭제하시겠습니까?")) {
+      //   //const soldOutItem = cartList.filter((item) => item.stock === 0);
+      //   return;
+      // }
+      // return;
+    }
     if (confirm("선택된 상품을 삭제하시겠습니까?")) {
       selectedItem.forEach((item) => {
         deleteCartItem(item.cartSeq);
@@ -51,7 +59,7 @@ const CartControl = ({
         <div className="text-[13px] text-[#444444] flex items-center">
           <span className="mr-[10px]">전체</span>
           <button onClick={deleteHandler} className="mr-[10px]">
-            {selectedItem.length > 0 ? "선택삭제" : "품절삭제"}
+            선택삭제
           </button>
           <span className="mr-[2px]">선택상품만 보기</span>
           <Toggle onChangeHandler={setShowCheckedItem} />

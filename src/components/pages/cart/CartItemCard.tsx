@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Imgae from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import CartItemPrice from "@/components/pages/cart/CartItemPrice";
 import CartQunatityHandler from "./CartQunatityHandler";
@@ -12,17 +12,18 @@ import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
 
 const CartItemCard = ({
   cartItemState,
-  updateQunaity,
+  updateQuantity,
   deleteCartItem,
   fixCartItem,
   checkCartItem,
 }: {
   cartItemState: CartStateType;
-  updateQunaity: (cartSeq: number, quantity: number) => void;
+  updateQuantity: (cartSeq: number, quantity: number) => void;
   deleteCartItem: (cartSeq: number) => void;
   fixCartItem: (cartSeq: number, fix: boolean) => void;
   checkCartItem: (cartSeq: number, check: boolean) => void;
 }) => {
+  const minStock = 5;
   const router = useRouter();
   const token = useGetClientToken();
   const [cartItem, setCartItem] = useState<CartItemType | null>(null);
@@ -48,7 +49,8 @@ const CartItemCard = ({
         const cartItem = data.result;
         setCartItem(cartItem);
 
-        if (cartItemState.checkbox) {
+        //체크박스가 체크되어있고 재고가 5개 이상일때만 가격 계산
+        if (cartItemState.checkbox && cartItem.stock > minStock) {
           setTotalPrice(
             (prev) => prev + cartItem.productPrice * cartItem.quantity
           );
@@ -73,7 +75,7 @@ const CartItemCard = ({
 
   const onQuantityChange = (count: number) => {
     if (!cartItem) return;
-    updateQunaity(cartItemState.cartSeq, count);
+    updateQuantity(cartItemState.cartSeq, count);
     setCartItem({ ...cartItem, quantity: count });
   };
 
@@ -99,12 +101,17 @@ const CartItemCard = ({
         {/* 썸네일 이미지 */}
         <section className="relative">
           <div className="relative w-[85px] h-[85px]">
-            <Imgae
+            <Image
               src={cartItem.productImage}
               alt="상품 이미지"
               fill={true}
               sizes="(max-width: 600px) 100vw, 600px"
             />
+            {cartItem.stock <= minStock && (
+              <span className="absolute bottom-0 left-0 right-0 h-[24px] text-[12px] text-[#fff] bg-black bg-opacity-45 flex items-center justify-center">
+                품절
+              </span>
+            )}
           </div>
           <span className="absolute top-0 left-0">
             <input
@@ -125,7 +132,7 @@ const CartItemCard = ({
           {/* 고정/삭제 */}
           <div className="absolute top-[-6px] right-0">
             <button onClick={pinHandler} className="w-[28px] h-[28px]">
-              <Imgae
+              <Image
                 src={`/images/etc/${
                   cartItemState.fixItem ? "colorPin" : "pin"
                 }.svg`}
@@ -135,7 +142,7 @@ const CartItemCard = ({
               />
             </button>
             <button onClick={deleteHandler}>
-              <Imgae
+              <Image
                 src="/images/etc/delete.svg"
                 alt="pin-icon"
                 width={20}
@@ -166,21 +173,31 @@ const CartItemCard = ({
               productPrice={cartItem.productPrice}
               discountPer={cartItem.discountPercent}
             />
-            <CartQunatityHandler
-              quantity={cartItem.quantity}
-              onQuantityChange={onQuantityChange}
-            />
+            {cartItem.stock > minStock ? (
+              <CartQunatityHandler
+                quantity={cartItem.quantity}
+                onQuantityChange={onQuantityChange}
+              />
+            ) : (
+              <button className="h-[36px] border border-[#e5e5e5] text-[13px] px-[8px] text-center">
+                입고알림
+              </button>
+            )}
           </div>
 
           {/* 옵션변경 및 바로구매 */}
-          <div className="mt-[8px] text-[13px] w-full flex justify-between border border-[#e5e5e5] text-center">
-            {cartItem.productOption && (
-              <button className="h-[36px] border-r border-r-[#e5e5e5] w-full">
-                옵션변경
+          {cartItem.stock > minStock && (
+            <div className="mt-[8px] text-[13px] w-full flex justify-between border border-[#e5e5e5] text-center">
+              {cartItem.productOption && (
+                <button className="h-[36px] border-r border-r-[#e5e5e5] w-full">
+                  옵션변경
+                </button>
+              )}
+              <button className="h-[36px] w-full font-semibold">
+                바로구매
               </button>
-            )}
-            <button className="h-[36px] w-full font-semibold">바로구매</button>
-          </div>
+            </div>
+          )}
         </section>
       </div>
     )

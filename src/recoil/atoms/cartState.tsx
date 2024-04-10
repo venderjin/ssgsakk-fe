@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { CartStateType, CartItemInfoType } from "@/types/cartType";
+import { CartStateType } from "@/types/cartType";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
