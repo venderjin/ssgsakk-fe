@@ -38,10 +38,10 @@ const schema = yup.object().shape({
 
 const ShippingForm = ({
   shippingData,
-  retUrl,
+  callbackUrl,
 }: {
   shippingData: ShippingInfoType;
-  retUrl: string | null;
+  callbackUrl: string | null;
 }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -133,8 +133,10 @@ const ShippingForm = ({
         );
         const response = await res.json();
         if (res.ok) {
+          console.log(callbackUrl);
           alert("배송지가 수정되었습니다.");
-          if (retUrl) router.push(retUrl);
+          if (callbackUrl && callbackUrl !== "undefined")
+            router.push(callbackUrl);
           else router.push("/mypage/shippingList");
         } else {
           console.log(response.message);
@@ -157,7 +159,8 @@ const ShippingForm = ({
         const response = await res.json();
         if (res.ok) {
           alert("배송지가 등록되었습니다.");
-          if (retUrl) router.push(`${retUrl}?isModalOpen=true`);
+          if (callbackUrl && callbackUrl !== "undefined")
+            router.push(`${callbackUrl}?isModalOpen=true`);
           else router.push("/mypage/shippingList");
         } else {
           console.log(response.message);

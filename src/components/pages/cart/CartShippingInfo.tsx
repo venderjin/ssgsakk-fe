@@ -121,7 +121,7 @@ const CartShippingInfo = ({
                 </li>
               ))}
             <Link
-              href={`/mypage/shippingForm?shippingAddressId=&retUrl=${usePathname()}`}
+              href={`/mypage/shippingForm?shippingAddressId=&callbackUrl=${usePathname()}`}
             >
               <button className="w-full h-[52px] border border-[#d8d8d8] text-[13px] text-[#222]">
                 + 주소 추가하기
