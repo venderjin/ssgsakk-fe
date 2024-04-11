@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
 import { createReview } from "@/actions/review";
+import { useGetClientToken } from "@/actions/useGetClientToken";
 
 interface ReviewForm {
   content: string;
@@ -10,6 +11,7 @@ interface ReviewForm {
 }
 
 const ReviewEditor = ({ type }: { type: string }) => {
+  const token = useGetClientToken();
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
@@ -78,11 +80,42 @@ const ReviewEditor = ({ type }: { type: string }) => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
     if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
-    createReview(1, 1, "옵션", content, images, reviewRating);
-    // const imageData = images.map((imageName, index) => ({
-    //   priority: index,
-    //   imageUrl: imageName,
-    // }));
+    const imageData = images.map((imageName, index) => ({
+      priority: index + 1,
+      contentUrl: imageName,
+    }));
+
+    const res = await fetch(`${process.env.BASE_URL}/reviews`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        purchaseProductSeq: 1,
+        productSeq: 38,
+        purchaseProductOption: "색상:레드/사이즈:100(아동)",
+        reviewParagraph: content,
+        reviewContentsVoList: imageData,
+        reviewScore: reviewRating,
+      }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      console.log(data);
+    } else {
+      console.log(data);
+    }
+
+    // createReview(
+    //   1,
+    //   38,
+    //   "색상:레드/사이즈:100(아동)",
+    //   content,
+    //   imageData,
+    //   reviewRating
+    // );
 
     // const formData = new FormData();
     // formData.append("content", content);

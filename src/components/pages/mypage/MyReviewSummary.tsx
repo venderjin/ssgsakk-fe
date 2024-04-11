@@ -44,7 +44,7 @@ const MyReviewSummary = async () => {
 
         <div className="basis-1/3 flex items-center">
           <Link
-            href={"/mypage/review"}
+            href={"/mypage/reviewList/writable"}
             className="w-full flex justify-center items-center "
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">일반</span>
