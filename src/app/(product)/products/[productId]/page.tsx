@@ -32,7 +32,6 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
-  console.log(productData);
   const reviewList = await getReviewList(params.productId);
 
   return (

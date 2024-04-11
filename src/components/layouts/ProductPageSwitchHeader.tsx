@@ -8,6 +8,7 @@ import SearchPage from "../forms/SearchPage";
 
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const links = [
     {
       id: 1,
