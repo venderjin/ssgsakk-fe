@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import ProductInformation from "@/components/pages/products/detail/ProductInformation";
 import TopHeader from "@/components/layouts/TopHeader";
@@ -6,8 +5,11 @@ import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
-import { useGetServerToken } from "@/actions/useGetServerToken";
+import ProductReview from "@/components/pages/products/detail/ProductReview";
+import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
+import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
 import "./productDetail.css";
+import { getReviewList } from "@/actions/review";
 import Footer from "@/components/layouts/Footer";
 
 async function getProductData(productId: number) {
@@ -30,28 +32,28 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
+  const reviewList = await getReviewList(params.productId);
 
   return (
     <>
       <TopHeader />
       <ProductPageSwitchHeader />
       <ImageSlider imageList={productData.contents} />
-      <ProductInformation
-        productId={productData.productId}
-        vendor={productData.vendor}
-        productName={productData.productName}
-        productPrice={productData.productPrice}
-        discountPercent={productData.discountPercent}
-        reviewCount={productData.reviewCount}
+      <ProductInformation productData={productData} />
+      <ProductReview
+        reviewList={reviewList}
         averageRating={productData.averageRating}
-        productDescription={productData.productDescription}
+        reviewCount={productData.reviewCount}
       />
+      <QuestionAndAnswer />
+      <ProductCatogoryCard />
       <BottomActionButtons
         productId={params.productId}
         productName={productData.productName}
         productPrice={productData.productPrice}
         discountPercent={productData.discountPercent}
       />
+      <Footer />
       <FloatingLeft />
       <FloatingUp />
     </>

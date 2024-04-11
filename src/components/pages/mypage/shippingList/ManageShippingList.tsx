@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import ShippingInfoBox from "./ShippingInfoBox";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import { useSession } from "next-auth/react";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 
 const ManageShippingList = ({
   shippingData,
@@ -34,7 +35,7 @@ const ManageShippingList = ({
 
     if (res.ok) {
       alert("기본 배송지로 설정되었습니다.");
-      location.reload();
+      useRevalidateTag("address");
     } else {
       alert("기본 배송지 설정에 실패했습니다.");
     }
