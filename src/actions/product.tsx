@@ -2,7 +2,7 @@
 
 import { useGetServerToken } from "./useGetServerToken";
 
-export async function getOption(productSeq: number) {
+export async function GetOption(productSeq: number) {
   const token = await useGetServerToken();
   if (!token) return;
 

@@ -5,7 +5,7 @@ import Cart from "@/components/images/Cart";
 import DeliveryLabel from "@/components/UI/DeliveryLabel";
 import { Suspense } from "react";
 import ProductCartIcon from "@/components/UI/ProductCartIcon";
-import { getOption } from "@/actions/product";
+import { GetOption } from "@/actions/product";
 
 interface ProductData {
   productName: string;
@@ -39,7 +39,7 @@ const ProductListCard = async ({
 }) => {
   const minimumStock = 5;
   const productData: ProductData = await fetchProductList(productSeq);
-  const optionData = await getOption(productSeq);
+  const optionData = await GetOption(productSeq);
   const isSoldOut =
     !optionData.depthLevel && optionData?.options?.[0].stock <= minimumStock;
 

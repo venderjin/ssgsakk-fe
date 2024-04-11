@@ -11,6 +11,7 @@ export interface WritableReviewType {
 export interface ReviewImageType {
   contentUrl: string;
   priority: number;
+  contentDescription: string;
 }
 
 export interface PoroductReviewType {

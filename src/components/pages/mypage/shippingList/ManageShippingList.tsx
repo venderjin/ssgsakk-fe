@@ -15,7 +15,7 @@ const ManageShippingList = ({
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
 
-  const setDefaultShippingAddress = async () => {
+  const SetDefaultShippingAddress = async () => {
     //기본 배송지 설정 로직
     if (checkedAddressId === null) {
       alert("기본 배송지로 설정할 배송지를 선택해주세요.");
@@ -83,7 +83,7 @@ const ManageShippingList = ({
           이번만배송지 설정
         </button>
         <button
-          onClick={setDefaultShippingAddress}
+          onClick={SetDefaultShippingAddress}
           className="bg-primary-red text-[#fff] text-[16px] w-full h-ull"
         >
           기본배송지 설정

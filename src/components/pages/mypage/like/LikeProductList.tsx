@@ -6,7 +6,7 @@ import HeartIcon from "@/components/UI/HeartIcon";
 import DeliveryLabel from "@/components/UI/DeliveryLabel";
 import ProductCartIcon from "@/components/UI/ProductCartIcon";
 import { OptionResponse } from "@/types/optionType";
-import { getOption } from "@/actions/product";
+import { GetOption } from "@/actions/product";
 
 interface LikeProduct {
   likeProductSeq: number;
@@ -37,7 +37,7 @@ const LikeProductList = ({ likeProductinfo }: LikeProductInfo) => {
 
   useEffect(() => {
     const fetchOption = async () => {
-      const response = await getOption(likeProductinfo.productSeq);
+      const response = await GetOption(likeProductinfo.productSeq);
       setOptionData(response);
     };
     fetchOption();

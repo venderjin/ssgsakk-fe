@@ -10,7 +10,7 @@ import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAns
 import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
 import "./productDetail.css";
 import { getReviewList } from "@/actions/review";
-import { getOption } from "@/actions/product";
+import { GetOption } from "@/actions/product";
 import Footer from "@/components/layouts/Footer";
 
 async function getProductData(productId: number) {
@@ -34,7 +34,7 @@ async function getProductData(productId: number) {
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
   const reviewList = await getReviewList(params.productId);
-  const optionData = await getOption(params.productId);
+  const optionData = await GetOption(params.productId);
 
   return (
     <>

@@ -7,7 +7,7 @@ type ImageType = {
   contentUrl: string;
 };
 
-export async function createReview(
+export async function CreateReview(
   purchaseProductSeq: number,
   productSeq: number,
   purchaseProductOption: string,
