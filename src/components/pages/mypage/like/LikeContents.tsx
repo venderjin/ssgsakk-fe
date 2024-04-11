@@ -104,7 +104,7 @@ const LikeContents = () => {
             getLikeCategoryList(token);
         }
         handleCancelEdit();
-    }, [isFocus]);
+    }, [isFocus, token]);
 
     //찜 상품 편집체크하기 -------------------------------------------------------------------------------------------------------------------
     const handleProductCheckboxChange = (likeProductSeq: number) => {
