@@ -13,6 +13,7 @@ interface LikeProductList {
 interface LikeCategoryList {
     categorySeq: number;
     categoryName: string;
+    likeCategorySeq: number;
 }
 [];
 
@@ -35,6 +36,7 @@ const LikeContents = () => {
         setIsFocus("category");
     };
 
+    //찜 상품/카테고리 리스트 네비게이션
     useEffect(() => {
         if (isFocus == "product") {
             const getLikeProductList = async (token: string) => {
@@ -68,6 +70,7 @@ const LikeContents = () => {
         }
     }, [isFocus]);
 
+    //찜 카테고리 편집체크하기 -------------------------------------------------------------------------------------------------------------------
     const handleCategoryCheckboxChange = (categorySeq: number) => {
         setCheckedCategoryStates((prevState) => ({
             ...prevState,
@@ -77,11 +80,13 @@ const LikeContents = () => {
 
     useEffect(() => {
         // 각각의 카테고리 체크박스 상태가 변경될 때마다 전체 선택 체크박스 상태 업데이트
-        const allChecked = likeCategoryList.every((category) => checkedCategoryStates[category.categorySeq]);
+        const allChecked = likeCategoryList.every((category) => checkedCategoryStates[category.likeCategorySeq]);
         setCheckAllCategory(allChecked);
 
         // 선택된 카테고리 시퀀스 업데이트
-        const selectedCategorySeqs = likeCategoryList.filter((category) => checkedCategoryStates[category.categorySeq]).map((category) => category.categorySeq);
+        const selectedCategorySeqs = likeCategoryList
+            .filter((category) => checkedCategoryStates[category.likeCategorySeq])
+            .map((category) => category.likeCategorySeq);
         setCheckedCategorySeqs(selectedCategorySeqs);
     }, [checkedCategoryStates, likeCategoryList]);
 
@@ -94,14 +99,26 @@ const LikeContents = () => {
         // 각각의 카테고리 체크박스 상태 업데이트
         const newCheckedCategoryStates: Record<number, boolean> = {};
         likeCategoryList.forEach((category) => {
-            newCheckedCategoryStates[category.categorySeq] = newCheckAllCategory;
+            newCheckedCategoryStates[category.likeCategorySeq] = newCheckAllCategory;
         });
         setCheckedCategoryStates(newCheckedCategoryStates);
     };
 
-    useEffect(() => {
-        console.log("checkedCategorySeqs changed:", checkedCategorySeqs);
-    }, [checkedCategorySeqs]);
+    //찜 카테고리 삭제하기 -------------------------------------------------------------------------------------------------------------------
+    const DeleteCategoryLike = async (likeCategoryList: number[]) => {
+        if (likeCategoryList.length == 0) return alert("삭제할 카테고리를 선택해주세요.");
+        const res = await fetch(`${process.env.BASE_URL}/likes/folder-delete/category`, {
+            method: "DELETE",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                likeCategorySeqList: likeCategoryList,
+            }),
+        });
+        const data = await res.json();
+    };
 
     return (
         <div className="">
@@ -167,7 +184,14 @@ const LikeContents = () => {
                                             <p className="font-Pretendard text-[12px]">전체선택</p>
                                         </div>
                                         <div className="flex flex-row gap-2">
-                                            <div className="flex flex-row px-2 py-1 justify-center items-center border-[1px] rounded-sm">
+                                            <div
+                                                onClick={() =>
+                                                    DeleteCategoryLike(checkedCategorySeqs).then(() => {
+                                                        window.location.reload();
+                                                    })
+                                                }
+                                                className="flex flex-row px-2 py-1 justify-center items-center border-[1px] rounded-sm"
+                                            >
                                                 <p className="font-Pretendard text-[12px] font-bold">삭제</p>
                                             </div>
                                             <div
@@ -183,7 +207,7 @@ const LikeContents = () => {
                             {likeCategoryList &&
                                 likeCategoryList.map((category: LikeCategoryList, index: number) => (
                                     <div
-                                        key={category.categorySeq}
+                                        key={category.likeCategorySeq}
                                         className={`flex items-center justify-between mx-[15px] py-5 ${
                                             index !== likeCategoryList.length - 1 ? "border-b-[1px] border-[#e5e5e5]" : ""
                                         }`}
@@ -191,12 +215,12 @@ const LikeContents = () => {
                                         {likeCategoryEdit && (
                                             <input
                                                 type="checkbox"
-                                                checked={!!checkedCategoryStates[category.categorySeq]}
+                                                checked={!!checkedCategoryStates[category.likeCategorySeq]}
                                                 onChange={() => {
-                                                    handleCategoryCheckboxChange(category.categorySeq);
+                                                    handleCategoryCheckboxChange(category.likeCategorySeq);
                                                 }}
                                                 className={`${
-                                                    !!checkedCategoryStates[category.categorySeq] ? "bg-[position:0px_-15px]" : "bg-[position:-20px_-15px]"
+                                                    !!checkedCategoryStates[category.likeCategorySeq] ? "bg-[position:0px_-15px]" : "bg-[position:-20px_-15px]"
                                                 }
                                                             appearance-none mr-[10px] w-[21px] h-[18px] 
                                                             bg-no-repeat bg-agree-icon  bg-[length:250px_250px]`}
