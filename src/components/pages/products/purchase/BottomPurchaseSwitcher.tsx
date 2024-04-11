@@ -51,6 +51,10 @@ const BottomPurchaseSwitcher = ({
   };
 
   const addCartHandler = async () => {
+    if (!token) {
+      return alert("로그인이 필요합니다.");
+    }
+
     if (orderData.optionList.length === 0)
       return alert("상품 옵션을 선택해주세요.");
 
