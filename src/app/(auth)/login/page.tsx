@@ -6,12 +6,13 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: number };
 }) {
-  const retUrl = String(searchParams.retUrl);
+  const callbackUrl = String(searchParams.callbackUrl);
+  const error = String(searchParams.error);
 
   return (
     <>
       <BackArrowHeader title="로그인" />
-      <LoginForm retUrl={retUrl} />
+      <LoginForm callbackUrl={callbackUrl} error={error} />
     </>
   );
 }

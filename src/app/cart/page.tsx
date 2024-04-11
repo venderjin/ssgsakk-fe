@@ -7,6 +7,8 @@ import { ShippingInfoType } from "@/types/memberInfoType";
 import TopHeaderIncludeIcon from "@/components/layouts/TopHeaderIncludeIcon";
 import CartTotalCard from "@/components/pages/cart/CartTotalCard";
 import { revalidateTag } from "next/cache";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 const Cart = async ({
   searchParams,
@@ -17,7 +19,7 @@ const Cart = async ({
   const isModalOpen = Boolean(searchParams.isModalOpen);
   const shippingData = await fetchShippingList(token);
   const cartItemList = await getCartList(token);
-  revalidateTag("cart");
+
   return (
     <>
       <TopHeaderIncludeIcon title="장바구니" icon="home" fixed />
