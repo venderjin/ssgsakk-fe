@@ -32,7 +32,7 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
 
     return (
         <>
-            <div className="h-[310px] my-3 flex justify-start flex-col">
+            <div className="h-[310px] my-3 flex justify-start flex-col bg-red-300">
                 <div className="w-auto h-auto relative overflow-hidden">
                     <div
                         className="absolute inset-0 bg-cover bg-center"
