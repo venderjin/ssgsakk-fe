@@ -13,8 +13,9 @@ export async function getOption(productSeq: number) {
   });
 
   const data = await res.json();
+
   if (res.ok) {
-    console.log(data);
+    return data.result;
   } else {
     console.log(data);
   }
