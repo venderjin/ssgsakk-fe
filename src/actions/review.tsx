@@ -41,3 +41,22 @@ export async function createReview(
     console.log(data);
   }
 }
+
+export async function getReviewList(productSeq: number) {
+  const res = await fetch(
+    `${process.env.BASE_URL}/reviews/products/${productSeq}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await res.json();
+  if (res.ok) {
+    return data.result;
+  } else {
+    console.log(data);
+  }
+}

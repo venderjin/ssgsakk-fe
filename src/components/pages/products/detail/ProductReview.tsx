@@ -16,7 +16,6 @@ const ProductReview = ({
   const reviewImageList = reviewList.map(
     (review) => review.reviewContentVoList?.[0]
   );
-  console.log(reviewImageList);
 
   return (
     <div
