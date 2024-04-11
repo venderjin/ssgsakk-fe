@@ -20,6 +20,7 @@ const ProductDetailInfo = ({
 
   // 펼치기/접기 버튼 클릭 시 상세정보의 높이 조절
   const toggleDetail = () => {
+    console.log(detailRef.current?.scrollHeight);
     setDetailMore(!detailMore);
     setDetailHeight(detailMore ? 1200 : detailRef.current?.scrollHeight || 0);
   };

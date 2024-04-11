@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,22 +12,12 @@ import ErrorMessage from "@/components/UI/ErrorMessage";
 import MarketingAgreeList from "@/components/pages/signup/form/MarketingAgreeList";
 import TextField from "@/components/pages/signup/form/TextField";
 import BeforeSignupAgreement from "@/components/pages/signup/auth/BeforeSignupAgreement";
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { SignupFormData } from "@/types/authType";
 
 type CheckBoxType = {
   [key: string]: boolean;
 };
-
-interface SignupFormData {
-  id: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  phone: string;
-  email: string;
-  zipCode: string;
-}
 
 type Address = {
   zipCode: string;
@@ -61,7 +51,13 @@ const schema = yup.object().shape({
   zipCode: yup.string().required("주소를 입력해주세요"),
 });
 
-const SignupFormComponent = () => {
+const SignupFormComponent = ({
+  userEmail,
+  oauthId,
+}: {
+  userEmail: string;
+  oauthId: string;
+}) => {
   const router = useRouter();
   const [marketingAgreement, setMarketingAgreement] = useState<CheckBoxType>({
     emailS: false,
@@ -80,9 +76,6 @@ const SignupFormComponent = () => {
     jibunAddress: "",
     detailAddress: "",
   });
-
-  const params = useSearchParams();
-  const userEmail = params.get("userEmail") || "";
 
   const onChangeAgreement = useCallback(() => {
     setAgreement(true);
@@ -162,6 +155,7 @@ const SignupFormComponent = () => {
         roadAddress: selectedAddress.roadAddress,
         jibunAddress: selectedAddress.jibunAddress,
         detailAddress: selectedAddress.detailAddress,
+        oauthId: oauthId,
       }),
     });
 

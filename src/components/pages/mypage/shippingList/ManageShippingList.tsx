@@ -1,37 +1,18 @@
-import { useEffect, useState } from "react";
+"use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShippingInfoBox from "./ShippingInfoBox";
+import { ShippingInfoType } from "@/types/memberInfoType";
+import { useSession } from "next-auth/react";
 
-interface ShippingInfo {
-  shippingAddressId: number;
-  addressName: string;
-  zipCode: string;
-  roadAddress: string;
-  jibunAddress: string;
-  detailAddress: string;
-  defaultAddress: boolean;
-}
-
-const getShippingList = async () => {
-  const res = await fetch("http://localhost:3300/shippingList", {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-};
-
-const ManageShippingList = () => {
-  const [shippingList, setShippingList] = useState<ShippingInfo[]>([]);
+const ManageShippingList = ({
+  shippingData,
+}: {
+  shippingData: ShippingInfoType[];
+}) => {
+  const { data: session } = useSession();
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchShippingList = async () => {
-      const shippingList = await getShippingList();
-      setShippingList(shippingList);
-    };
-    fetchShippingList();
-  }, []);
 
   const setDefaultShippingAddress = async () => {
     //기본 배송지 설정 로직
@@ -45,6 +26,7 @@ const ManageShippingList = () => {
       {
         method: "PATCH",
         headers: {
+          Authorization: session?.user?.token || "",
           "Content-Type": "application/json",
         },
       }
@@ -52,6 +34,7 @@ const ManageShippingList = () => {
 
     if (res.ok) {
       alert("기본 배송지로 설정되었습니다.");
+      location.reload();
     } else {
       alert("기본 배송지 설정에 실패했습니다.");
     }
@@ -66,18 +49,20 @@ const ManageShippingList = () => {
       {/* 배송지 목록 */}
       <section className="pt-[15px]">
         <ul>
-          {shippingList.map((shipping: ShippingInfo) => (
-            <li
-              key={shipping.shippingAddressId}
-              className="relative block py-[20px] pl-[40px] border-b border-b-[#f1f1f1] h-min-[19px]"
-            >
-              <ShippingInfoBox
-                shippingInfo={shipping}
-                setCheckedAddressId={setCheckedAddressId}
-                checkedAddressId={checkedAddressId}
-              />
-            </li>
-          ))}
+          {shippingData &&
+            shippingData.map((item: ShippingInfoType) => (
+              <li
+                key={item.shippingAddressSeq}
+                className="relative block py-[20px] pl-[40px] border-b border-b-[#f1f1f1] h-min-[19px]"
+              >
+                <ShippingInfoBox
+                  type="manage"
+                  shippingData={item}
+                  setCheckedAddressId={setCheckedAddressId}
+                  checkedAddressId={checkedAddressId}
+                />
+              </li>
+            ))}
         </ul>
       </section>
 

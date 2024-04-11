@@ -16,7 +16,7 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
       <Swiper
         className="mySwiper"
         pagination={{ type: "fraction" }}
-        loop={true} // 슬라이드 루프
+        loop={imageList.length > 1 ? true : false} // 슬라이드 루프
         spaceBetween={30} // 슬라이스 사이 간격
         slidesPerView={1} // 보여질 슬라이스 수
       >

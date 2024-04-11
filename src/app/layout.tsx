@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/provider/AuthProvider";
+import RecoilProvider from "@/components/provider/RecoilProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,14 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
+      <meta
+        name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+      />
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <RecoilProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </RecoilProvider>
       </body>
       <script
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
