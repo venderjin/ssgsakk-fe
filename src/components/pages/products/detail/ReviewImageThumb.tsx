@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/components/common/Modal";
 import ModalHeader from "@/components/common/ModalHeader";
-import PhotoReviewList from "../../review/PhotoReviewList";
+import PhotoReviewList from "../review/PhotoReviewList";
 
 type Props = {
   productId: number;

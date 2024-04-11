@@ -9,7 +9,6 @@ import {
   OptionInfo,
   SelectedOptionAndQuantity,
 } from "@/types/optionType";
-import { set } from "react-hook-form";
 
 interface Props {
   productId: number;
