@@ -54,10 +54,11 @@ const ShippingFormPage = async ({
     searchParams.shippingAddressSeq,
     session?.user?.token || ""
   );
+  const callbackUrl = String(searchParams.callbackUrl);
 
   return (
     <>
-      <ShippingForm shippingData={shippingData} />
+      <ShippingForm shippingData={shippingData} callbackUrl={callbackUrl} />
       <Footer />
     </>
   );

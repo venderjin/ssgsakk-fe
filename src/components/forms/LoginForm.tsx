@@ -1,32 +1,60 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { snsLoginData, loginSupportData } from "@/libs/loginDatas";
 import { SnsLogin } from "@/types/snsLoginType";
 import LoginCheckbox from "@/components/common/LoginCheckbox";
 import SnsButton from "@/components/common/SnsButton";
+import { useRouter } from "next/navigation";
+import { getCookies, setCookie, deleteCookie } from "cookies-next";
+import { LoginType } from "@/types/authType";
+import { loginState } from "@/recoil/atoms/userState";
+import { useRecoilState } from "recoil";
+import Notify from "../UI/Notify";
 
-type loginType = {
-  loginId: string;
-  password: string;
-};
-
-export default function LoginForm() {
+export default function LoginForm({
+  callbackUrl,
+  error,
+}: {
+  callbackUrl: string | null;
+  error: string | null;
+}) {
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const router = useRouter();
+  const cookies = getCookies();
   const [saveIdCheck, setCheck] = useState(false);
-  const [loginData, setLoginData] = useState<loginType>({
+  const [loginData, setLoginData] = useState<LoginType>({
     loginId: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (cookies.rememberUserId) {
+      setLoginData({
+        ...loginData,
+        loginId: cookies.rememberUserId,
+      });
+      setCheck(true);
+    }
+  }, []);
 
   const onInputCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setCheck(event.target.checked);
+    //쿠키 제거
+    if (!event.target.checked) deleteCookie("rememberUserId");
   };
 
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("callbackUrl", callbackUrl);
+
+    //로그인 버튼을 누를 때 쿠키에 저장
+    if (saveIdCheck)
+      setCookie("rememberUserId", loginData.loginId, { path: "/" });
+
     if (!loginData.loginId || !loginData.password) {
       return alert("아이디와 비밀번호를 입력해주세요.");
     }
@@ -35,9 +63,24 @@ export default function LoginForm() {
     const response = await signIn("user-credentials", {
       loginId,
       password,
+      //로그인 실패 시 새로고침 여부
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl:
+        callbackUrl && callbackUrl !== "undefined"
+          ? `${callbackUrl}`
+          : "/mypage",
     });
+
+    // if (response?.ok) {
+    //   setIsLogin(true);
+
+    //   if (callbackUrl && callbackUrl !== "undefined") router.push(`/${callbackUrl}`);
+    //   else router.push("/mypage");
+    // }
+    // if (response?.error) {
+    //   alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    //   location.reload();
+    // }
   };
 
   const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,12 +92,16 @@ export default function LoginForm() {
 
   return (
     <div className="p-[20px] pt-[40px]">
+      {error && error !== "undefined" && (
+        <Notify message="아이디 혹은 패스워드가 틀립니다." />
+      )}
       <form onSubmit={loginSubmit}>
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px] font-Pretendard"
           placeholder="아이디"
           type="text"
           name="loginId"
+          value={loginData.loginId}
           onChange={onChangeLoginData}
         />
         <input
@@ -62,6 +109,7 @@ export default function LoginForm() {
           placeholder="비밀번호"
           type="password"
           name="password"
+          value={loginData.password}
           onChange={onChangeLoginData}
         />
 

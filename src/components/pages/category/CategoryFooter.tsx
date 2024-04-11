@@ -2,8 +2,13 @@
 import { footerData, footerLoginData } from "@/libs/categoryData";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { loginState } from "@/recoil/atoms/userState";
+import { cartState } from "@/recoil/atoms/cartState";
+import { useRecoilState } from "recoil";
 
 export default function CategoryFooter() {
+  const [cartLists, setCartLists] = useRecoilState(cartState);
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
   const { data: session } = useSession();
 
   return (
@@ -17,7 +22,15 @@ export default function CategoryFooter() {
               } `}
             >
               {data.title === "로그아웃" ? (
-                <button onClick={() => signOut()}>{data.title}</button>
+                <button
+                  onClick={() => {
+                    signOut();
+                    setIsLogin(false);
+                    setCartLists([]);
+                  }}
+                >
+                  {data.title}
+                </button>
               ) : (
                 <Link href={data.url}>
                   <span>{data.title}</span>

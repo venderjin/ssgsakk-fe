@@ -27,7 +27,7 @@ const BottomHeader = () => {
                                     height={46}
                                     className="px-[4px] min-w-[60px] h-auto"
                                 ></Image>
-                            ) : category.id < 4 ? (
+                            ) : category.id < 7 ? (
                                 <Link
                                     href={category.url || ""}
                                     className={`font-Pretendardd text-[14px] whitespace-nowrap px-[4px] h-auto ${

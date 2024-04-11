@@ -36,7 +36,13 @@ const schema = yup.object().shape({
   zipCode: yup.string().required("주소를 입력해주세요"),
 });
 
-const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
+const ShippingForm = ({
+  shippingData,
+  callbackUrl,
+}: {
+  shippingData: ShippingInfoType;
+  callbackUrl: string | null;
+}) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [openAddress, setOpenAddress] = useState<boolean>(false);
@@ -127,8 +133,11 @@ const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
         );
         const response = await res.json();
         if (res.ok) {
+          console.log(callbackUrl);
           alert("배송지가 수정되었습니다.");
-          router.push("/mypage/shippingList");
+          if (callbackUrl && callbackUrl !== "undefined")
+            router.push(callbackUrl);
+          else router.push("/mypage/shippingList");
         } else {
           console.log(response.message);
           alert("배송지 수정에 실패했습니다");
@@ -150,7 +159,9 @@ const ShippingForm = ({ shippingData }: { shippingData: ShippingInfoType }) => {
         const response = await res.json();
         if (res.ok) {
           alert("배송지가 등록되었습니다.");
-          router.push("/mypage/shippingList");
+          if (callbackUrl && callbackUrl !== "undefined")
+            router.push(`${callbackUrl}?isModalOpen=true`);
+          else router.push("/mypage/shippingList");
         } else {
           console.log(response.message);
           alert("배송지 등록에 실패했습니다.");

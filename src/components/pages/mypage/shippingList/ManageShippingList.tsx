@@ -56,6 +56,7 @@ const ManageShippingList = ({
                 className="relative block py-[20px] pl-[40px] border-b border-b-[#f1f1f1] h-min-[19px]"
               >
                 <ShippingInfoBox
+                  type="manage"
                   shippingData={item}
                   setCheckedAddressId={setCheckedAddressId}
                   checkedAddressId={checkedAddressId}
