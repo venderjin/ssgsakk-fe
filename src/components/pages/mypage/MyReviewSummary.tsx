@@ -1,5 +1,6 @@
 import Link from "next/link";
 import WritableReviewSummary from "@/components/pages/mypage/review/WritableReviewSummary";
+import { WritableReviewType } from "@/types/reviewType";
 
 //작성가능한 리뷰 리스트 가져오기
 const getWriteableReviewList = async () => {
@@ -18,7 +19,17 @@ const getWriteableReviewList = async () => {
 
 const MyReviewSummary = async () => {
   //const reviewList = await getWriteableReviewList();
-  const reviewList = [
+  const reviewList: WritableReviewType[] = [
+    {
+      purchaseSeq: 11,
+      purchaseProductSeq: 12,
+      purchaseCode: "20240406_M230485",
+      purchaseDate: "2024.03.31",
+      productSeq: 123,
+      purchaseProductName: "오트밀 500g 귀리 100% 시리얼",
+      purchaseProductImage:
+        "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_500.jpg",
+    },
     {
       purchaseSeq: 11,
       purchaseProductSeq: 12,
@@ -73,7 +84,7 @@ const MyReviewSummary = async () => {
         </div>
       </div>
 
-      {/* <WritableReviewSummary reviewList={reviewList} /> */}
+      <WritableReviewSummary reviewList={reviewList} />
     </div>
   );
 };
