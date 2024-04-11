@@ -1,4 +1,3 @@
-import { Session } from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
@@ -11,8 +10,8 @@ export const options: NextAuthOptions = {
       credentials: {
         loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
         password: { label: "Password", type: "password" },
-        userName: { label: "userName", type: "text" },
-        token: { label: "token", type: "password" },
+        // userName: { label: "userName", type: "text" },
+        // token: { label: "token", type: "password" },
       },
       async authorize(credentials) {
         // 소셜 로그인인 경우
@@ -34,18 +33,16 @@ export const options: NextAuthOptions = {
             userId: credentials.loginId,
             userPassword: credentials.password,
           }),
+          cache: "no-store",
         });
 
         const data = await res.json();
 
-        if (res.ok) {
+        if (data.status === 409) {
+          return;
+        } else {
           return data.result;
         }
-        if (res.status === 409) {
-          return null;
-        }
-
-        return null;
       },
     }),
     KakaoProvider({
@@ -76,20 +73,17 @@ export const options: NextAuthOptions = {
       return { ...token, ...user };
     },
 
-    async session({ session, token }: { session: Session; token: any }) {
-      session.user.token = token.token;
-      session.user.userName = token.userName;
+    async session({ session, token }) {
+      session.user = token as any;
       return session;
-
-      //return { ...session, ...token };
     },
 
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/${url}`;
     },
   },
   pages: {
-    signOut: "/",
+    // signOut: "/cart",
     signIn: "/login",
     error: "/auth_error",
   },

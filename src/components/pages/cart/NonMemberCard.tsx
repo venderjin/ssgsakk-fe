@@ -9,7 +9,7 @@ const NonMemberCard = () => {
         <p className="text-[14px] text-[#666666] mt-[10px] text-center">
           로그인을 하시면 담긴 상품이 있는지 바로 확인하실 수 있습니다!
         </p>
-        <Link href={"/login?retUrl=cart"} className="w-full mt-[40px]">
+        <Link href={"/login?callbackUrl=cart"} className="w-full mt-[40px]">
           <button className="w-full h-[60px] bg-primary-red text-[18px] text-[#fff]">
             로그인 하기
           </button>
@@ -29,7 +29,7 @@ const NonMemberCard = () => {
       </div>
 
       <div className="mt-[11px]">
-        <Link href={"/login?retUrl=cart"}>
+        <Link href={"/login?callbackUrl=cart"}>
           <button className="w-full h-[37px] border border-[#e5e5e5] text-[13px] text-[#666666]">
             로그인 하기
           </button>
