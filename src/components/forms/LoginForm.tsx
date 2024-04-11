@@ -11,6 +11,7 @@ import { getCookies, setCookie, deleteCookie } from "cookies-next";
 import { LoginType } from "@/types/authType";
 import { loginState } from "@/recoil/atoms/userState";
 import { useRecoilState } from "recoil";
+import Notify from "../UI/Notify";
 
 export default function LoginForm({
   callbackUrl,
@@ -91,7 +92,9 @@ export default function LoginForm({
 
   return (
     <div className="p-[20px] pt-[40px]">
-      {error && error !== "undefined" && <Noti />}
+      {error && error !== "undefined" && (
+        <Notify message="아이디 혹은 패스워드가 틀립니다." />
+      )}
       <form onSubmit={loginSubmit}>
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px] font-Pretendard"
@@ -119,9 +122,6 @@ export default function LoginForm({
             iconSize={22}
           />
         </div>
-        {/* <p className=" text-red-400 text-sm">
-          {error && "아이디 혹은 비밀번호가 틀립니다."}
-        </p> */}
 
         <button
           type="submit"
@@ -182,13 +182,3 @@ export default function LoginForm({
     </div>
   );
 }
-
-const Noti = () => {
-  return (
-    <div className=" w-[80%] py-2 mx-auto z-[9999] fixed top-[3rem] left-[50%] translate-x-[-50%] bg-red-500 rounded-md shadow-md">
-      <p className="text-[0.75rem] text-white text-center">
-        아이디 혹은 비밀번호가 다릅니다.
-      </p>
-    </div>
-  );
-};
