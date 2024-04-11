@@ -2,8 +2,13 @@ import React from "react";
 import PhotoReviewPreview from "@/components/pages/products/review/PhotoReviewPreview";
 import RatingAndStar from "@/components/pages/products/review/RatingAndStar";
 import ReviewSummaryList from "@/components/pages/products/review/ReviewSummaryList";
+import { PoroductReviewType } from "@/types/reviewType";
 
-const ProductReview = () => {
+const ProductReview = ({
+  reviewList,
+}: {
+  reviewList: PoroductReviewType[];
+}) => {
   const rating = 4.6;
   const reviewCount = 100;
 
@@ -25,7 +30,7 @@ const ProductReview = () => {
         {/* 포토&동영상 리뷰 */}
         <PhotoReviewPreview />
         {/* 전체 리뷰 */}
-        <ReviewSummaryList />
+        <ReviewSummaryList reviewList={reviewList} />
       </div>
     </div>
   );

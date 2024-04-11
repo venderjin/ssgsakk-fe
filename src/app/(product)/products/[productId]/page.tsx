@@ -9,6 +9,7 @@ import ProductReview from "@/components/pages/products/detail/ProductReview";
 import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
 import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
 import "./productDetail.css";
+import { getReviewList } from "@/actions/review";
 import Footer from "@/components/layouts/Footer";
 
 async function getProductData(productId: number) {
@@ -31,6 +32,7 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
+  const reviewList = await getReviewList(params.productId);
 
   return (
     <>
@@ -38,7 +40,7 @@ const page = async ({ params }: { params: { productId: number } }) => {
       <ProductPageSwitchHeader />
       <ImageSlider imageList={productData.contents} />
       <ProductInformation productData={productData} />
-      <ProductReview />
+      <ProductReview reviewList={reviewList} />
       <QuestionAndAnswer />
       <ProductCatogoryCard />
       <BottomActionButtons

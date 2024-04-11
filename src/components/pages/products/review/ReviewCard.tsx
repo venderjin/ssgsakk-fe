@@ -1,24 +1,12 @@
 import maskUserId from "@/utils/markUserId";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
+import { PoroductReviewType } from "@/types/reviewType";
 
-type Props = {
-  rating: number;
-  purchaseOption: string;
-  reviewDate: string;
-  userId: string;
-  content: string;
-  reviewImageList: {
-    priority: number;
-    contentUrl: string;
-    contentDescription: string;
-  }[];
-};
-
-const ReviewCard = (reviewData: Props) => {
+const ReviewCard = (reviewData: PoroductReviewType) => {
   return (
     <div className="h-full">
-      {reviewData.reviewImageList.length > 0 && (
-        <ImageSlider imageList={reviewData.reviewImageList} />
+      {reviewData.reviewContentVoList.length > 0 && (
+        <ImageSlider imageList={reviewData.reviewContentVoList} />
       )}
       <div className="p-[20px] font-Pretendard">
         <div className="flex items-center">
@@ -26,7 +14,7 @@ const ReviewCard = (reviewData: Props) => {
           <div className="flex items-center mr-[20px]">
             <div className="bg-product-icon bg-[position:-509px_-305px] bg-[size:524px_479px] w-[12px] h-[11px]" />
             <span className="text-[12px] font-bold ml-[5px]">
-              {reviewData.rating}
+              {reviewData.reviewScore}
             </span>
           </div>
 
@@ -46,12 +34,12 @@ const ReviewCard = (reviewData: Props) => {
             구매옵션:
           </span>
           <span className="text-[13px] text-[#777777]">
-            {reviewData.purchaseOption}
+            {reviewData.purchaseProductOption}
           </span>
         </div>
 
         {/* 내용 */}
-        <p className="text-[14px] mt-[5px]">{reviewData.content}</p>
+        <p className="text-[14px] mt-[5px]">{reviewData.reviewParagraph}</p>
       </div>
     </div>
   );
