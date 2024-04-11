@@ -1,7 +1,7 @@
 export type ImageType = {
   priority: number;
   contentUrl: string;
-  contentDescription: string;
+  contentDescription?: string;
 };
 
 export type productType = {
