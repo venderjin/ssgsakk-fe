@@ -2,42 +2,24 @@
 
 import { useGetServerToken } from "./useGetServerToken";
 
-export async function getReviewList(productSeq: number) {
-  const token = await useGetServerToken();
-  if (!token) return;
-
-  const res = await fetch(
-    `${process.env.BASE_URL}/reviews/products/${productSeq}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const data = await res.json();
-  //console.log(data.result);
-  if (res.ok) {
-    return data.result;
-  } else {
-    console.log(data);
-  }
-}
+type ImageType = {
+  priority: number;
+  contentUrl: string;
+};
 
 export async function createReview(
   purchaseProductSeq: number,
   productSeq: number,
-  purchaseProductOtpion: string,
+  purchaseProductOption: string,
   content: string,
-  images: string[],
+  images: ImageType[],
   rating: number
 ) {
   const token = await useGetServerToken();
   if (!token) return;
 
   const res = await fetch(`${process.env.BASE_URL}/reviews`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       Authorization: token,
       "Content-Type": "application/json",
@@ -45,9 +27,9 @@ export async function createReview(
     body: JSON.stringify({
       purchaseProductSeq: purchaseProductSeq,
       productSeq: productSeq,
-      purchaseProductOtpion: purchaseProductOtpion,
-      reviweParagraph: content,
-      contentsUrl: images,
+      purchaseProductOption: purchaseProductOption,
+      reviewParagraph: content,
+      reviewContentsVoList: images,
       reviewScore: rating,
     }),
   });

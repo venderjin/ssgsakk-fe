@@ -11,6 +11,7 @@ import SearchZipcode from "@/components/pages/signup/form/SearchZipcode";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 
 interface ShippingFormData {
   addressNickname: string;
@@ -133,6 +134,7 @@ const ShippingForm = ({
         );
         const response = await res.json();
         if (res.ok) {
+          useRevalidateTag("address");
           console.log(callbackUrl);
           alert("배송지가 수정되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
@@ -158,6 +160,7 @@ const ShippingForm = ({
         });
         const response = await res.json();
         if (res.ok) {
+          useRevalidateTag("address");
           alert("배송지가 등록되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(`${callbackUrl}?isModalOpen=true`);

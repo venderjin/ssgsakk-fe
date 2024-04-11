@@ -3,7 +3,7 @@ export interface WritableReviewType {
   purchaseProductSeq: number;
   purchaseCode: string;
   purchaseDate: string;
-  prouctSeq: number;
+  productSeq: number;
   purchaseProductName: string;
   purchaseProductImage: string;
 }
