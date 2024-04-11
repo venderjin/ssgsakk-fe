@@ -45,19 +45,19 @@ const MyReviewSummary = async () => {
         <div className="basis-1/3 flex items-center">
           <Link
             href={"/mypage/review"}
-            className="w-full flex justify-center items-center "
+            className="w-full flex justify-end items-center "
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">일반</span>
             <strong className="text-[#cfcfcf]">{reviewList.length}</strong>
           </Link>
-          <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
-          <Link
+          {/* <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" /> */}
+          {/* <Link
             href={"/mypage/review"}
             className="w-full flex justify-center items-center"
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">스페셜</span>
             <strong className="text-[#cfcfcf]">0</strong>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
