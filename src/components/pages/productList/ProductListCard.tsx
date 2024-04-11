@@ -4,6 +4,7 @@ import HeartIcon from "@/components/UI/HeartIcon";
 import Cart from "@/components/images/Cart";
 import DeliveryLabel from "@/components/UI/DeliveryLabel";
 import { Suspense } from "react";
+import ProductCartIcon from "@/components/UI/ProductCartIcon";
 
 interface ProductData {
     productName: string;
@@ -32,8 +33,16 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
     return (
         <>
             <div className="h-[310px] my-3 flex justify-start flex-col">
-                <div className="w-auto h-auto relative">
-                    <Link href={`/products/${productSeq}`}>
+                <div className="w-auto h-auto relative overflow-hidden">
+                    <div
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{
+                            backgroundImage: `url(${productData.contentsUrl.contentUrl})`,
+                            filter: "blur(30px)", // 배경 이미지에 흐림 효과 적용
+                            zIndex: -1, // 배경 이미지를 뒤로 보냅니다.
+                        }}
+                    />
+                    <Link href={`/products/${productSeq}`} className="flex justify-center">
                         <Image src={productData.contentsUrl.contentUrl} alt="productImage" width={200} height={200} />
                     </Link>
                     {best && (
@@ -48,7 +57,7 @@ const ProductListCard = async ({ productSeq, best }: { productSeq: number; best?
                         <Suspense fallback={<div>Loading...</div>}>
                             <HeartIcon productSeq={productSeq} />
                         </Suspense>
-                        <Cart width={20} height={20} />
+                        <ProductCartIcon productSeq={productSeq} />
                     </div>
                 </div>
                 <div className="flex flex-row text-pretty">

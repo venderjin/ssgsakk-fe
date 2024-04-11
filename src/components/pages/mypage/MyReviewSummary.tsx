@@ -17,7 +17,19 @@ const getWriteableReviewList = async () => {
 };
 
 const MyReviewSummary = async () => {
-  const reviewList = await getWriteableReviewList();
+  //const reviewList = await getWriteableReviewList();
+  const reviewList = [
+    {
+      purchaseSeq: 11,
+      purchaseProductSeq: 12,
+      purchaseCode: "20240406_M230485",
+      purchaseDate: "2024.03.31",
+      productSeq: 123,
+      purchaseProductName: "오트밀 500g 귀리 100% 시리얼",
+      purchaseProductImage:
+        "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_500.jpg",
+    },
+  ];
 
   return (
     <div className="px-[16px] pb-[50px]">
@@ -45,23 +57,23 @@ const MyReviewSummary = async () => {
         <div className="basis-1/3 flex items-center">
           <Link
             href={"/mypage/reviewList/writable"}
-            className="w-full flex justify-center items-center "
+            className="w-full flex justify-end items-center "
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">일반</span>
             <strong className="text-[#cfcfcf]">{reviewList.length}</strong>
           </Link>
-          <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
+          {/* <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
           <Link
             href={"/mypage/review"}
             className="w-full flex justify-center items-center"
           >
             <span className="text-[#777777] text-[12px] mr-[3px]">스페셜</span>
             <strong className="text-[#cfcfcf]">0</strong>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
-      <WritableReviewSummary reviewList={reviewList} />
+      {/* <WritableReviewSummary reviewList={reviewList} /> */}
     </div>
   );
 };

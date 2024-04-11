@@ -11,8 +11,15 @@ import { getCookies, setCookie, deleteCookie } from "cookies-next";
 import { LoginType } from "@/types/authType";
 import { loginState } from "@/recoil/atoms/userState";
 import { useRecoilState } from "recoil";
+import Notify from "../UI/Notify";
 
-export default function LoginForm({ retUrl }: { retUrl: string | null }) {
+export default function LoginForm({
+  callbackUrl,
+  error,
+}: {
+  callbackUrl: string | null;
+  error: string | null;
+}) {
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const router = useRouter();
   const cookies = getCookies();
@@ -42,6 +49,7 @@ export default function LoginForm({ retUrl }: { retUrl: string | null }) {
 
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("callbackUrl", callbackUrl);
 
     //로그인 버튼을 누를 때 쿠키에 저장
     if (saveIdCheck)
@@ -56,20 +64,23 @@ export default function LoginForm({ retUrl }: { retUrl: string | null }) {
       loginId,
       password,
       //로그인 실패 시 새로고침 여부
-      redirect: false,
-      // callbackUrl: "/",
+      redirect: true,
+      callbackUrl:
+        callbackUrl && callbackUrl !== "undefined"
+          ? `${callbackUrl}`
+          : "/mypage",
     });
 
-    if (response?.ok) {
-      setIsLogin(true);
+    // if (response?.ok) {
+    //   setIsLogin(true);
 
-      if (retUrl && retUrl !== "undefined") router.push(`/${retUrl}`);
-      else router.push("/mypage");
-    }
-    if (response?.error) {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-      location.reload();
-    }
+    //   if (callbackUrl && callbackUrl !== "undefined") router.push(`/${callbackUrl}`);
+    //   else router.push("/mypage");
+    // }
+    // if (response?.error) {
+    //   alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    //   location.reload();
+    // }
   };
 
   const onChangeLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +92,9 @@ export default function LoginForm({ retUrl }: { retUrl: string | null }) {
 
   return (
     <div className="p-[20px] pt-[40px]">
+      {error && error !== "undefined" && (
+        <Notify message="아이디 혹은 패스워드가 틀립니다." />
+      )}
       <form onSubmit={loginSubmit}>
         <input
           className="h-[48.5px] w-full border-[#BCBCBC] border-[1px] px-[15px] py-[12px] text-[15px] font-Pretendard"
