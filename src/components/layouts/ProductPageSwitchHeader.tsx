@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import GoBackIcon from "../UI/GoBackIcon";
 import CartIcon from "../UI/CartIcon";
+import SearchPage from "../forms/SearchPage";
 
 const ProductPageSwitchHeader = () => {
   const [display, setDisplay] = useState<boolean>(false);
@@ -35,6 +36,10 @@ const ProductPageSwitchHeader = () => {
     else setDisplay(false);
   }, []);
 
+  const modalController = () => {
+    setIsSearchModalOpen(!isSearchModalOpen);
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -48,15 +53,6 @@ const ProductPageSwitchHeader = () => {
 
   return (
     <>
-      {/* <div className="w-[50px] float bg-[#fff] flex left-0 top-0 bottom-0 items-center justify-center">
-        <Image
-          src="/images/etc/whiteArrow.svg"
-          alt="search-icon"
-          width={24}
-          height={24}
-        />
-      </div> */}
-
       <nav
         className={`h-[50px] px-[65px] flex sticky top-0 z-50 shadow-md bg-white ${
           display ? "" : "hidden"
@@ -93,16 +89,18 @@ const ProductPageSwitchHeader = () => {
           </ul>
         </div>
 
-        <div className="flex items-center absolute right-[16px] top-[13px] ">
+        <div className="flex items-center absolute right-[16px] top-[13px] gap-4">
           <Image
             src="/images/etc/search.svg"
             alt="search-icon"
             width={24}
             height={24}
+            onClick={modalController}
           />
           <CartIcon />
         </div>
       </nav>
+      {isSearchModalOpen && <SearchPage onChangeModal={modalController} />}
     </>
   );
 };

@@ -4,7 +4,7 @@ import FilledHeart from "../../../images/FilledHeart";
 const LikeTotalFoler = () => {
     return (
         <>
-            <div className="flex-none w-[57px] bg-green-200 ml-6 mr-2">
+            <div className="flex-none w-[57px] ml-6 mr-2">
                 <div className="rounded-full bg-primary-red w-[57px] h-[57px] flex justify-center items-center">
                     <div
                         style={{
