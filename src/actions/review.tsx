@@ -17,7 +17,7 @@ export async function getReviewList(productSeq: number) {
   );
 
   const data = await res.json();
-  console.log(data.result);
+  //console.log(data.result);
   if (res.ok) {
     return data.result;
   } else {

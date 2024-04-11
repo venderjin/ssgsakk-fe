@@ -6,11 +6,17 @@ import { PoroductReviewType } from "@/types/reviewType";
 
 const ProductReview = ({
   reviewList,
+  averageRating,
+  reviewCount,
 }: {
   reviewList: PoroductReviewType[];
+  averageRating: number;
+  reviewCount: number;
 }) => {
-  const rating = 4.6;
-  const reviewCount = 100;
+  const reviewImageList = reviewList.map(
+    (review) => review.reviewContentVoList?.[0]
+  );
+  console.log(reviewImageList);
 
   return (
     <div
@@ -26,9 +32,9 @@ const ProductReview = ({
 
       <div>
         {/* 평점 */}
-        <RatingAndStar rating={rating} reviewCount={reviewCount} />
+        <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
         {/* 포토&동영상 리뷰 */}
-        <PhotoReviewPreview />
+        <PhotoReviewPreview reviewImageList={reviewImageList} />
         {/* 전체 리뷰 */}
         <ReviewSummaryList reviewList={reviewList} />
       </div>

@@ -32,6 +32,7 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
+  console.log(productData);
   const reviewList = await getReviewList(params.productId);
 
   return (
@@ -40,7 +41,11 @@ const page = async ({ params }: { params: { productId: number } }) => {
       <ProductPageSwitchHeader />
       <ImageSlider imageList={productData.contents} />
       <ProductInformation productData={productData} />
-      <ProductReview reviewList={reviewList} />
+      <ProductReview
+        reviewList={reviewList}
+        averageRating={productData.averageRating}
+        reviewCount={productData.reviewCount}
+      />
       <QuestionAndAnswer />
       <ProductCatogoryCard />
       <BottomActionButtons
@@ -49,6 +54,7 @@ const page = async ({ params }: { params: { productId: number } }) => {
         productPrice={productData.productPrice}
         discountPercent={productData.discountPercent}
       />
+      <Footer />
       <FloatingLeft />
       <FloatingUp />
     </>

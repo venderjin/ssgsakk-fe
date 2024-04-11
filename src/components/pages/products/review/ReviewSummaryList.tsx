@@ -47,7 +47,9 @@ const ReviewSummaryList = ({
           <span className="text-[16px] text-[#222] font-bold">전체 리뷰</span>
         </div>
         {/* map으로 5개만 뿌려주기 */}
-        <ReviewPreviewCard />
+        {reviewList.slice(0, 5).map((review) => (
+          <ReviewPreviewCard key={review.reviewSeq} reviewData={review} />
+        ))}
 
         {/* 전체 보기 */}
         <div className="mt-[26px]">

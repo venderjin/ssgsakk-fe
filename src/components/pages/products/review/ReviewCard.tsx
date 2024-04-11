@@ -2,7 +2,7 @@ import maskUserId from "@/utils/markUserId";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import { PoroductReviewType } from "@/types/reviewType";
 
-const ReviewCard = (reviewData: PoroductReviewType) => {
+const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
   return (
     <div className="h-full">
       {reviewData.reviewContentVoList.length > 0 && (
