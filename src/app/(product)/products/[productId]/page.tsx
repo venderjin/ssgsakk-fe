@@ -9,9 +9,12 @@ import ProductReview from "@/components/pages/products/detail/ProductReview";
 import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
 import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
 import "./productDetail.css";
-import { getReviewList } from "@/actions/review";
+import { GetProductReviewList } from "@/actions/review";
 import { GetOption } from "@/actions/product";
 import Footer from "@/components/layouts/Footer";
+import { PoroductReviewType, PhotoReviewType } from "@/types/reviewType";
+import ProductReviewAllModal from "@/components/pages/products/review/ProductReviewAllModal";
+import ProductPhotoReviewAllModal from "@/components/pages/products/review/ProductPhotoReviewAllModal";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
@@ -33,22 +36,32 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
-  const reviewList = await getReviewList(params.productId);
+  const { reviewList, thumbList, photoReviewList } =
+    (await GetProductReviewList(params.productId)) as {
+      reviewList: PoroductReviewType[];
+      thumbList: string[];
+      photoReviewList: PhotoReviewType[];
+    };
   const optionData = await GetOption(params.productId);
 
   return (
     <>
       <TopHeader />
-      <ProductPageSwitchHeader />
+      <ProductPageSwitchHeader reviewCount={productData.reviewCount} />
       <ImageSlider imageList={productData.contents} />
-      <ProductInformation productData={productData} />
+      <ProductInformation productData={productData} reviewList={reviewList} />
+      <ProductReviewAllModal
+        averageRating={productData.averageRating}
+        reviewCount={productData.reviewCount}
+        reviewList={reviewList}
+      />
+      <ProductPhotoReviewAllModal reviewList={reviewList} />
       <ProductReview
         reviewList={reviewList}
         averageRating={productData.averageRating}
         reviewCount={productData.reviewCount}
       />
       <QuestionAndAnswer />
-      <ProductCatogoryCard />
       <BottomActionButtons
         optionData={optionData}
         productId={params.productId}

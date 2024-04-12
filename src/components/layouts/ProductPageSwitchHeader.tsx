@@ -1,34 +1,31 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import GoBackIcon from "../UI/GoBackIcon";
 import CartIcon from "../UI/CartIcon";
 import SearchPage from "../forms/SearchPage";
 
-const ProductPageSwitchHeader = () => {
+const links = [
+  {
+    id: 1,
+    name: "상세",
+    targetId: "productDetail",
+  },
+  {
+    id: 2,
+    name: "리뷰",
+    targetId: "reviews",
+  },
+  {
+    id: 3,
+    name: "Q&A",
+    targetId: "qna",
+  },
+];
+
+const ProductPageSwitchHeader = ({ reviewCount }: { reviewCount: number }) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
-  const links = [
-    {
-      id: 1,
-      name: "상세",
-      targetId: "productDetail",
-      count: "",
-    },
-    {
-      id: 2,
-      name: "리뷰",
-      targetId: "reviews",
-      count: 12,
-    },
-    {
-      id: 3,
-      name: "Q&A",
-      targetId: "qna",
-      count: 6,
-    },
-  ];
 
   const onScroll = useCallback(() => {
     const { scrollY } = window;
@@ -75,14 +72,20 @@ const ProductPageSwitchHeader = () => {
                 <button
                   onClick={() => handleClick(link.targetId)}
                   className={`font-bold text-[#222222] tracking-tight ${
-                    index === 0 ? "" : "flex flex-col leading-none items-center"
+                    index === 0
+                      ? ""
+                      : "flex flex-col leading-none items-center justify-start"
                   }`}
                 >
                   {link.name}
-                  {link.count && (
+
+                  {link.targetId === "reviews" && (
                     <span className="text-[10px] text-[#999] mt-[-1px]">
-                      {link.count}
+                      {reviewCount}
                     </span>
+                  )}
+                  {link.targetId === "qna" && (
+                    <span className="text-[10px] text-[#999] mt-[-1px]">2</span>
                   )}
                 </button>
               </li>

@@ -5,19 +5,16 @@ import ReviewReference from "./ReviewReference";
 import ProductPrice from "@/components/pages/products/detail/ProductPrice";
 import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailInfo";
 import RightHalfTriangle from "@/components/images/RightHalfTriangle";
+import { productType } from "@/types/productType";
+import { PoroductReviewType } from "@/types/reviewType";
 
-type ProductData = {
-  productId: number;
-  vendor: string;
-  productName: string;
-  productPrice: number;
-  discountPercent: number;
-  reviewCount: number;
-  averageRating: number;
-  productDescription: string;
-};
-
-const ProductInformation = ({ productData }: { productData: ProductData }) => {
+const ProductInformation = ({
+  productData,
+  reviewList,
+}: {
+  productData: productType;
+  reviewList: PoroductReviewType[];
+}) => {
   return (
     <>
       {/* 상품 요약 상단 */}
@@ -50,6 +47,7 @@ const ProductInformation = ({ productData }: { productData: ProductData }) => {
           <UniverseBanner />
           {productData.reviewCount > 0 && (
             <ReviewReference
+              reviewList={reviewList}
               productId={productData.productId}
               reviewCount={productData.reviewCount}
               averageRating={productData.averageRating}

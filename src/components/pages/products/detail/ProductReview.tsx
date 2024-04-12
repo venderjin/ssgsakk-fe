@@ -13,9 +13,13 @@ const ProductReview = ({
   averageRating: number;
   reviewCount: number;
 }) => {
-  const reviewImageList = reviewList.map(
-    (review) => review.reviewContentVoList?.[0]
-  );
+  const photoReviews = reviewList
+    .filter((review: PoroductReviewType) => review.reviewContentsList)
+    .map((review: PoroductReviewType) => ({
+      reviewId: review.reviewSeq,
+      photoCount: review.reviewContentsList.length,
+      thumbImage: review.reviewContentsList[0].contentUrl,
+    }));
 
   return (
     <div
@@ -29,18 +33,27 @@ const ProductReview = ({
         <div className="h-[1px] bg-[#cfcfcf]"></div>
       </div>
 
-      <div>
-        {/* 평점 */}
-        <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
-        {/* 포토&동영상 리뷰 */}
-        <PhotoReviewPreview reviewImageList={reviewImageList} />
-        {/* 전체 리뷰 */}
-        <ReviewSummaryList
-          reviewList={reviewList}
-          averageRating={averageRating}
-          reviewCount={reviewCount}
-        />
-      </div>
+      {reviewCount === 0 ? (
+        <div className="flex items-center">
+          <div className="w-[5px] h-[5px] rounded-[3px] bg-[#dadde2] mr-[5px]" />
+          <p className="text-[14px] text-[#999]">
+            아직 등록된 리뷰가 없습니다.
+          </p>
+        </div>
+      ) : (
+        <div>
+          {/* 평점 */}
+          <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
+          {/* 포토&동영상 리뷰 */}
+          <PhotoReviewPreview photoReviews={photoReviews} />
+          {/* 전체 리뷰 */}
+          <ReviewSummaryList
+            reviewList={reviewList}
+            averageRating={averageRating}
+            reviewCount={reviewCount}
+          />
+        </div>
+      )}
     </div>
   );
 };
