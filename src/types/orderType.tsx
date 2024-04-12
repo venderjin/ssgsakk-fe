@@ -25,3 +25,8 @@ export interface OrderProductInfo {
     deliveryType: string;
     productState: string;
 }
+
+export interface OrderMemo {
+    id: number;
+    memo: string;
+}

@@ -57,3 +57,10 @@ export const orderProductListState = atom<OrderProductInfo[]>({
     default: [],
     effects_UNSTABLE: [persistAtom],
 });
+
+//배송메모 ---------------------------------------------------
+export const shippingMemoState = atom<boolean>({
+    key: "shippingMemoState",
+    default: false,
+    effects_UNSTABLE: [persistAtom],
+});
