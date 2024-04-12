@@ -133,8 +133,8 @@ const ShippingForm = ({
           }
         );
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
-          useRevalidateTag("address");
           alert("배송지가 수정되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(callbackUrl);
@@ -158,8 +158,8 @@ const ShippingForm = ({
           body: JSON.stringify(updateData),
         });
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
-          useRevalidateTag("address");
           alert("배송지가 등록되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(`${callbackUrl}?isModalOpen=true`);
