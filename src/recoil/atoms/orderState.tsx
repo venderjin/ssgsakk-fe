@@ -21,7 +21,7 @@ export const nonMemberOrderState = atom<OrderInfo>({
         purchaseRoadAddress: "",
         purchaseJibunAddress: "",
         purchaseDetailAddress: "",
-        deliverymessage: "",
+        deliverymessage: "부재 시 경비실에 맡겨주세요.",
     },
     effects_UNSTABLE: [persistAtom],
 });
@@ -44,7 +44,7 @@ export const memberOrderState = atom<OrderInfo>({
         purchaseRoadAddress: "",
         purchaseJibunAddress: "",
         purchaseDetailAddress: "",
-        deliverymessage: "",
+        deliverymessage: "부재 시 경비실에 맡겨주세요.",
     },
     effects_UNSTABLE: [persistAtom],
 });

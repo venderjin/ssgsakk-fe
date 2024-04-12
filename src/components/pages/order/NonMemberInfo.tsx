@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback, useEffect, use } from "react";
+import React, { useState, useCallback } from "react";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
 import SearchZipcode from "@/components/pages/signup/form/SearchZipcode";
 import ShippingMemo from "@/components/pages/order/ShippingMemo";
@@ -81,7 +81,7 @@ const NonMemberInfo = () => {
             deliverymessage: "",
         });
         // 배송메모 페이지로 이동
-        setOpenShippingMemo(!openShippingMemo);
+        setOpenShippingMemo(true);
     };
 
     return (

@@ -94,8 +94,6 @@ const OrderPage = () => {
         <>
             {token && token !== "" ? (
                 <>
-                    <div>OrderPage</div>
-                    <div>회원입니다</div>
                     <ShippingMemo isMember={true} />
                 </>
             ) : token && token === "" ? (

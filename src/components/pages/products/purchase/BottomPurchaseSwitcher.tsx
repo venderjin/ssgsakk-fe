@@ -1,46 +1,78 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ImageType } from "@/types/productType";
 import BottomPurchaseOptionBox from "@/components/pages/products/purchase/BottomPurchaseOptionBox";
 import { SelectedOptionAndQuantity, OrderData } from "@/types/optionType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
 import { cartState } from "@/recoil/atoms/cartState";
+import { orderProductListState } from "@/recoil/atoms/orderState";
 import { useRecoilState } from "recoil";
-import Link from "next/link";
 
 interface Props {
-    productId: number;
+    productSeq: number;
     productName: string;
     productPrice: number;
     discountPercent: number;
+    vendor: string;
+    deliveryType: string;
+    contents: ImageType[];
     changeMode: (mode: string) => void;
     mode: string;
 }
 
-const BottomPurchaseSwitcher = ({ productId, productName, productPrice, discountPercent, changeMode, mode }: Props) => {
+const BottomPurchaseSwitcher = ({ productSeq, productName, productPrice, discountPercent, vendor, deliveryType, contents, changeMode, mode }: Props) => {
     const [cartList, setCartList] = useRecoilState(cartState);
+    const [orderProductList, setOrderProductList] = useRecoilState(orderProductListState);
     const router = useRouter();
     const token = useGetClientToken();
     const [orderData, setOrderData] = useState<OrderData>({
-        productId: productId,
+        productId: productSeq,
         optionList: [],
     });
 
     const onChangeOrderData = (data: SelectedOptionAndQuantity[]) => {
         setOrderData({
-            productId: productId,
+            productId: productSeq,
             optionList: data.map((item) => {
                 return {
                     optionAndStockSeq: item.optionAndStockSeq,
                     quantity: item.quantity,
+                    optionString: item.optionString,
                 };
             }),
         });
     };
 
+    const getOrderList = () => {
+        const orderProductInfo = orderData.optionList.map((item) => {
+            return {
+                productSeq: productSeq,
+                purchaseProductName: productName,
+                purchaseProductVendor: vendor,
+                productOptionSeq: item.optionAndStockSeq,
+                purchaseProductCount: item.quantity,
+                purchaseProductPrice: productPrice,
+                purchaseProductOptionName: item.optionString,
+                purchaseProductDiscountPrice: productPrice * (1 - discountPercent / 100),
+                productThumbnail: contents[0].contentUrl,
+                deliveryType: deliveryType,
+                productState: 1,
+            };
+        });
+
+        return orderProductInfo;
+    };
+
     const orderHandler = () => {
         if (orderData.optionList.length === 0) return alert("상품 옵션을 선택해주세요.");
-        console.log(orderData);
+
+        const orderProductInfo = getOrderList().map((item) => ({
+            ...item,
+            purchaseProductOptionName: item.purchaseProductOptionName || "", // Ensure purchaseProductOptionName is always a string
+        }));
+        setOrderProductList([...orderProductInfo]);
+        router.push("/order");
     };
 
     const addCartHandler = async () => {
@@ -112,18 +144,15 @@ const BottomPurchaseSwitcher = ({ productId, productName, productPrice, discount
                 </button>
 
                 <button onClick={() => orderHandler()} className="w-1/2 h-[52px] bg-primary-red border-t-[1px] flex justify-center items-center">
-                    <Link href="/order" className={`${mode === "purchase" ? "block" : "hidden"} flex`}>
+                    <div className={`${mode === "purchase" ? "block" : "hidden"} flex`}>
                         <div className=" w-[22px] h-[22px] mr-[4px] bg-product-opt-icon bg-[position:-68px_-126px] bg-[size:194px_171px] align-middle" />
-                        {/* <Link href="/order"> */}
-
                         <span className="text-[17px] text-[#fff]">바로 구매</span>
-                        {/* </Link> */}
-                    </Link>
+                    </div>
                     <span className={`${mode === "gift" ? "block" : "hidden"} text-[17px] text-[#fff]`}>바로 선물하기</span>
                 </button>
             </div>
             <BottomPurchaseOptionBox
-                productId={productId}
+                productId={productSeq}
                 productName={productName}
                 productPrice={productPrice}
                 discountPercent={discountPercent}

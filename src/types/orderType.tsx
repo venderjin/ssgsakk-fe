@@ -13,17 +13,17 @@ export interface OrderInfo {
 }
 
 export interface OrderProductInfo {
-    purchaseSeq: number;
+    productSeq: number;
     purchaseProductName: string;
     purchaseProductVendor: string;
     productOptionSeq: number;
-    purchaseProductOptionName: string;
     purchaseProductCount: number;
     purchaseProductPrice: number;
+    purchaseProductOptionName: string;
     purchaseProductDiscountPrice: number;
     productThumbnail: string;
     deliveryType: string;
-    productState: string;
+    productState: number;
 }
 
 export interface OrderMemo {

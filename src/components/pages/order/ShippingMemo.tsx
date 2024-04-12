@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { redirect, useRouter } from "next/navigation";
 import { OrderMemo } from "@/types/orderType";
 import { shippingMemoData } from "@/libs/orderData";
 import { memberOrderState, nonMemberOrderState, shippingMemoState } from "@/recoil/atoms/orderState";
@@ -11,19 +11,27 @@ const ShippingMemo = ({ isMember }: { isMember: boolean }) => {
     const [nonMemberInfo, setNonMemberInfo] = useRecoilState(nonMemberOrderState);
     const [writeMemoLength, setWriteMemoLength] = useState<number>(0);
     const [shippingMemoId, setShippingMemoId] = useState<number>(1);
-    const [shippingMemo, setShippingMemo] = useState<string>("");
+    const [shippingMemo, setShippingMemo] = useState<string>("부재 시 경비실에 맡겨주세요.");
+    const router = useRouter();
 
     useEffect(() => {
         //회원 / 비회원 구분해서 Recoil에 저장
         isMember ? setMemberInfo({ ...memberInfo, deliverymessage: shippingMemo }) : setNonMemberInfo({ ...nonMemberInfo, deliverymessage: shippingMemo });
     }, [shippingMemo]);
 
+    const redirectToPayment = () => {
+        setOpenShippingMemo(false);
+        router.push("/payments");
+    };
+
     return (
         <>
             <div className="h-[42px] py-[11px] flex justify-center border-b-[#BCBCBC] border-b-[1px]">
                 <div className="w-[50px] h-[42px] flex absolute left-0 top-0 bottom-0 items-center justify-center">
                     <button
-                        onClick={() => setOpenShippingMemo(false)}
+                        onClick={() => {
+                            isMember ? router.back() : setOpenShippingMemo(false);
+                        }}
                         className="w-[22px] h-[20px] bg-top-icon bg-no-repeat bg-[position:0px_0px] bg-[length:100px_100px]"
                     ></button>
                 </div>
@@ -71,7 +79,9 @@ const ShippingMemo = ({ isMember }: { isMember: boolean }) => {
                 </form>
             </div>
             <div className="bg-primary-red sticky bottom-0 flex justify-center items-center" style={{ height: "calc(13vh - 42px)" }}>
-                <p className="font-Pretendard text-[17px] text-white">계속하기</p>
+                <p onClick={redirectToPayment} className="font-Pretendard text-[17px] text-white">
+                    계속하기
+                </p>
             </div>
         </>
     );
