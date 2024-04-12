@@ -120,7 +120,7 @@ const ShippingForm = ({
 
     //수정
     if (shippingData) {
-      const updateShippingData = async () => {
+      const UpdateShippingData = async () => {
         const res = await fetch(
           `${process.env.BASE_URL}/shipping-addr/${shippingData.shippingAddressSeq}`,
           {
@@ -133,9 +133,8 @@ const ShippingForm = ({
           }
         );
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
-          useRevalidateTag("address");
-          console.log(callbackUrl);
           alert("배송지가 수정되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(callbackUrl);
@@ -146,10 +145,10 @@ const ShippingForm = ({
         }
       };
 
-      updateShippingData();
+      UpdateShippingData();
     } else {
       //등록
-      const addShippingData = async () => {
+      const AddShippingData = async () => {
         const res = await fetch(`${process.env.BASE_URL}/shipping-addr`, {
           method: "POST",
           headers: {
@@ -159,8 +158,8 @@ const ShippingForm = ({
           body: JSON.stringify(updateData),
         });
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
-          useRevalidateTag("address");
           alert("배송지가 등록되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(`${callbackUrl}?isModalOpen=true`);
@@ -171,7 +170,7 @@ const ShippingForm = ({
         }
       };
 
-      addShippingData();
+      AddShippingData();
     }
   };
 

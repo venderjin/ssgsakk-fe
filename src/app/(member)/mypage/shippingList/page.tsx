@@ -4,6 +4,31 @@ import ManageShippingListTitle from "@/components/pages/mypage/shippingList/Mana
 import Footer from "@/components/layouts/Footer";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import { useGetServerToken } from "@/actions/useGetServerToken";
+import { revalidateTag } from "next/cache";
+
+const SetDefaultShippingAddress = async (checkedAddressId: number) => {
+  "use server";
+  const token = await useGetServerToken();
+  const res = await fetch(
+    `${process.env.BASE_URL}/shipping-addr/${checkedAddressId}/default`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  revalidateTag("address");
+  const data = await res.json();
+  if (res.ok) {
+    return data;
+  } else {
+    console.log(data.message);
+    return null;
+  }
+};
 
 const fetchShippingList = async (token: string) => {
   if (!token) return;
@@ -46,7 +71,10 @@ const ShippingList = async () => {
     <>
       <BackArrowHeader title="배송지 관리" />
       <ManageShippingListTitle />
-      <ManageShippingList shippingData={shippingData} />
+      <ManageShippingList
+        shippingData={shippingData}
+        SetDefaultShippingAddress={SetDefaultShippingAddress}
+      />
       <Footer />
     </>
   );

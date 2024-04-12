@@ -49,7 +49,7 @@ const CartItemCard = ({
         const cartItem = data.result;
         setCartItem(cartItem);
 
-        //체크박스가 체크되어있고 재고가 5개 이상일때만 가격 계산
+        //체크박스가 체크되어있고 재고가 5개 초과일때만 가격 계산
         if (cartItemState.checkbox && cartItem.stock > minStock) {
           setTotalPrice(
             (prev) => prev + cartItem.productPrice * cartItem.quantity

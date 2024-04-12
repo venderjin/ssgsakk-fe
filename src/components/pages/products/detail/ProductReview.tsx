@@ -16,7 +16,6 @@ const ProductReview = ({
   const reviewImageList = reviewList.map(
     (review) => review.reviewContentVoList?.[0]
   );
-  console.log(reviewImageList);
 
   return (
     <div
@@ -36,7 +35,11 @@ const ProductReview = ({
         {/* 포토&동영상 리뷰 */}
         <PhotoReviewPreview reviewImageList={reviewImageList} />
         {/* 전체 리뷰 */}
-        <ReviewSummaryList reviewList={reviewList} />
+        <ReviewSummaryList
+          reviewList={reviewList}
+          averageRating={averageRating}
+          reviewCount={reviewCount}
+        />
       </div>
     </div>
   );

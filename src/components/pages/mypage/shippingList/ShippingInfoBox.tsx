@@ -37,8 +37,8 @@ const ShippingInfoBox = ({
       );
 
       if (res.ok) {
-        alert("배송지가 삭제되었습니다.");
         location.reload();
+        alert("배송지가 삭제되었습니다.");
       } else {
         alert("배송지 삭제에 실패했습니다.");
       }

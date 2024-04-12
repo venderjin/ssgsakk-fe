@@ -8,38 +8,49 @@ import useRevalidateTag from "@/actions/useRevalidateTag";
 
 const ManageShippingList = ({
   shippingData,
+  SetDefaultShippingAddress,
 }: {
   shippingData: ShippingInfoType[];
+  SetDefaultShippingAddress: (checkedAddressId: number) => void;
 }) => {
   const { data: session } = useSession();
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
 
-  const setDefaultShippingAddress = async () => {
-    //기본 배송지 설정 로직
+  const defaultAddressHandler = async () => {
     if (checkedAddressId === null) {
       alert("기본 배송지로 설정할 배송지를 선택해주세요.");
       return;
     }
-
-    const res = await fetch(
-      `${process.env.BASE_URL}/shipping-addr/${checkedAddressId}/default`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: session?.user?.token || "",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (res.ok) {
-      alert("기본 배송지로 설정되었습니다.");
-      useRevalidateTag("address");
-    } else {
-      alert("기본 배송지 설정에 실패했습니다.");
-    }
+    SetDefaultShippingAddress(checkedAddressId);
+    alert("기본 배송지로 설정되었습니다.");
   };
+
+  // const SetDefaultShippingAddress = async () => {
+  //   //기본 배송지 설정 로직
+  //   if (checkedAddressId === null) {
+  //     alert("기본 배송지로 설정할 배송지를 선택해주세요.");
+  //     return;
+  //   }
+
+  //   const res = await fetch(
+  //     `${process.env.BASE_URL}/shipping-addr/${checkedAddressId}/default`,
+  //     {
+  //       method: "PATCH",
+  //       headers: {
+  //         Authorization: session?.user?.token || "",
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+
+  //   useRevalidateTag("address");
+  //   if (res.ok) {
+  //     alert("기본 배송지로 설정되었습니다.");
+  //   } else {
+  //     alert("기본 배송지 설정에 실패했습니다.");
+  //   }
+  // };
 
   const addHandler = () => {
     router.push(`/mypage/shippingForm?shippingAddressId=`);
@@ -83,7 +94,7 @@ const ManageShippingList = ({
           이번만배송지 설정
         </button>
         <button
-          onClick={setDefaultShippingAddress}
+          onClick={defaultAddressHandler}
           className="bg-primary-red text-[#fff] text-[16px] w-full h-ull"
         >
           기본배송지 설정

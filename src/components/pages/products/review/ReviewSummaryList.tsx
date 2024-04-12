@@ -10,9 +10,17 @@ import { PoroductReviewType } from "@/types/reviewType";
 
 const ReviewSummaryList = ({
   reviewList,
+  averageRating,
+  reviewCount,
 }: {
   reviewList: PoroductReviewType[];
+  averageRating: number;
+  reviewCount: number;
 }) => {
+  const reviewImageList = reviewList.map(
+    (review) => review.reviewContentVoList?.[0]
+  );
+  console.log(reviewImageList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
@@ -28,9 +36,9 @@ const ReviewSummaryList = ({
           />
           <div className="px-[20px]">
             {/* 평점 */}
-            <RatingAndStar rating={4.6} reviewCount={100} />
+            <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
             {/* 포토&동영상 리뷰 */}
-            <PhotoReviewPreview />
+            <PhotoReviewPreview reviewImageList={reviewImageList} />
             {/* 전체 리뷰 */}
             <div className="mt-[40px]">
               <div className="my-[20px] text-[13px]">전체</div>

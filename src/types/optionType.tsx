@@ -21,3 +21,11 @@ export interface OrderData {
   productId: number;
   optionList: SelectedOptionAndQuantity[];
 }
+
+export interface OptionResponse {
+  depthLevel?: number;
+  firstDepthName?: string;
+  secondDepthName?: string;
+  thirdDepthName?: string;
+  options: OptionCombination[];
+}
