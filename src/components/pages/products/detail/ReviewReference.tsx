@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
 import { PoroductReviewType } from "@/types/reviewType";
-import { useRecoilState } from "recoil";
-import {
-  isReviewAllModalOpen,
-  isPhotoReviewAllModalOpen,
-} from "@/recoil/atoms/reviewState";
+import { useModal } from "@/actions/useModal";
+import RatingAndStar from "@/components/pages/products/review/RatingAndStar";
+import PhotoReviewPreview from "@/components/pages/products/review/PhotoReviewPreview";
+import ReviewCard from "@/components/pages/products/review/ReviewCard";
 
 type Props = {
   productId: number;
@@ -20,16 +19,52 @@ const ReviewReference = ({
   averageRating,
   reviewList,
 }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useRecoilState(isReviewAllModalOpen);
-  const [isPhtoModalOpen, setIsPhotoModalOpen] = useRecoilState(
-    isPhotoReviewAllModalOpen
-  );
+  const { openModal } = useModal();
+  const photoReviewList = reviewList
+    .filter((review: PoroductReviewType) => review.reviewContentsList)
+    .map((review: PoroductReviewType) => ({
+      reviewId: review.reviewSeq,
+      photoCount: review.reviewContentsList.length,
+      thumbImage: review.reviewContentsList[0].contentUrl,
+    }));
 
   const reviewThumbList = reviewList
     ?.map(
       (review: PoroductReviewType) => review.reviewContentsList?.[0].contentUrl
     )
     .slice(0, 3);
+
+  const reviewAllModalData = {
+    isOpen: true,
+    title: "리뷰 전체 보기",
+    fixed: true,
+    content: (
+      <div className="px-[20px]">
+        {/* 평점 */}
+        <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
+        {/* 포토&동영상 리뷰 */}
+        <PhotoReviewPreview photoReviews={photoReviewList} />
+        {/* 전체 리뷰 */}
+        <div className="mt-[40px]">
+          <div className="my-[20px] text-[13px]">전체</div>
+          {reviewList.map((review) => (
+            <ReviewCard key={review.reviewSeq} reviewData={review} />
+          ))}
+        </div>
+      </div>
+    ),
+  };
+
+  const photoReviewModalData = {
+    isOpen: true,
+    title: "포토&동영상 전체",
+    fixed: true,
+    content: (
+      <div className="px-[20px]">
+        <PhotoReviewPreview photoReviews={photoReviewList} />
+      </div>
+    ),
+  };
 
   return (
     <div className="flex items-center pt-[13px] pb-[10px] pr-[18px] ">
@@ -41,7 +76,7 @@ const ReviewReference = ({
 
       {/* ---------고객리뷰--------- */}
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => openModal(reviewAllModalData)}
         className="text-[15px] underline align-middle font-medium ml-[24px]"
       >
         {reviewCount}건 리뷰
@@ -50,7 +85,7 @@ const ReviewReference = ({
       {/* ---------포토&동영상 전체보기--------- */}
       <div
         className="ml-[10px] pr-[20px] align-middle flex relative"
-        onClick={() => setIsPhotoModalOpen(true)}
+        onClick={() => openModal(photoReviewModalData)}
       >
         <div className="flex mr-[-1px] align-middle">
           {reviewThumbList.map((image: string, idx) => (

@@ -15,6 +15,7 @@ import Footer from "@/components/layouts/Footer";
 import { PoroductReviewType, PhotoReviewType } from "@/types/reviewType";
 import ProductReviewAllModal from "@/components/pages/products/review/ProductReviewAllModal";
 import ProductPhotoReviewAllModal from "@/components/pages/products/review/ProductPhotoReviewAllModal";
+import GlobalModal from "@/components/common/GlobalModal";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
@@ -50,17 +51,13 @@ const page = async ({ params }: { params: { productId: number } }) => {
       <ProductPageSwitchHeader reviewCount={productData.reviewCount} />
       <ImageSlider imageList={productData.contents} />
       <ProductInformation productData={productData} reviewList={reviewList} />
-      <ProductReviewAllModal
-        averageRating={productData.averageRating}
-        reviewCount={productData.reviewCount}
-        reviewList={reviewList}
-      />
-      <ProductPhotoReviewAllModal reviewList={reviewList} />
+      {/* <ProductPhotoReviewAllModal reviewList={reviewList} /> */}
       <ProductReview
         reviewList={reviewList}
         averageRating={productData.averageRating}
         reviewCount={productData.reviewCount}
       />
+      <GlobalModal />
       <QuestionAndAnswer />
       <BottomActionButtons
         optionData={optionData}

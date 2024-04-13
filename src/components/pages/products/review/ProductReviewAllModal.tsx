@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import PhotoReviewPreview from "@/components/pages/products/review/PhotoReviewPreview";
 import RatingAndStar from "@/components/pages/products/review/RatingAndStar";
 import Modal from "@/components/common/Modal";
@@ -29,6 +30,10 @@ const ProductReviewAllModal = ({
       thumbImage: review.reviewContentsList[0].contentUrl,
     }));
 
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, []);
+
   return (
     <div className="font-Pretendard">
       {isModalOpen && (
@@ -36,6 +41,7 @@ const ProductReviewAllModal = ({
           <ModalHeader
             onChangeModal={() => setIsModalOpen(false)}
             title="리뷰 전체 보기"
+            fixed
           />
           <div className="px-[20px]">
             {/* 평점 */}
