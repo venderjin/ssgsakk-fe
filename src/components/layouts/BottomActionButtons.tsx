@@ -7,6 +7,7 @@ import { OptionResponse } from "@/types/optionType";
 import BottomSoldOutButton from "../pages/products/purchase/BottomSoldOutButton";
 
 type Props = {
+    optionData: OptionResponse;
     productSeq: number;
     productName: string;
     productPrice: number;
@@ -16,7 +17,7 @@ type Props = {
     contents: ImageType[];
 };
 
-const BottomActionButtons = ({ productSeq, productName, productPrice, vendor, discountPercent, deliveryType, contents }: Props) => {
+const BottomActionButtons = ({ optionData, productSeq, productName, productPrice, vendor, discountPercent, deliveryType, contents }: Props) => {
     const minimumStock = 5;
     const [bottomMode, setBottomMode] = useState<string>("default");
     const onChangeBottomMode = (mode: string) => {
@@ -25,25 +26,26 @@ const BottomActionButtons = ({ productSeq, productName, productPrice, vendor, di
 
     return (
         <>
-            {bottomMode === "default" ? (
-                <BottomPurchaseMain changeMode={onChangeBottomMode} productSeq={productSeq} />
+            {/* 단일옵션&&옵션재고가 5개 이하일 때  */}
+            {!optionData.depthLevel && optionData.options[0].stock <= minimumStock ? (
+                <BottomSoldOutButton />
             ) : (
                 <>
-                    <BottomPurchaseSwitcher
-                        productSeq={productSeq}
-                        productName={productName}
-                        productPrice={productPrice}
-                        discountPercent={discountPercent}
-                        vendor={vendor}
-                        deliveryType={deliveryType}
-                        contents={contents}
-                        changeMode={onChangeBottomMode}
-                        mode={bottomMode}
-                    />
-                    {/* <BottomPurchaseOptionBox
-            changeMode={onChangeBottomMode}
-            onChangeOrderData={onChangeOrderData}
-          /> */}
+                    {bottomMode === "default" ? (
+                        <BottomPurchaseMain changeMode={onChangeBottomMode} productSeq={productSeq} />
+                    ) : (
+                        <BottomPurchaseSwitcher
+                            productSeq={productSeq}
+                            productName={productName}
+                            productPrice={productPrice}
+                            discountPercent={discountPercent}
+                            vendor={vendor}
+                            deliveryType={deliveryType}
+                            contents={contents}
+                            changeMode={onChangeBottomMode}
+                            mode={bottomMode}
+                        />
+                    )}
                 </>
             )}
         </>

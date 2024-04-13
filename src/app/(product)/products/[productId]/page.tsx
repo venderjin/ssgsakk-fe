@@ -22,7 +22,7 @@ async function getProductData(productId: number) {
     });
 
     if (res.ok) {
-        productData;
+        // productId;
         const data = await res.json();
         return data.result;
     }
@@ -42,17 +42,7 @@ const page = async ({ params }: { params: { productId: number } }) => {
             <TopHeader />
             <ProductPageSwitchHeader reviewCount={productData.reviewCount} />
             <ImageSlider imageList={productData.contents} />
-            <ProductInformation
-                reviewList={reviewList}
-                productId={productData.productId}
-                vendor={productData.vendor}
-                productName={productData.productName}
-                productPrice={productData.productPrice}
-                discountPercent={productData.discountPercent}
-                reviewCount={productData.reviewCount}
-                averageRating={productData.averageRating}
-                productDescription={productData.productDescription}
-            />
+            <ProductInformation reviewList={reviewList} productData={productData} />
             <ProductReview reviewList={reviewList} averageRating={productData.averageRating} reviewCount={productData.reviewCount} />
             <GlobalModal />
             <QuestionAndAnswer />
@@ -65,7 +55,6 @@ const page = async ({ params }: { params: { productId: number } }) => {
                 deliveryType={productData.deliveryType}
                 contents={productData.contents}
                 optionData={optionData}
-                productId={params.productId}
             />
             <Footer />
             <FloatingLeft />
