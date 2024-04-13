@@ -26,7 +26,11 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
               <Image
                 fill
                 src={image.contentUrl}
-                alt={image.contentDescription}
+                alt={
+                  image.contentDescription
+                    ? image.contentDescription
+                    : "상품 이미지"
+                }
                 priority={image.priority === 1 ? true : false}
               ></Image>
             </div>

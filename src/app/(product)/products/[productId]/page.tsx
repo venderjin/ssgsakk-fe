@@ -7,11 +7,11 @@ import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
 import ProductReview from "@/components/pages/products/detail/ProductReview";
 import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
-import ProductCatogoryCard from "@/components/pages/products/detail/ProductCatogoryCard";
 import "./productDetail.css";
-import { getReviewList } from "@/actions/review";
+import { GetProductReviewList } from "@/actions/review";
 import { GetOption } from "@/actions/product";
 import Footer from "@/components/layouts/Footer";
+import GlobalModal from "@/components/common/GlobalModal";
 
 async function getProductData(productId: number) {
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
@@ -33,22 +33,22 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
   const productData = await getProductData(params.productId);
-  const reviewList = await getReviewList(params.productId);
+  const reviewList = await GetProductReviewList(params.productId);
   const optionData = await GetOption(params.productId);
 
   return (
     <>
       <TopHeader />
-      <ProductPageSwitchHeader />
+      <ProductPageSwitchHeader reviewCount={productData.reviewCount} />
       <ImageSlider imageList={productData.contents} />
-      <ProductInformation productData={productData} />
+      <ProductInformation productData={productData} reviewList={reviewList} />
       <ProductReview
         reviewList={reviewList}
         averageRating={productData.averageRating}
         reviewCount={productData.reviewCount}
       />
+      <GlobalModal />
       <QuestionAndAnswer />
-      <ProductCatogoryCard />
       <BottomActionButtons
         optionData={optionData}
         productId={params.productId}

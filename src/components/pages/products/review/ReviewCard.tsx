@@ -5,8 +5,8 @@ import { PoroductReviewType } from "@/types/reviewType";
 const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
   return (
     <div className="h-full">
-      {reviewData.reviewContentVoList.length > 0 && (
-        <ImageSlider imageList={reviewData.reviewContentVoList} />
+      {reviewData.reviewContentsList.length > 0 && (
+        <ImageSlider imageList={reviewData.reviewContentsList} />
       )}
       <div className="p-[20px] font-Pretendard">
         <div className="flex items-center">
@@ -25,7 +25,7 @@ const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
         <div className="text-[11px] text-[#969696] mb-[20px]">
           <span>{reviewData.reviewDate}</span>
           <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
-          <span>{maskUserId(reviewData.userId)}</span>
+          <span>{reviewData.userId}</span>
         </div>
 
         {/* 구매 옵션 */}

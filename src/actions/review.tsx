@@ -1,6 +1,7 @@
 "use server";
 
 import { useGetServerToken } from "./useGetServerToken";
+import { PoroductReviewType } from "@/types/reviewType";
 
 type ImageType = {
   priority: number;
@@ -42,7 +43,25 @@ export async function CreateReview(
   }
 }
 
-export async function getReviewList(productSeq: number) {
+const getReviewThumbList = (reviewList: PoroductReviewType[]) => {
+  return reviewList
+    ?.map(
+      (review: PoroductReviewType) => review.reviewContentsList?.[0].contentUrl
+    )
+    .slice(0, 3);
+};
+
+const getPhotoReviewList = (reviewList: PoroductReviewType[]) => {
+  return reviewList
+    .filter((review: PoroductReviewType) => review.reviewContentsList)
+    .map((review: PoroductReviewType) => ({
+      reviewId: review.reviewSeq,
+      photoCount: review.reviewContentsList.length,
+      thumbImage: review.reviewContentsList[0].contentUrl,
+    }));
+};
+
+export async function GetProductReviewList(productSeq: number) {
   const res = await fetch(
     `${process.env.BASE_URL}/reviews/products/${productSeq}`,
     {
@@ -54,6 +73,7 @@ export async function getReviewList(productSeq: number) {
   );
 
   const data = await res.json();
+
   if (res.ok) {
     return data.result;
   } else {

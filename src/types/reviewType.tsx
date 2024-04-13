@@ -14,12 +14,18 @@ export interface ReviewImageType {
   contentDescription: string;
 }
 
+export interface PhotoReviewType {
+  reviewId: number;
+  photoCount: number;
+  thumbImage: string;
+}
+
 export interface PoroductReviewType {
   reviewSeq: number;
   reviewParagraph: string;
   reviewScore: number;
   reviewDate: string;
-  reviewContentVoList: ReviewImageType[];
+  reviewContentsList: ReviewImageType[];
   userId: string;
   purchaseProductOption: string;
 }

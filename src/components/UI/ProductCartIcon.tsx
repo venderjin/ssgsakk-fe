@@ -20,7 +20,7 @@ const ProductCartIcon = ({
   const token = useGetClientToken();
 
   const disable =
-    !optionData.depthLevel && optionData?.options?.[0].stock <= minimumStock;
+    !optionData?.depthLevel && optionData?.options?.[0].stock <= minimumStock;
 
   const updateCartCount = async () => {
     if (!token) return;
