@@ -73,18 +73,9 @@ export async function GetProductReviewList(productSeq: number) {
   );
 
   const data = await res.json();
-  const reviewList = data.result;
-  const thumbList = getReviewThumbList(reviewList);
-  const photoReviewList = getPhotoReviewList(reviewList);
-
-  const reviewData = {
-    reviewList: reviewList,
-    thumbList: thumbList,
-    photoReviewList: photoReviewList,
-  };
 
   if (res.ok) {
-    return reviewData;
+    return data.result;
   } else {
     console.log(data);
   }

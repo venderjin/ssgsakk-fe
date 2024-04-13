@@ -40,8 +40,9 @@ const ProductListCard = async ({
   const minimumStock = 5;
   const productData: ProductData = await fetchProductList(productSeq);
   const optionData = await GetOption(productSeq);
+
   const isSoldOut =
-    !optionData.depthLevel && optionData?.options?.[0].stock <= minimumStock;
+    !optionData?.depthLevel && optionData?.options?.[0].stock <= minimumStock;
 
   return (
     <>

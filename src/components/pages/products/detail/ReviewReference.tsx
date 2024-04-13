@@ -2,9 +2,8 @@
 import Image from "next/image";
 import { PoroductReviewType } from "@/types/reviewType";
 import { useModal } from "@/actions/useModal";
-import RatingAndStar from "@/components/pages/products/review/RatingAndStar";
-import PhotoReviewPreview from "@/components/pages/products/review/PhotoReviewPreview";
-import ReviewCard from "@/components/pages/products/review/ReviewCard";
+import PhotoReviewList from "@/components/pages/products/review/PhotoReviewList";
+import ProductReviewAllModal from "../review/ProductReviewAllModal";
 
 type Props = {
   productId: number;
@@ -39,19 +38,12 @@ const ReviewReference = ({
     title: "리뷰 전체 보기",
     fixed: true,
     content: (
-      <div className="px-[20px]">
-        {/* 평점 */}
-        <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
-        {/* 포토&동영상 리뷰 */}
-        <PhotoReviewPreview photoReviews={photoReviewList} />
-        {/* 전체 리뷰 */}
-        <div className="mt-[40px]">
-          <div className="my-[20px] text-[13px]">전체</div>
-          {reviewList.map((review) => (
-            <ReviewCard key={review.reviewSeq} reviewData={review} />
-          ))}
-        </div>
-      </div>
+      <ProductReviewAllModal
+        averageRating={averageRating}
+        reviewCount={reviewCount}
+        reviewList={reviewList}
+        photoReviewList={photoReviewList}
+      />
     ),
   };
 
@@ -59,11 +51,7 @@ const ReviewReference = ({
     isOpen: true,
     title: "포토&동영상 전체",
     fixed: true,
-    content: (
-      <div className="px-[20px]">
-        <PhotoReviewPreview photoReviews={photoReviewList} />
-      </div>
-    ),
+    content: <PhotoReviewList reviewList={reviewList} />,
   };
 
   return (

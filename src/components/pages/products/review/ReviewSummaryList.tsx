@@ -1,11 +1,8 @@
 "use client";
 import ReviewPreviewCard from "@/components/pages/products/review/ReviewPreviewCard";
 import { PoroductReviewType } from "@/types/reviewType";
-import GlobalModal from "@/components/common/GlobalModal";
-import RatingAndStar from "@/components/pages/products/review/RatingAndStar";
-import PhotoReviewPreview from "@/components/pages/products/review/PhotoReviewPreview";
-import ReviewCard from "@/components/pages/products/review/ReviewCard";
 import { useModal } from "@/actions/useModal";
+import ProductReviewAllModal from "@/components/pages/products/review/ProductReviewAllModal";
 
 const ReviewSummaryList = ({
   reviewList,
@@ -30,19 +27,12 @@ const ReviewSummaryList = ({
     title: "리뷰 전체 보기",
     fixed: true,
     content: (
-      <div className="px-[20px]">
-        {/* 평점 */}
-        <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
-        {/* 포토&동영상 리뷰 */}
-        <PhotoReviewPreview photoReviews={photoReviewList} />
-        {/* 전체 리뷰 */}
-        <div className="mt-[40px]">
-          <div className="my-[20px] text-[13px]">전체</div>
-          {reviewList.map((review) => (
-            <ReviewCard key={review.reviewSeq} reviewData={review} />
-          ))}
-        </div>
-      </div>
+      <ProductReviewAllModal
+        averageRating={averageRating}
+        reviewCount={reviewCount}
+        reviewList={reviewList}
+        photoReviewList={photoReviewList}
+      />
     ),
   };
 

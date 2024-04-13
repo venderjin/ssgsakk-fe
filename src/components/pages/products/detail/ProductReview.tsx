@@ -45,7 +45,7 @@ const ProductReview = ({
           {/* 평점 */}
           <RatingAndStar rating={averageRating} reviewCount={reviewCount} />
           {/* 포토&동영상 리뷰 */}
-          <PhotoReviewPreview photoReviews={photoReviews} />
+          <PhotoReviewPreview reviewList={reviewList} />
           {/* 전체 리뷰 */}
           <ReviewSummaryList
             reviewList={reviewList}
