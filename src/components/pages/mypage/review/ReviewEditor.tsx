@@ -1,20 +1,19 @@
 "use client";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, use } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
+//import { createReview } from "@/actions/review";
+import { useGetClientToken } from "@/actions/useGetClientToken";
+import { useRouter } from "next/navigation";
 
 interface ReviewForm {
   content: string;
   images: string[];
 }
 
-const ReviewEditor = ({
-  createReview,
-  type,
-}: {
-  createReview: (reviewForm: FormData) => void;
-  type: string;
-}) => {
+const ReviewEditor = ({ type }: { type: string }) => {
+  const router = useRouter();
+  const token = useGetClientToken();
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
@@ -79,21 +78,39 @@ const ReviewEditor = ({
     }
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
     if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
     const imageData = images.map((imageName, index) => ({
-      priority: index,
-      imageUrl: imageName,
+      priority: index + 1,
+      contentUrl: imageName,
+      contentsDescription: "리뷰이미지",
     }));
 
-    const formData = new FormData();
-    formData.append("content", content);
-    formData.append("images", JSON.stringify(imageData));
-    formData.append("rating", reviewRating.toString());
+    const res = await fetch(`${process.env.BASE_URL}/reviews`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        purchaseProductSeq: 2,
+        productSeq: 38,
+        purchaseProductOption: "색상:레드/사이즈:100(아동)",
+        reviewParagraph: content,
+        reviewContentsVoList: imageData,
+        reviewScore: reviewRating,
+      }),
+    });
 
-    createReview(formData);
+    const data = await res.json();
+    if (res.ok) {
+      alert("리뷰가 등록되었습니다.");
+      router.push("/mypage/reviewList?type=written");
+    } else {
+      console.log(data);
+    }
   };
 
   return (

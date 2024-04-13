@@ -11,6 +11,7 @@ import SearchZipcode from "@/components/pages/signup/form/SearchZipcode";
 import { ShippingInfoType } from "@/types/memberInfoType";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 
 interface ShippingFormData {
   addressNickname: string;
@@ -119,7 +120,7 @@ const ShippingForm = ({
 
     //수정
     if (shippingData) {
-      const updateShippingData = async () => {
+      const UpdateShippingData = async () => {
         const res = await fetch(
           `${process.env.BASE_URL}/shipping-addr/${shippingData.shippingAddressSeq}`,
           {
@@ -132,8 +133,8 @@ const ShippingForm = ({
           }
         );
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
-          console.log(callbackUrl);
           alert("배송지가 수정되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(callbackUrl);
@@ -144,10 +145,10 @@ const ShippingForm = ({
         }
       };
 
-      updateShippingData();
+      UpdateShippingData();
     } else {
       //등록
-      const addShippingData = async () => {
+      const AddShippingData = async () => {
         const res = await fetch(`${process.env.BASE_URL}/shipping-addr`, {
           method: "POST",
           headers: {
@@ -157,6 +158,7 @@ const ShippingForm = ({
           body: JSON.stringify(updateData),
         });
         const response = await res.json();
+        useRevalidateTag("address");
         if (res.ok) {
           alert("배송지가 등록되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
@@ -168,7 +170,7 @@ const ShippingForm = ({
         }
       };
 
-      addShippingData();
+      AddShippingData();
     }
   };
 

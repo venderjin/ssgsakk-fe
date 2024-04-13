@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
 
-const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
+const ReveiwImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
   SwiperCore.use([Pagination]);
 
   return (
@@ -16,7 +16,7 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
       <Swiper
         className="mySwiper"
         pagination={{ type: "fraction" }}
-        loop={imageList.length > 1 ? true : false} // 슬라이드 루프
+        loop={true} // 슬라이드 루프
         spaceBetween={30} // 슬라이스 사이 간격
         slidesPerView={1} // 보여질 슬라이스 수
       >
@@ -26,11 +26,7 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
               <Image
                 fill
                 src={image.contentUrl}
-                alt={
-                  image.contentDescription
-                    ? image.contentDescription
-                    : "상품 이미지"
-                }
+                alt={image.contentDescription}
                 priority={image.priority === 1 ? true : false}
               ></Image>
             </div>
@@ -41,4 +37,4 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
   );
 };
 
-export default ImageSlider;
+export default ReveiwImageSlider;

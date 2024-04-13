@@ -10,14 +10,14 @@ export const options: NextAuthOptions = {
       credentials: {
         loginId: { label: "LoginId", type: "text", placeholder: "SSG" },
         password: { label: "Password", type: "password" },
-        // userName: { label: "userName", type: "text" },
-        // token: { label: "token", type: "password" },
+        userName: { label: "userName", type: "text" },
+        token: { label: "token", type: "password" },
       },
       async authorize(credentials) {
         // 소셜 로그인인 경우
-        // if (credentials?.userName && credentials?.token) {
-        //   return { userName: credentials.userName, token: credentials.token };
-        // }
+        if (credentials?.userName && credentials?.token) {
+          return { userName: credentials.userName, token: credentials.token };
+        }
 
         //통합 로그인인 경우
         if (!credentials?.loginId || !credentials?.password) {

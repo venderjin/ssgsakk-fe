@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import ProductInformation from "@/components/pages/products/detail/ProductInformation";
 import TopHeader from "@/components/layouts/TopHeader";
@@ -6,9 +5,13 @@ import FloatingLeft from "@/components/UI/FloatingLeft";
 import FloatingUp from "@/components/UI/FloatingUp";
 import BottomActionButtons from "@/components/layouts/BottomActionButtons";
 import ProductPageSwitchHeader from "@/components/layouts/ProductPageSwitchHeader";
-import { useGetServerToken } from "@/actions/useGetServerToken";
+import ProductReview from "@/components/pages/products/detail/ProductReview";
+import QuestionAndAnswer from "@/components/pages/products/detail/QuestionAndAnswer";
 import "./productDetail.css";
+import { GetProductReviewList } from "@/actions/review";
+import { GetOption } from "@/actions/product";
 import Footer from "@/components/layouts/Footer";
+import GlobalModal from "@/components/common/GlobalModal";
 
 async function getProductData(productId: number) {
     const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
@@ -19,6 +22,7 @@ async function getProductData(productId: number) {
     });
 
     if (res.ok) {
+        productData;
         const data = await res.json();
         return data.result;
     }
@@ -30,13 +34,16 @@ async function getProductData(productId: number) {
 
 const page = async ({ params }: { params: { productId: number } }) => {
     const productData = await getProductData(params.productId);
+    const reviewList = await GetProductReviewList(params.productId);
+    const optionData = await GetOption(params.productId);
 
     return (
         <>
             <TopHeader />
-            <ProductPageSwitchHeader />
+            <ProductPageSwitchHeader reviewCount={productData.reviewCount} />
             <ImageSlider imageList={productData.contents} />
             <ProductInformation
+                reviewList={reviewList}
                 productId={productData.productId}
                 vendor={productData.vendor}
                 productName={productData.productName}
@@ -46,6 +53,9 @@ const page = async ({ params }: { params: { productId: number } }) => {
                 averageRating={productData.averageRating}
                 productDescription={productData.productDescription}
             />
+            <ProductReview reviewList={reviewList} averageRating={productData.averageRating} reviewCount={productData.reviewCount} />
+            <GlobalModal />
+            <QuestionAndAnswer />
             <BottomActionButtons
                 productSeq={params.productId}
                 productName={productData.productName}
@@ -54,7 +64,10 @@ const page = async ({ params }: { params: { productId: number } }) => {
                 vendor={productData.vendor}
                 deliveryType={productData.deliveryType}
                 contents={productData.contents}
+                optionData={optionData}
+                productId={params.productId}
             />
+            <Footer />
             <FloatingLeft />
             <FloatingUp />
         </>

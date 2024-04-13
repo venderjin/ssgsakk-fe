@@ -37,8 +37,8 @@ const ShippingInfoBox = ({
       );
 
       if (res.ok) {
-        alert("배송지가 삭제되었습니다.");
         location.reload();
+        alert("배송지가 삭제되었습니다.");
       } else {
         alert("배송지 삭제에 실패했습니다.");
       }
@@ -63,7 +63,7 @@ const ShippingInfoBox = ({
             </span>
           )}
         </strong>
-        <span className="block mt-[5px]">(1234)</span>
+        <span className="block mt-[5px]">({shippingData.zipCode})</span>
         <span className="block mt-[5px]">
           도로명주소: {shippingData.roadAddress + shippingData.detailAddress}
         </span>

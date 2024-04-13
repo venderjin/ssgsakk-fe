@@ -5,16 +5,15 @@ export type ImageType = {
 };
 
 export type productType = {
-  id: number;
+  productId: number;
   productName: string;
   productPrice: number;
-  vendor: string;
-  productDetail: string;
   discountPercent: number;
-  averageRating: number;
+  vendor: string;
   reviewCount: number;
-  images: ImageType[];
-  reviewList: reviewType[];
+  averageRating: number;
+  productDescription: string;
+  contents: ImageType[];
 };
 
 export interface reviewType {
