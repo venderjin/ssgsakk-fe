@@ -25,6 +25,7 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
             <div className="h-[373px] relative">
               <Image
                 fill
+                style={{ objectFit: "contain" }}
                 src={image.contentUrl}
                 alt={
                   image.contentDescription

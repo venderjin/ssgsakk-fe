@@ -2,6 +2,7 @@ import timeFormatter from "@/utils/timeFormatter";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import ThermList from "./ThermList";
+import { useAlert } from "@/actions/useAlert";
 
 const INIT_TIME = 180;
 type CheckBoxType = {
@@ -9,6 +10,7 @@ type CheckBoxType = {
 };
 
 const EmailAuthPage = () => {
+  const { openAlert } = useAlert();
   const router = useRouter();
   const [userEmail, setUserEmail] = useState<string>("");
   const [authCode, setAuthCode] = useState<string>("");
@@ -59,15 +61,24 @@ const EmailAuthPage = () => {
 
     //이미 존재하는 회원
     if (res.status === 409) {
-      if (
-        confirm(
-          "해당 이메일로 가입된 계정이 있습니다. \n로그인 화면으로 이동하시겠습니까?"
-        )
-      ) {
-        router.push("/login");
-      } else {
-        setUserEmail("");
-      }
+      openAlert({
+        isOpen: true,
+        content:
+          "해당 이메일로 가입된 계정이 있습니다. \n로그인 화면으로 이동하시겠습니까?",
+        type: "confirm",
+        onConfirmHandler: () => {
+          router.push("/login");
+        },
+      });
+      //   confirm(
+      //     "해당 이메일로 가입된 계정이 있습니다. \n로그인 화면으로 이동하시겠습니까?"
+      //   )
+      // ) {
+      //   router.push("/login");
+      // } else {
+      //   setUserEmail("");
+      // }
+      setUserEmail("");
     }
   };
 

@@ -11,7 +11,8 @@ import { getCookies, setCookie, deleteCookie } from "cookies-next";
 import { LoginType } from "@/types/authType";
 import { loginState } from "@/recoil/atoms/userState";
 import { useRecoilState } from "recoil";
-import Notify from "../UI/Notify";
+import Notify from "@/components/UI/Notify";
+import { useAlert } from "@/actions/useAlert";
 
 export default function LoginForm({
   callbackUrl,
@@ -20,6 +21,7 @@ export default function LoginForm({
   callbackUrl: string | null;
   error: string | null;
 }) {
+  const { openAlert } = useAlert();
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const router = useRouter();
   const cookies = getCookies();
@@ -49,14 +51,18 @@ export default function LoginForm({
 
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("callbackUrl", callbackUrl);
 
     //로그인 버튼을 누를 때 쿠키에 저장
     if (saveIdCheck)
       setCookie("rememberUserId", loginData.loginId, { path: "/" });
 
     if (!loginData.loginId || !loginData.password) {
-      return alert("아이디와 비밀번호를 입력해주세요.");
+      const alertData = {
+        isOpen: true,
+        content: "아이디와 비밀번호를 입력해주세요.",
+      };
+      openAlert(alertData);
+      return;
     }
 
     const { loginId, password } = loginData;
