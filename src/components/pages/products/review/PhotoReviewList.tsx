@@ -17,7 +17,7 @@ const PhotoReviewList = ({
   };
 
   const photoReviews = reviewList.filter(
-    (review: PoroductReviewType) => review.reviewContentsList
+    (review: PoroductReviewType) => review.reviewContentsList.length > 0
   );
 
   return (
