@@ -75,7 +75,6 @@ const MemberPayments = ({ token }: { token: string }) => {
     };
 
     const GetMemberOrder = async () => {
-        console.log(finalMemberOrder);
         try {
             const response = await fetch(`${process.env.BASE_URL}/purchase/member-purchase`, {
                 method: "POST",
@@ -86,7 +85,6 @@ const MemberPayments = ({ token }: { token: string }) => {
                 body: JSON.stringify(finalMemberOrder),
             });
             const data = await response.json();
-            console.log(data);
             router.push(`/order-result/member?code=${data.result.purchaseCode}`);
         } catch (error) {
             console.log(error);
@@ -216,8 +214,8 @@ const MemberPayments = ({ token }: { token: string }) => {
                         <p className="font-Pretendard text-[18px] font-bold">주문 상품</p>
                     </div>
                     {orderProductInfoList.map((product, index) => (
-                        <div key={index} className="my-2 flex flex-row items-center gap-1">
-                            <div className="w-[85px] h-[85px] bg-gray-100">
+                        <div key={index} className="my-2 flex flex-row gap-1">
+                            <div className="w-[85px] h-[85px] bg-gray-100 my-1">
                                 <Image src={`${product.productThumbnail}`} width={85} height={85} alt={product.purchaseProductName} />
                             </div>
                             <div style={{ width: "calc(100% - 85px)" }}>

@@ -82,13 +82,9 @@ const OrderPage = () => {
             purchaseRoadAddress: memberAddressRoad,
             purchaseJibunAddress: memberAddressJibun,
             purchaseDetailAddress: memberAddressDetail,
-            deliverymessage: "",
+            deliverymessage: "부재 시 경비실에 맡겨주세요.",
         });
     }, [memberName, memberPhoneNum, memberEmail, memberAddressZip, memberAddressRoad, memberAddressJibun, memberAddressDetail]);
-
-    useEffect(() => {
-        console.log(memberInfo);
-    }, [memberInfo]);
 
     return (
         <>
