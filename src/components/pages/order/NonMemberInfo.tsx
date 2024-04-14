@@ -7,6 +7,7 @@ import Footer from "@/components/layouts/Footer";
 
 import { nonMemberOrderState, shippingMemoState } from "@/recoil/atoms/orderState";
 import { useRecoilState } from "recoil";
+import { set } from "react-hook-form";
 
 interface NonMemberInfo {
     nonMemberName: string;
@@ -39,9 +40,6 @@ const NonMemberInfo = () => {
     function isValidEmail(email: string) {
         // 정규 표현식을 사용하여 이메일 형식 검사
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (emailRegex.test(email)) {
-            setEmail(email);
-        }
         return emailRegex.test(email);
     }
 
@@ -124,6 +122,7 @@ const NonMemberInfo = () => {
                                         className="w-full h-[40px] px-3 py-2 my-2 font-Pretendard border border-gray-300 rounded-sm focus:outline-none focus:border-gray-500"
                                         value={email}
                                         onChange={(e) => {
+                                            setEmail(e.target.value);
                                             isValidEmail(e.target.value);
                                         }}
                                         type="text"
