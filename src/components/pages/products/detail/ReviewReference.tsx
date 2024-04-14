@@ -20,7 +20,9 @@ const ReviewReference = ({
 }: Props) => {
   const { openModal } = useModal();
   const photoReviewList = reviewList
-    .filter((review: PoroductReviewType) => review.reviewContentsList)
+    .filter(
+      (review: PoroductReviewType) => review.reviewContentsList.length > 0
+    )
     .map((review: PoroductReviewType) => ({
       reviewId: review.reviewSeq,
       photoCount: review.reviewContentsList.length,
@@ -28,6 +30,9 @@ const ReviewReference = ({
     }));
 
   const reviewThumbList = reviewList
+    .filter(
+      (review: PoroductReviewType) => review.reviewContentsList.length > 0
+    )
     ?.map(
       (review: PoroductReviewType) => review.reviewContentsList?.[0].contentUrl
     )
@@ -59,7 +64,7 @@ const ReviewReference = ({
       {/* ---------리뷰평점--------- */}
       <div className="flex text-[15px] text-[#222] align-middle leading-[18px]">
         <div className="w-[16px] h-[16px] bg-product-icon bg-[position:-130px_-438px] bg-[size:524px_479px] align-middle"></div>
-        <div className="font-bold pl-[5px]">{averageRating}</div>
+        <div className="font-bold pl-[5px]">{averageRating.toFixed(1)}</div>
       </div>
 
       {/* ---------고객리뷰--------- */}

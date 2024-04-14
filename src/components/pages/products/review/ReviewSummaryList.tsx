@@ -15,7 +15,9 @@ const ReviewSummaryList = ({
 }) => {
   const { openModal } = useModal();
   const photoReviewList = reviewList
-    .filter((review: PoroductReviewType) => review.reviewContentsList)
+    .filter(
+      (review: PoroductReviewType) => review.reviewContentsList.length > 0
+    )
     .map((review: PoroductReviewType) => ({
       reviewId: review.reviewSeq,
       photoCount: review.reviewContentsList.length,
