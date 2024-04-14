@@ -6,7 +6,6 @@ import { set } from "react-hook-form";
 interface LikeCategory {
     categorySeq: number;
     categoryName: string;
-    level: number;
 }
 
 const LikeCategoryList = ({ categorySeq, categoryName }: LikeCategory) => {
@@ -15,15 +14,15 @@ const LikeCategoryList = ({ categorySeq, categoryName }: LikeCategory) => {
     const [middleCategory, setMiddleCategory] = useState<number>(0);
     const [router, setRouter] = useState<string>("");
 
-    // useEffect(() => {
-    //     if (categorySeq > 0 && categorySeq < 14) {
-    //         setCategoryLevel(1);
-    //     } else if (categorySeq > 3 && categorySeq < 109) {
-    //         setCategoryLevel(2);
-    //     } else if (categorySeq > 108 && categorySeq < 900) {
-    //         setCategoryLevel(3);
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (categorySeq > 0 && categorySeq < 14) {
+            setCategoryLevel(1);
+        } else if (categorySeq > 3 && categorySeq < 109) {
+            setCategoryLevel(2);
+        } else if (categorySeq > 108 && categorySeq < 900) {
+            setCategoryLevel(3);
+        }
+    }, []);
 
     // useEffect(() => {
     //     console.log(categoryName, "level is", categoryLevel);
