@@ -10,7 +10,7 @@ const RatingAndStar = ({
   return (
     <div className="relative text-center pt-[25px] pb-[34px] px-[16px]">
       <span className="inline-block mr-[20px] text-[44px] text-[#22222] font-bold align-middle">
-        {rating}
+        {rating.toFixed(1)}
       </span>
       <div className="inline-block text-left align-middle">
         <div className="bg-product-icon bg-[position:-113px_-162px] bg-[length:524px_479px] w-[110px] h-[22px]">
