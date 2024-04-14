@@ -1,24 +1,24 @@
 "use client";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, use } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
+//import { createReview } from "@/actions/review";
+import { useGetClientToken } from "@/actions/useGetClientToken";
+import { useRouter } from "next/navigation";
 
 interface ReviewForm {
   content: string;
   images: string[];
 }
 
-const ReviewEditor = ({
-  createReview,
-  type,
-}: {
-  createReview: (reviewForm: FormData) => void;
-  type: string;
-}) => {
+const ReviewEditor = ({ type }: { type: string }) => {
+  const router = useRouter();
+  const token = useGetClientToken();
   const [content, setContent] = useState<string>("");
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
   const [reviewRating, setReviewRaing] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,6 +32,9 @@ const ReviewEditor = ({
 
     if (images.length >= 3)
       return alert("이미지는 최대 3개까지 첨부 가능합니다.");
+
+    //이미지를 업로드할 때까지 로딩처리
+    setIsLoading(true);
 
     const targetFilesArray = Array.from(targetFiles);
     const file = targetFilesArray[0];
@@ -48,7 +51,10 @@ const ReviewEditor = ({
       });
 
       const data = await response.json();
-      if (response.ok) setImages([...images, data.fileName]);
+      if (response.ok) {
+        setIsLoading(false);
+        setImages([...images, data.fileName]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -79,21 +85,39 @@ const ReviewEditor = ({
     }
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
     if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
     const imageData = images.map((imageName, index) => ({
-      priority: index,
-      imageUrl: imageName,
+      priority: index + 1,
+      contentUrl: imageName,
+      contentsDescription: "리뷰이미지",
     }));
 
-    const formData = new FormData();
-    formData.append("content", content);
-    formData.append("images", JSON.stringify(imageData));
-    formData.append("rating", reviewRating.toString());
+    const res = await fetch(`${process.env.BASE_URL}/reviews`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        purchaseProductSeq: 3,
+        productSeq: 113,
+        purchaseProductOption: "색상:노란색/사이즈:110(아동)",
+        reviewParagraph: content,
+        reviewContentsVoList: imageData,
+        reviewScore: reviewRating,
+      }),
+    });
 
-    createReview(formData);
+    const data = await res.json();
+    if (res.ok) {
+      alert("리뷰가 등록되었습니다.");
+      router.push("/mypage/reviewList/written");
+    } else {
+      console.log(data);
+    }
   };
 
   return (
@@ -166,6 +190,7 @@ const ReviewEditor = ({
                     alt="첨부이미지"
                     fill={true}
                     sizes="(max-width: 600px) 100vw, 600px"
+                    onLoad={() => setIsLoading(false)}
                   />
                   <div
                     onClick={() => deleteHandler(index)}

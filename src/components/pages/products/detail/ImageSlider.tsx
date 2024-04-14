@@ -25,8 +25,13 @@ const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
             <div className="h-[373px] relative">
               <Image
                 fill
+                style={{ objectFit: "contain" }}
                 src={image.contentUrl}
-                alt={image.contentDescription}
+                alt={
+                  image.contentDescription
+                    ? image.contentDescription
+                    : "상품 이미지"
+                }
                 priority={image.priority === 1 ? true : false}
               ></Image>
             </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { useGetServerToken } from "@/actions/useGetServerToken";
+import { revalidateTag } from "next/cache";
 
 async function SetDefaultShippingAddress(shippingAddressSeq: number) {
   const token = await useGetServerToken();
@@ -15,7 +16,6 @@ async function SetDefaultShippingAddress(shippingAddressSeq: number) {
   );
 
   const data = await res.json();
-
   if (res.ok) {
     return data;
   } else return data;

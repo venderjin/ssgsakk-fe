@@ -20,13 +20,15 @@ const ProductDetailInfo = ({
 
   // 펼치기/접기 버튼 클릭 시 상세정보의 높이 조절
   const toggleDetail = () => {
-    console.log(detailRef.current?.scrollHeight);
     setDetailMore(!detailMore);
     setDetailHeight(detailMore ? 1200 : detailRef.current?.scrollHeight || 0);
   };
 
   return (
-    <div className=" px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard">
+    <div
+      id="productDetail"
+      className=" px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard"
+    >
       <div className="relative ml-[2px] mb-[15px] pt-[40px]">
         <h3 className="text-[19px] relative inline-block text-[#222222] pb-[4px] font-semibold">
           상세정보
@@ -43,10 +45,18 @@ const ProductDetailInfo = ({
       </div>
 
       {/* 상세정보 펼쳐보기 */}
-      <div className="bg-white">
+      <div className="relative">
+        <div
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, rgba(255, 255, 255,255), #fff)",
+            filter: "blur(15px)",
+          }}
+          className="absolute block top-[-30px] left-0 right-0 h-[40px] "
+        />
         <button
           onClick={toggleDetail}
-          className="w-full h-[50px] text-[14px] flex items-center justify-center"
+          className="w-full h-[50px]  text-[14px] flex items-center justify-center "
         >
           <span>{!detailMore ? "상세정보 펼쳐보기" : "상세정보 접기"}</span>
           <div className="ml-[5px]">

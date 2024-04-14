@@ -9,7 +9,6 @@ import {
   OptionInfo,
   SelectedOptionAndQuantity,
 } from "@/types/optionType";
-import { set } from "react-hook-form";
 
 interface Props {
   productId: number;
@@ -102,24 +101,26 @@ const BottomPurchaseOptionBox = ({
     return optionData;
   };
 
-  // const optionList = setOoptionList(dummyData.optionData);
-  // const optionStock = dummyData.optionData.options;
-
   const getOptionString = (optionAndStockSeq: number) => {
     const item = optionStock.filter(
       (option) => option.optionAndStockSeq === optionAndStockSeq
     )[0];
-    let optionString: string = "";
 
     if (optionList.length === 0) return productName;
 
+    const optionStringList: string[] = [];
     optionList.forEach((option, idx) => {
-      if (idx === 0) optionString += `${option.type}:${item.explain} `;
-      else if (idx === 1) optionString += `${option.type}:${item.explain2}`;
-      else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
+      if (idx === 0) optionStringList.push(`${option.type}:${item.explain}`);
+      else if (idx === 1)
+        optionStringList.push(`${option.type}:${item.explain2}`);
+      else if (idx === 2)
+        optionStringList.push(`${option.type}:${item.explain3}`);
+      // if (idx === 0) optionString += `${option.type}:${item.explain} `;
+      // else if (idx === 1) optionString += `${option.type}:${item.explain2}`;
+      // else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
     });
 
-    return optionString.replace(" ", "/");
+    return optionStringList.join("/");
   };
 
   const setInitSellingPrice = () => {

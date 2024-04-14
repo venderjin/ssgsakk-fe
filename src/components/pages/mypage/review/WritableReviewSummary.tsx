@@ -12,7 +12,7 @@ const WritableReviewSummary = ({
     <div>
       {reviewList ? (
         <div>
-          <ul className="flex flex-wrap justify-between py-[20px]">
+          <ul className="grid grid-cols-3 py-[20px]">
             {reviewList.map((review: WritableReviewType, index: number) => (
               <li key={index}>
                 <Link

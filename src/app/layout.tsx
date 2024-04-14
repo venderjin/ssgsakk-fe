@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/provider/AuthProvider";
 import RecoilProvider from "@/components/provider/RecoilProvider";
+import GlobalAlert from "@/components/common/GlobalAlert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: Props) {
       />
       <body className={inter.className}>
         <RecoilProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <GlobalAlert />
+            {children}
+          </AuthProvider>
         </RecoilProvider>
       </body>
       <script

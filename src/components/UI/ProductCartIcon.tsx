@@ -5,11 +5,22 @@ import { AddCart } from "@/actions/cart";
 import { useRouter } from "next/navigation";
 import { cartState } from "@/recoil/atoms/cartState";
 import { useRecoilState } from "recoil";
+import { OptionResponse } from "@/types/optionType";
 
-const ProductCartIcon = ({ productSeq }: { productSeq: number }) => {
+const ProductCartIcon = ({
+  productSeq,
+  optionData,
+}: {
+  productSeq: number;
+  optionData: OptionResponse;
+}) => {
+  const minimumStock = 5;
   const [cartList, setCartList] = useRecoilState(cartState);
   const router = useRouter();
   const token = useGetClientToken();
+
+  const disable =
+    !optionData?.depthLevel && optionData?.options?.[0].stock <= minimumStock;
 
   const updateCartCount = async () => {
     if (!token) return;
@@ -37,22 +48,9 @@ const ProductCartIcon = ({ productSeq }: { productSeq: number }) => {
       alert("로그인이 필요한 서비스입니다.");
       return;
     }
-    const res = await fetch(
-      `${process.env.BASE_URL}/optionstock/${productSeq}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      }
-    );
-
-    const data = await res.json();
 
     //옵션이 존재하면 옵션 선택 페이지로 이동한다.
-    if (data.result.depthLevel) {
+    if (optionData.depthLevel) {
       if (
         confirm(
           "해당 상품에 옵션이 존재합니다. 옵션 선택 페이지로 이동하시겠습니까?"
@@ -64,7 +62,7 @@ const ProductCartIcon = ({ productSeq }: { productSeq: number }) => {
     else {
       const response = await AddCart(
         productSeq,
-        data.result.options[0].optionAndStockSeq
+        optionData.options[0].optionAndStockSeq
       );
       alert(response);
       updateCartCount();
@@ -72,8 +70,8 @@ const ProductCartIcon = ({ productSeq }: { productSeq: number }) => {
   };
 
   return (
-    <button onClick={clickHandler}>
-      <Cart width={20} height={20} />
+    <button onClick={clickHandler} disabled={disable}>
+      <Cart width={20} height={20} disable={disable} />
     </button>
   );
 };

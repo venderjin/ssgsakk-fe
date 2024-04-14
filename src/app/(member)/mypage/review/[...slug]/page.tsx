@@ -27,7 +27,7 @@ const ReviewWrite = ({ params }: { params: { slug: string } }) => {
         productImage="https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_500.jpg"
         productName="오트밀 500g 귀리 100% 시리얼오트밀 500g 귀리 100% 시리얼오트밀 500g 귀리 100% 시리얼오트밀 500g 귀리 100% 시리얼오트밀 500g 귀리 100% 시리얼"
       />
-      <ReviewEditor createReview={createReview} type={type} />
+      <ReviewEditor type={type} />
     </>
   );
 };
