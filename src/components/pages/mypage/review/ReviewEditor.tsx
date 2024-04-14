@@ -18,6 +18,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
   const [contentCount, setContentCount] = useState<number>(0);
   const [images, setImages] = useState<string[]>([]);
   const [reviewRating, setReviewRaing] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,6 +32,9 @@ const ReviewEditor = ({ type }: { type: string }) => {
 
     if (images.length >= 3)
       return alert("이미지는 최대 3개까지 첨부 가능합니다.");
+
+    //이미지를 업로드할 때까지 로딩처리
+    setIsLoading(true);
 
     const targetFilesArray = Array.from(targetFiles);
     const file = targetFilesArray[0];
@@ -47,7 +51,10 @@ const ReviewEditor = ({ type }: { type: string }) => {
       });
 
       const data = await response.json();
-      if (response.ok) setImages([...images, data.fileName]);
+      if (response.ok) {
+        setIsLoading(false);
+        setImages([...images, data.fileName]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -183,6 +190,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
                     alt="첨부이미지"
                     fill={true}
                     sizes="(max-width: 600px) 100vw, 600px"
+                    onLoad={() => setIsLoading(false)}
                   />
                   <div
                     onClick={() => deleteHandler(index)}

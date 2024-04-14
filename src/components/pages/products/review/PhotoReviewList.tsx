@@ -9,6 +9,12 @@ const PhotoReviewList = ({
   reviewList: PoroductReviewType[];
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const photoModalHandler = (index: number) => {
+    setIsModalOpen(true);
+    setCurrentIndex(index);
+  };
 
   const photoReviews = reviewList.filter(
     (review: PoroductReviewType) => review.reviewContentsList
@@ -19,6 +25,7 @@ const PhotoReviewList = ({
       <>
         {isModalOpen && (
           <PhotoReviewSliderModal
+            currentIndex={currentIndex}
             onChangeModal={() => setIsModalOpen(false)}
             photoReviews={photoReviews}
           />
@@ -26,9 +33,9 @@ const PhotoReviewList = ({
       </>
 
       <ul className="flex flex-wrap">
-        {photoReviews.map((item: any) => (
+        {photoReviews.map((item: any, index) => (
           <li
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => photoModalHandler(index)}
             key={item.reviewSeq}
             className="w-1/3 h-[120px] overflow-hidden relative block"
           >

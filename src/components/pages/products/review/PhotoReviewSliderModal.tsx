@@ -33,7 +33,7 @@ const PhotoReviewSliderModal = ({
   }, [currentIndex]);
 
   return (
-    <div className="bg-white fixed z-[200] top-0 left-0 w-full h-full overflow-y-scroll">
+    <div className="bg-white fixed z-[300] top-0 left-0 w-full h-full overflow-y-scroll">
       {/* 헤더 */}
       <div className="h-[50px] py-[11px]  justify-center border-b-[#BCBCBC] border-b-[1px] bg-white font-Pretendard flex sticky top-0">
         <h1 className="text-black text-[15px] font-bold align-middle flex items-center font-Pretendard">
@@ -58,7 +58,7 @@ const PhotoReviewSliderModal = ({
           spaceBetween={30} // 슬라이스 사이 간격
           slidesPerView={1} // 보여질 슬라이스 수
           onSlideChange={handleSlideChange}
-          initialSlide={currentSlideIndex}
+          initialSlide={currentIndex}
         >
           {photoReviews.map((review: PoroductReviewType) => (
             <SwiperSlide key={review.reviewSeq}>
