@@ -34,11 +34,11 @@ const PhotoReviewList = ({
           >
             <Image
               src={item.reviewContentsList[0].contentUrl}
-              fill={true}
-              sizes="(max-width: 600px) 100vw, 600px"
+              width={600}
+              height={400} // Replace with the actual dimensions of your image
               alt="첨부이미지1"
             />
-            {item.photoCount > 1 ? (
+            {item.reviewContentsList.length > 1 ? (
               <div className="absolute right-0 bottom-0 h-[22px] w-[22px]">
                 <span className="bg-[#000000b3] text-[12px] text-[#fff] inline-flex align-middle justify-center px-[7px]">
                   {item.reviewContentsList.length}

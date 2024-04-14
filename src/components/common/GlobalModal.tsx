@@ -9,7 +9,7 @@ const GlobalModal = () => {
       {modalDataState.isOpen && (
         <div className="bg-white fixed z-[200] top-0 left-0 w-full h-full overflow-y-scroll font-Pretendard">
           <div
-            className={`h-[50px] py-[11px]  justify-center border-b-[#BCBCBC] border-b-[1px] bg-white font-Pretendard ${
+            className={`h-[50px] py-[11px]  justify-center border-b-[#BCBCBC] border-b-[1px] z-[300] bg-white font-Pretendard ${
               modalDataState.fixed ? "flex sticky top-0 " : "flex items-center"
             }`}
           >

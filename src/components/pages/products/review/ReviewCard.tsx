@@ -4,7 +4,7 @@ import { PoroductReviewType } from "@/types/reviewType";
 
 const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
   return (
-    <div className="h-full">
+    <div className="h-full mb-[10px]">
       {reviewData.reviewContentsList.length > 0 && (
         <ImageSlider imageList={reviewData.reviewContentsList} />
       )}

@@ -95,9 +95,9 @@ const ReviewEditor = ({ type }: { type: string }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        purchaseProductSeq: 2,
-        productSeq: 38,
-        purchaseProductOption: "색상:레드/사이즈:100(아동)",
+        purchaseProductSeq: 3,
+        productSeq: 113,
+        purchaseProductOption: "색상:노란색/사이즈:110(아동)",
         reviewParagraph: content,
         reviewContentsVoList: imageData,
         reviewScore: reviewRating,
@@ -107,7 +107,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
     const data = await res.json();
     if (res.ok) {
       alert("리뷰가 등록되었습니다.");
-      router.push("/mypage/reviewList?type=written");
+      router.push("/mypage/reviewList/written");
     } else {
       console.log(data);
     }

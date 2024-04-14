@@ -13,14 +13,6 @@ const ProductReview = ({
   averageRating: number;
   reviewCount: number;
 }) => {
-  const photoReviews = reviewList
-    .filter((review: PoroductReviewType) => review.reviewContentsList)
-    .map((review: PoroductReviewType) => ({
-      reviewId: review.reviewSeq,
-      photoCount: review.reviewContentsList.length,
-      thumbImage: review.reviewContentsList[0].contentUrl,
-    }));
-
   return (
     <div
       id="reviews"
