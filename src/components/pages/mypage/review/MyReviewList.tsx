@@ -7,7 +7,7 @@ import { useGetServerToken } from "@/actions/useGetServerToken";
 
 //작성 가능한 리뷰 또는 작성한 리뷰 리스트를 fetch 한다.
 
-const getReviewList = async (type: string) => {
+const GetReviewList = async (type: string) => {
   const token = await useGetServerToken();
   const res = await fetch(`${process.env.BASE_URL}/reviews/${type}`, {
     headers: {
@@ -26,7 +26,7 @@ const getReviewList = async (type: string) => {
 };
 
 const MyReviewList = async ({ type }: { type: string }) => {
-  const reviewList = await getReviewList(type);
+  const reviewList = await GetReviewList(type);
   console.log(reviewList);
 
   return (
