@@ -11,6 +11,7 @@ import HomeCreaditCardBanner from "@/components/pages/home/HomeCreaditCardBanner
 import EventProductList from "@/components/pages/productList/EventProductList";
 import MoreContents from "@/components/UI/MoreContents";
 import HomeBestProductList from "@/components/pages/home/HomeBestProductList";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -25,7 +26,9 @@ export default function Home() {
             />
             <WhiteSpace height={30} backgroundColor="#ffffff" />
             <HomeSectionTitle title="가볍고 맛있는 장보기" />
-            <HomeGradientSectionTitle title="나혼산 장보기 8%쿠폰으로 장보기!" />
+            <Link href="/category/11?big=11&mid=total">
+                <HomeGradientSectionTitle title="나혼산 장보기 8%쿠폰으로 장보기!" />
+            </Link>
             <HomeSectionTitle title="카드 할인받고 즐겁게 쇼핑해요" subtitle="SSGPAY로 결제하셔도 혜택 받을 수 있어요" />
             <HomeCreaditCardBanner />
             <WhiteSpace height={40} backgroundColor="#ffffff" />
