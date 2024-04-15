@@ -87,7 +87,6 @@ const BestProductNavigation = ({ deliveryType, categorySeq }: BestProductNavigat
                 router.push(`/productList/bestProductList`);
             }
         }
-        // router.refresh();
     };
 
     return (
