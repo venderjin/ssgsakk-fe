@@ -1,16 +1,22 @@
 import Link from "next/link";
 import WritableReviewSummary from "@/components/pages/mypage/review/WritableReviewSummary";
-import { WritableReviewType } from "@/types/reviewType";
+import { useGetServerToken } from "@/actions/useGetServerToken";
 
 //작성가능한 리뷰 리스트 가져오기
-const getWriteableReviewList = async () => {
-    const res = await fetch(`http://localhost:3300/writableReviewList`, {
+const GetWriteableReviewList = async () => {
+    const token = await useGetServerToken();
+    if (!token) return;
+    const res = await fetch(`${process.env.BASE_URL}/reviews/writable`, {
+        headers: {
+            Authorization: token,
+        },
         cache: "no-store",
     });
 
+    const data = await res.json();
+
     if (res.ok) {
-        const data = await res.json();
-        return data.slice(0, 3);
+        return data.result.slice(0, 3);
     }
     if (!res.ok) {
         throw new Error("network error");
@@ -18,27 +24,7 @@ const getWriteableReviewList = async () => {
 };
 
 const MyReviewSummary = async () => {
-    //const reviewList = await getWriteableReviewList();
-    const reviewList: WritableReviewType[] = [
-        {
-            purchaseSeq: 11,
-            purchaseProductSeq: 12,
-            purchaseCode: "20240406_M230485",
-            purchaseDate: "2024.03.31",
-            productSeq: 123,
-            purchaseProductName: "오트밀 500g 귀리 100% 시리얼",
-            purchaseProductImage: "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_500.jpg",
-        },
-        {
-            purchaseSeq: 11,
-            purchaseProductSeq: 12,
-            purchaseCode: "20240406_M230485",
-            purchaseDate: "2024.03.31",
-            productSeq: 123,
-            purchaseProductName: "오트밀 500g 귀리 100% 시리얼",
-            purchaseProductImage: "https://sitem.ssgcdn.com/00/76/49/item/1000414497600_i1_500.jpg",
-        },
-    ];
+    const reviewList = await GetWriteableReviewList();
 
     return (
         <div className="px-[16px] pb-[50px]">

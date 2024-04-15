@@ -1,6 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
+import LoadMypage from "./LoadMypage";
 
 const SocialSignIn = ({
   userName,
@@ -24,7 +25,7 @@ const SocialSignIn = ({
     handleSignIn();
   }, []);
 
-  return <div>{loading ? "Loading..." : ""}</div>;
+  return <div>{loading ? <LoadMypage /> : null}</div>;
 };
 
 export default SocialSignIn;

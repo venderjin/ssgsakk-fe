@@ -1,22 +1,51 @@
 import Link from "next/link";
-import { WritableReviewType } from "@/types/reviewType";
+import { WritableReviewType, WrittenReviewType } from "@/types/reviewType";
 import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 import ReviewProductInfo from "@/components/pages/mypage/review/ReviewProductInfo";
 import MyReviewItem from "./MyReviewItem";
 import { useGetServerToken } from "@/actions/useGetServerToken";
+import dateFormatter from "@/utils/dateFormatter";
+import { revalidateTag } from "next/cache";
 
-//작성 가능한 리뷰 또는 작성한 리뷰 리스트를 fetch 한다.
+const DeleteReview = async (reviewSeq: number) => {
+  "use server";
+  console.log(reviewSeq);
+  const token = await useGetServerToken();
+  if (!token) return;
+  const res = await fetch(
+    `${process.env.BASE_URL}/reviews/${Number(reviewSeq)}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+      method: "DELETE",
+    }
+  );
+
+  const data = await res.json();
+
+  if (res.ok) {
+    revalidateTag("reviews");
+    console.log(data);
+  }
+  if (!res.ok) {
+    console.log(data);
+  }
+};
 
 const GetReviewList = async (type: string) => {
   const token = await useGetServerToken();
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_URL}/reviews/${type}`, {
     headers: {
       Authorization: token,
     },
+    next: { tags: ["reviews"] },
     cache: "no-store",
   });
 
   const data = await res.json();
+
   if (res.ok) {
     return data.result;
   }
@@ -27,10 +56,9 @@ const GetReviewList = async (type: string) => {
 
 const MyReviewList = async ({ type }: { type: string }) => {
   const reviewList = await GetReviewList(type);
-  console.log(reviewList);
 
   return (
-    <div>
+    <div className="mb-[50px]">
       <div className="mt-[30px] mx-[20px] font-Pretendard">
         <ul className="rounded-[8px] border border-[#444] flex h-[52px] justify-between text-[14px] overflow-hidden">
           <Link
@@ -52,9 +80,6 @@ const MyReviewList = async ({ type }: { type: string }) => {
           </Link>
         </ul>
       </div>
-      {/* 리뷰리스트 */}
-      {/* {type === "writable" && <MyWritableReview reviewList={reviewList} />}
-      {type === "written" && <MyWrittenReveiw />} */}
 
       {!reviewList ||
         (reviewList.length === 0 && (
@@ -83,6 +108,7 @@ const MyReviewList = async ({ type }: { type: string }) => {
 
       <ul>
         {reviewList &&
+          type === "writable" &&
           reviewList.map((review: WritableReviewType, index: number) => (
             <li key={index} className="pb-[10px] ">
               {/* 주문번호 및 주문정보 */}
@@ -90,35 +116,51 @@ const MyReviewList = async ({ type }: { type: string }) => {
                 href={""}
                 className="px-[20px] pt-[10px] text-[12px] text-[#888] flex items-center"
               >
-                {review.purchaseDate} ({review.purchaseCode})
+                {dateFormatter(review.purchaseDate)} ({review.purchaseCode})
                 <RightHalfTriangle />
               </Link>
               <div className="">
                 {/* 리뷰 상품 정보 */}
                 <ReviewProductInfo
-                  productImage={review.purchaseProductImage}
+                  productImage={review.productContentsVo.contentUrl}
                   productName={review.purchaseProductName}
                 />
                 {/* 리뷰 작성 버튼 */}
-                {type === "writable" && (
-                  <div className="px-[20px]">
-                    <Link
-                      href={`/mypage/review/${review.purchaseProductSeq}/create`}
-                    >
-                      <button className="border border-[#444] rounded-[8px] w-full h-[45px] text-[14px] font-semibold">
-                        리뷰쓰기
-                      </button>
-                    </Link>
-                  </div>
-                )}
 
-                {/* 리뷰 내용 */}
-                {type === "written" && (
-                  <MyReviewItem
-                    purchaseProductSeq={review.purchaseProductSeq}
-                  />
-                )}
+                <div className="px-[20px]">
+                  <Link
+                    href={`/mypage/review/${review.purchaseProductSeq}/create`}
+                  >
+                    <button className="border border-[#444] rounded-[8px] w-full h-[45px] text-[14px] font-semibold">
+                      리뷰쓰기
+                    </button>
+                  </Link>
+                </div>
               </div>
+            </li>
+          ))}
+        {reviewList &&
+          type === "written" &&
+          reviewList.map((review: WrittenReviewType, index: number) => (
+            <li key={index} className="pb-[10px] ">
+              {/* 주문번호 및 주문정보 */}
+              <Link
+                href={""}
+                className="px-[20px] pt-[10px] text-[12px] text-[#888] flex items-center"
+              >
+                {dateFormatter(review.purchaseDate)} ({review.purchaseCode})
+                <RightHalfTriangle />
+              </Link>
+
+              {/* 리뷰 상품 정보 */}
+              <ReviewProductInfo
+                productImage={review.productContentsVo.contentUrl}
+                productName={review.purchaseProductName}
+              />
+              {/* 리뷰 내용 */}
+              {type === "written" && (
+                <MyReviewItem reviewInfo={review} deleteReview={DeleteReview} />
+              )}
             </li>
           ))}
       </ul>

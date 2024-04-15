@@ -20,7 +20,6 @@ const CartData = () => {
 
       const data = await res.json();
       if (res.ok) {
-        console.log(data.result);
         setCartList(data.result);
       }
 
