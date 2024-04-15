@@ -5,7 +5,23 @@ export interface WritableReviewType {
   purchaseDate: string;
   productSeq: number;
   purchaseProductName: string;
-  purchaseProductImage: string;
+  purchaseProductOption: string;
+  productContentsVo: ReviewImageType;
+}
+
+export interface WrittenReviewType {
+  purchaseSeq: number;
+  purchaseProductSeq: number;
+  purchaseCode: string;
+  purchaseDate: string;
+  productSeq: number;
+  purchaseProductName: string;
+  purchaseProductOption: string | null;
+  reviewSeq: number;
+  reviewScore: number;
+  reviewParagraph: string;
+  reviewDate: string;
+  productContentsVo: ReviewImageType;
 }
 
 export interface ReviewImageType {

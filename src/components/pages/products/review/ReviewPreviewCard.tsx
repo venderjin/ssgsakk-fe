@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 import Modal from "@/components/common/Modal";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -56,23 +55,15 @@ const ReviewPreviewCard = ({
           </button>
         </div>
         {/* 이미지 */}
-        <ul className="flex my-[12px]">
-          {/* {reviewData.reviewContentVoList.map((image) => (
-            <li
-              key={image.priority}
-              onClick={openModal}
-              className="relative w-[85px] min-h-[80px] mr-[10px]"
-            >
-              <Image
-                src={image.contentUrl}
-                alt="리뷰 이미지"
-                fill={true}
-                sizes="(max-width: 600px) 100vw, 600px"
-                className="rounded-[8px]"
-              />
-            </li>
-          ))} */}
-        </ul>
+        <div className="relative w-[85px] min-h-[80px] my-[10px]">
+          <Image
+            src={reviewData.reviewContentsList[0].contentUrl}
+            alt="첨부이미지"
+            fill={true}
+            sizes="(max-width: 600px) 100vw, 600px"
+            className="rounded-[8px]"
+          />
+        </div>
 
         {/* 내용 */}
         <p

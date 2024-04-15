@@ -46,7 +46,7 @@ const PhotoReviewPreview = ({
           photoReviews={photoReviews}
         />
       )}
-      <div className="mt-[20px] h-full w-full">
+      <div className="mt-[20px] mb-[50px] h-full w-full">
         <div className="mb-[16px] flex justify-between">
           <span className="text-[16px] text-[#222] font-bold">
             포토&동영상 리뷰

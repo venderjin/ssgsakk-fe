@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/provider/AuthProvider";
@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     "SSG.COM, 신세계몰, 신세계백화점, 이마트몰, 트레이더스, 신세계라이브쇼핑, S.I. Village",
 };
 
+//모바일 input 확대 방지
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 type Props = {
   children: React.ReactNode;
 };
@@ -23,10 +31,6 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <meta
-        name="viewport"
-        content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
-      />
       <body className={inter.className}>
         <RecoilProvider>
           <AuthProvider>
