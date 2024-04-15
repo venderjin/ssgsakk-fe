@@ -1,11 +1,8 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import RedHeart from "../images/RedHeart";
 import Heart from "../images/Heart";
 import { useGetClientToken } from "@/actions/useGetClientToken";
-import { useRecoilValue } from "recoil";
-import { loginState } from "@/recoil/atoms/userState";
-import { set } from "react-hook-form";
 
 interface Props {
     productSeq?: number;
