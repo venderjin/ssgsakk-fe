@@ -16,18 +16,18 @@ const Footer = () => {
                 <div className="flex flex-row">
                     <div className="mr-[10px] w-[29px] h-[27px] bg-footerCallcenter bg-no-repeat bg-[position:0px_0px] bg-[length:50px_150px]"></div>
                     <div>
-                        <p className="text-white font-Pretendard text-[10px]">SSG.COM 고객센터 / 전자금융거래 분쟁처리</p>
+                        <p className="text-white font-Pretendard text-[10px] truncate">SSG.COM 고객센터 / 전자금융거래 분쟁처리</p>
                         <div className="flex flex-row items-center">
-                            <p className="text-white font-Pretendard text-[12px]">1577-3419 / </p>
-                            <p className="text-white font-Pretendard text-[10px]"> ssg@ssg.com</p>
+                            <p className="text-white font-Pretendard text-[12px] truncate">1577-3419 / </p>
+                            <p className="text-white font-Pretendard text-[10px] truncate"> ssg@ssg.com</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-row  items-center">
-                    <button className="text-white bg-[#66666D] rounded  border-1 border-solid border-[#606066] font-Pretendard text-[10px] mr-[1px] my-[2px] px-[12px] py-[5px]">
+                    <button className="text-white bg-[#66666D] rounded  border-1 border-solid border-[#606066] font-Pretendard text-[10px] mr-[1px] my-[2px] px-[12px] py-[5px] truncate">
                         전화걸기
                     </button>
-                    <button className="text-white bg-[#66666D] rounded  border-1 border-solid border-[#606066] font-Pretendard text-[10px]  my-[2px] px-[12px] py-[5px]">
+                    <button className="text-white bg-[#66666D] rounded  border-1 border-solid border-[#606066] font-Pretendard text-[10px]  my-[2px] px-[12px] py-[5px] truncate">
                         1:1 고객센터
                     </button>
                 </div>
@@ -43,6 +43,7 @@ const Footer = () => {
                           >
                               {category.title === "로그아웃" ? (
                                   <button
+                                      className="truncate"
                                       onClick={() => {
                                           signOut();
                                           setCartLists([]);
@@ -51,7 +52,7 @@ const Footer = () => {
                                       {category.title}
                                   </button>
                               ) : (
-                                  <Link href={category.url} target={category.id === 3 || category.id === 4 ? "_blank" : "_self"}>
+                                  <Link className="truncate" href={category.url} target={category.id === 3 || category.id === 4 ? "_blank" : "_self"}>
                                       {category.title}
                                   </Link>
                               )}
@@ -61,7 +62,7 @@ const Footer = () => {
                           <Link
                               href={category.url}
                               key={category.id}
-                              className={`w-full items-center justify-center flex text-[#565656] font-Pretendard my-[8px] px-[10px] text-[11px] ${
+                              className={`truncate w-full items-center justify-center flex text-[#565656] font-Pretendard my-[8px] px-[10px] text-[11px] ${
                                   category.id < 4 ? "border-r-2 border-[#B8B8BE]" : "border-r-0"
                               }`}
                               target={category.id === 3 || category.id === 4 ? "_blank" : "_self"}

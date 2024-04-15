@@ -18,7 +18,7 @@ const MyOrderSummary = () => {
                     className=" flex flex-row items-center justify-center w-[92px] h-[20px] border border-[#cfcfcf] rounded-[5px]"
                 >
                     <ShippingPoint width={12} height={12} />
-                    <span className="text-[12px]">배송지 관리</span>
+                    <span className="text-[12px] truncate">배송지 관리</span>
                 </Link>
             </div>
 
@@ -48,7 +48,7 @@ const MyOrderSummary = () => {
             <div className="mt-[12px] bg-[#f5f5f5] h-[40px] rounded-[10px] mb-[20px]  flex items-center justify-around">
                 {myPageOrderStatusBoxData.map((item: LinkType, index) => (
                     <Link key={item.id} href={"/"} className="px-[10px] flex justify-between items-center w-[25%]">
-                        <span className="text-[#444444] text-[12px]">{item.name}</span>
+                        <span className="text-[#444444] text-[12px] truncate">{item.name}</span>
                         <strong className="text-[14px] text-[#e5e5e5]">0</strong>
                         {index !== myPageOrderStatusBoxData.length - 1 && <span className="border-r border-r-[#e5e5e5] h-[12px]" />}
                     </Link>
