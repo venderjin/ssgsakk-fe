@@ -5,7 +5,7 @@ import ReviewProductInfo from "@/components/pages/mypage/review/ReviewProductInf
 import MyReviewItem from "./MyReviewItem";
 import { useGetServerToken } from "@/actions/useGetServerToken";
 import dateFormatter from "@/utils/dateFormatter";
-import useRevalidateTag from "@/actions/useRevalidateTag";
+import { revalidateTag } from "next/cache";
 
 const DeleteReview = async (reviewSeq: number) => {
   "use server";
@@ -25,7 +25,7 @@ const DeleteReview = async (reviewSeq: number) => {
   const data = await res.json();
 
   if (res.ok) {
-    useRevalidateTag("reviews");
+    revalidateTag("reviews");
     console.log(data);
   }
   if (!res.ok) {
