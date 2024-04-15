@@ -1,15 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useState, useRef, use } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
 //import { createReview } from "@/actions/review";
 import { useGetClientToken } from "@/actions/useGetClientToken";
 import { useRouter } from "next/navigation";
-
-interface ReviewForm {
-  content: string;
-  images: string[];
-}
+import { useRecoilValue } from "recoil";
+import { writableReviewState } from "@/recoil/atoms/reviewState";
 
 const ReviewEditor = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -20,6 +17,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
   const [reviewRating, setReviewRaing] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const reviewInfo = useRecoilValue(writableReviewState);
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -102,9 +100,9 @@ const ReviewEditor = ({ type }: { type: string }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        purchaseProductSeq: 3,
-        productSeq: 113,
-        purchaseProductOption: "색상:노란색/사이즈:110(아동)",
+        purchaseProductSeq: reviewInfo.purchaseProductSeq,
+        productSeq: reviewInfo.productSeq,
+        purchaseProductOption: reviewInfo.purchaseProductOption,
         reviewParagraph: content,
         reviewContentsVoList: imageData,
         reviewScore: reviewRating,
@@ -114,6 +112,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
     const data = await res.json();
     if (res.ok) {
       alert("리뷰가 등록되었습니다.");
+
       router.push("/mypage/reviewList/written");
     } else {
       console.log(data);

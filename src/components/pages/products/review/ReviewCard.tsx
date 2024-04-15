@@ -1,4 +1,3 @@
-import maskUserId from "@/utils/markUserId";
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import { PoroductReviewType } from "@/types/reviewType";
 

@@ -26,7 +26,7 @@ const ProductReviewAllModal = ({
       <PhotoReviewPreview reviewList={reviewList} />
       {/* 전체 리뷰 */}
       <div className="mt-[40px]">
-        <div className="my-[20px] text-[13px]">전체</div>
+        <div className="text-[13px]">전체</div>
         {reviewList.map((review) => (
           <ReviewCard key={review.reviewSeq} reviewData={review} />
         ))}
