@@ -1,5 +1,3 @@
-import React from "react";
-
 interface HomeSectionTitleProps {
     title: string;
     subtitle?: string;
