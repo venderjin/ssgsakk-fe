@@ -27,7 +27,7 @@ const ProductDetailInfo = ({
   return (
     <div
       id="productDetail"
-      className=" px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard"
+      className="product-detail-ssak px-[20px] mb-[52px] border-t-[15px] border-t-[#f5f5f5] font-Pretendard"
     >
       <div className="relative ml-[2px] mb-[15px] pt-[40px]">
         <h3 className="text-[19px] relative inline-block text-[#222222] pb-[4px] font-semibold">
