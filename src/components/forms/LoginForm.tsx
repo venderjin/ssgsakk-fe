@@ -102,15 +102,26 @@ export default function LoginForm({ callbackUrl, error }: { callbackUrl: string 
                 {loginSupportData.map((item) => {
                     return (
                         <div key={item.id}>
-                            <Link
-                                className={`px-[7px] text-[13px] text-[#4A4A4A] font-Pretendard 
-                ${item.id >= loginSupportData.length ? "" : "border-r-[1px] border-r-[#4a4a4a]"}
-                
-                `}
-                                href={item.url}
-                            >
-                                {item.title}
-                            </Link>
+                            {item.id === 3 ? (
+                                <Link
+                                    className={`px-[7px] text-[13px] text-[#4A4A4A] font-Pretendard 
+                                ${item.id >= loginSupportData.length ? "" : "border-r-[1px] border-r-[#4a4a4a]"}
+                                
+                                `}
+                                    href={item.url}
+                                >
+                                    {item.title}
+                                </Link>
+                            ) : (
+                                <div
+                                    className={`px-[7px] text-[13px] text-[#4A4A4A] font-Pretendard 
+                            ${item.id >= loginSupportData.length ? "" : "border-r-[1px] border-r-[#4a4a4a]"}
+                            
+                            `}
+                                >
+                                    {item.title}
+                                </div>
+                            )}
                         </div>
                     );
                 })}
