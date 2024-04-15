@@ -6,6 +6,7 @@ import MyReviewItem from "./MyReviewItem";
 import { useGetServerToken } from "@/actions/useGetServerToken";
 import dateFormatter from "@/utils/dateFormatter";
 import { revalidateTag } from "next/cache";
+import ReviewCreateButton from "./ReviewCreateButton";
 
 const DeleteReview = async (reviewSeq: number) => {
   "use server";
@@ -119,23 +120,16 @@ const MyReviewList = async ({ type }: { type: string }) => {
                 {dateFormatter(review.purchaseDate)} ({review.purchaseCode})
                 <RightHalfTriangle />
               </Link>
-              <div className="">
+              <div>
                 {/* 리뷰 상품 정보 */}
-                <ReviewProductInfo
-                  productImage={review.productContentsVo.contentUrl}
-                  productName={review.purchaseProductName}
-                />
+                <Link href={`/products/${review.productSeq}`}>
+                  <ReviewProductInfo
+                    productImage={review.productContentsVo.contentUrl}
+                    productName={review.purchaseProductName}
+                  />
+                </Link>
                 {/* 리뷰 작성 버튼 */}
-
-                <div className="px-[20px]">
-                  <Link
-                    href={`/mypage/review/${review.purchaseProductSeq}/create`}
-                  >
-                    <button className="border border-[#444] rounded-[8px] w-full h-[45px] text-[14px] font-semibold">
-                      리뷰쓰기
-                    </button>
-                  </Link>
-                </div>
+                <ReviewCreateButton review={review} />
               </div>
             </li>
           ))}
@@ -153,10 +147,12 @@ const MyReviewList = async ({ type }: { type: string }) => {
               </Link>
 
               {/* 리뷰 상품 정보 */}
-              <ReviewProductInfo
-                productImage={review.productContentsVo.contentUrl}
-                productName={review.purchaseProductName}
-              />
+              <Link href={`/products/${review.productSeq}`}>
+                <ReviewProductInfo
+                  productImage={review.productContentsVo.contentUrl}
+                  productName={review.purchaseProductName}
+                />
+              </Link>
               {/* 리뷰 내용 */}
               {type === "written" && (
                 <MyReviewItem reviewInfo={review} deleteReview={DeleteReview} />

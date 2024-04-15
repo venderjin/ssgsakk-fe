@@ -113,7 +113,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
     if (res.ok) {
       alert("리뷰가 등록되었습니다.");
 
-      router.push("/mypage/reviewList/written");
+      router.replace("/mypage/reviewList/written");
     } else {
       console.log(data);
     }
@@ -150,7 +150,7 @@ const ReviewEditor = ({ type }: { type: string }) => {
       </div>
 
       {/* 미디어 첨부 */}
-      <div className="pt-[16px] mb-[20px]">
+      <div className="pt-[16px] mb-[200px]">
         <div className="mt-[22px] flex">
           <div className="flex items-center mr-[17px]">
             <div className="bg-review-icon bg-[position:-152px_-129px] bg-[length:220px_179px] w-[19px] h-[16px] mr-[5px]"></div>

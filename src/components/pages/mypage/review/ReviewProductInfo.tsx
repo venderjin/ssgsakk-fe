@@ -25,8 +25,8 @@ const ReviewProductInfo = ({ productImage, productName }: Props) => {
           sizes="(max-width: 600px) 100vw, 600px"
         />
       </div>
-      <div className="pl-[15px] h-[50px] text-[#969696] text-[14px] flex items-center w-full ">
-        <div className="h-[20px] text-ellipsis overflow-hidden">
+      <div className="pl-[15px] h-[50px] text-[#969696] text-[14px] flex items-center w-full truncate">
+        <div className="h-[20px] ">
           <span>
             {productName ? productName : reviewInfo.purchaseProductName}
           </span>
