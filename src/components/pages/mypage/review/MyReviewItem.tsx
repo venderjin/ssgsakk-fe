@@ -1,9 +1,8 @@
 "use client";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 import ReviewSummaryStar from "@/components/UI/ReviewSummaryStar";
 import { WrittenReviewType } from "@/types/reviewType";
 import dateFormatter from "@/utils/dateFormatter";
-import { useEffect } from "react";
-import useRevalidateTag from "@/actions/useRevalidateTag";
 
 //리뷰 별점, 리뷰 내용, 리뷰 작성일
 
@@ -14,10 +13,6 @@ const MyReviewItem = ({
   reviewInfo: WrittenReviewType;
   deleteReview: (reviewSeq: number) => void;
 }) => {
-  useEffect(() => {
-    useRevalidateTag("reviews");
-  }, []);
-
   const deleteHandler = async () => {
     if (
       confirm(

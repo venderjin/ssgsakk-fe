@@ -21,6 +21,7 @@ const CartShippingInfo = ({
     useState<ShippingInfoType | null>(null);
   const [checkedAddressId, setCheckedAddressId] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathName = usePathname();
 
   const addHandler = () => {
     if (shippingData.length >= 5) {
@@ -29,7 +30,7 @@ const CartShippingInfo = ({
       );
     }
     router.push(
-      `/mypage/shippingForm?shippingAddressId=&callbackUrl=${usePathname()}`
+      `/mypage/shippingForm?shippingAddressId=&callbackUrl=${pathName}`
     );
   };
 

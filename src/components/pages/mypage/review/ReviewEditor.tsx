@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import ReviewStar from "@/components/pages/mypage/review/ReviewStar";
-//import { createReview } from "@/actions/review";
 import { useGetClientToken } from "@/actions/useGetClientToken";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { writableReviewState } from "@/recoil/atoms/reviewState";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 
 const ReviewEditor = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -87,6 +87,10 @@ const ReviewEditor = ({ type }: { type: string }) => {
     if (content.length < 10) return alert("10자 이상 입력해주세요.");
     if (reviewRating === 0) return alert("별점을 선택해주세요.");
 
+    CreateReview();
+  };
+
+  const CreateReview = async () => {
     const imageData = images.map((imageName, index) => ({
       priority: index + 1,
       contentUrl: imageName,
@@ -110,6 +114,8 @@ const ReviewEditor = ({ type }: { type: string }) => {
     });
 
     const data = await res.json();
+    useRevalidateTag("reviews");
+
     if (res.ok) {
       alert("리뷰가 등록되었습니다.");
 
