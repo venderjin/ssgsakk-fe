@@ -18,7 +18,6 @@ const LikeFolderManager = ({ cumstomFolderList }: LikeFolderManagerProps) => {
     const [folderList, setFolderList] = useState<CustomFolder[]>(cumstomFolderList);
     const [isAddFolderModalOpen, setIsAddFolderModalOpen] = useState<boolean>(false);
     const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState<boolean>(false);
-    const [modifyFolderNameModalOpen, setModifyFolderNameModalOpen] = useState<boolean>(false);
     const [modifyFolderNameLengths, setModifyFolderNameLengths] = useState<number[]>(Array(cumstomFolderList.length).fill(0));
     const [newFolderNameLength, setNewFolderNameLength] = useState<number>(0);
     const [newFolderName, setNewFolderName] = useState<string>("");

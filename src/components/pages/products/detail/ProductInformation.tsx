@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import UniverseBanner from "./UniverseBanner";
 import ReviewReference from "./ReviewReference";
@@ -7,6 +6,7 @@ import ProductDetailInfo from "@/components/pages/products/detail/ProductDetailI
 import RightHalfTriangle from "@/components/images/RightHalfTriangle";
 import { productType } from "@/types/productType";
 import { PoroductReviewType } from "@/types/reviewType";
+import Share from "@/components/images/Share";
 
 const ProductInformation = ({
   productData,
@@ -20,12 +20,7 @@ const ProductInformation = ({
       {/* 상품 요약 상단 */}
       <div className="font-Pretendard block">
         <div className="py-[7px] px-[16px] flex justify-end border-b border-b-[#e5e5e5] ">
-          <Image
-            src="https://sui.ssgcdn.com/ui/m_ssg/img/product/svg/ic_share24.svg"
-            alt="상품 공유하기"
-            width={24}
-            height={24}
-          ></Image>
+          <Share width={24} height={24} />
         </div>
 
         <div className="my-[15px] px-[16px]">

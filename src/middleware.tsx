@@ -12,7 +12,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   // 로그인한 유저: 로그인/회원가입 접근 제한
   if (pathname.startsWith("/login") || pathname.startsWith("/signup")) {
-    console.log(pathname);
     if (session) {
       return NextResponse.redirect(new URL("/", req.url));
     }

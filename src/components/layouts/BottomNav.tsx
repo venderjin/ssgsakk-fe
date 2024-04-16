@@ -10,7 +10,7 @@ const BottomNav = () => {
             {mainNavigationData.map((category: MainNavigationType) => {
                 return (
                     <div key={category.id}>
-                        <Link href={category.url} className="font-Pretendard text-[#777777] flex-col text-[11px] flex items-center">
+                        <Link href={category.url} className="font-Pretendard text-[#777777] flex-col text-[11px] flex items-center truncate">
                             <Image src={category.icon} alt={category.title} width={28} height={28} />
                             {category.title}
                         </Link>

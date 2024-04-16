@@ -12,9 +12,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
         <>
             <TopHeader />
             <BottomHeader />
-            {/* TopHeader and BottomHeader */}
             {children}
-            {/* Footer and BottomNav */}
             <FloatingUp />
             <FloatingLeft />
             <Footer />

@@ -1,14 +1,9 @@
 "use client";
-import {
-  cartState,
-  cartDiscountPrice,
-  cartProductPrice,
-} from "@/recoil/atoms/cartState";
+import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 const CartTotalCard = () => {
-  const [cartList, setCartList] = useRecoilState(cartState);
   const cartTotalPrice = useRecoilValue(cartProductPrice);
   const cartTotalDiscount = useRecoilValue(cartDiscountPrice);
   const [shippingFee, setShippingFee] = useState(0);

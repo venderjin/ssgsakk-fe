@@ -6,15 +6,7 @@ import LikeHeader from "@/components/pages/mypage/like/LikeHeader";
 import LikeContents from "@/components/pages/mypage/like/LikeContents";
 import Footer from "@/components/layouts/Footer";
 
-const MyLikePage = async ({
-    params,
-    searchParams,
-}: {
-    params: { categoryId: number };
-    searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<JSX.Element> => {
-    const folder = searchParams.folder;
-
+const MyLikePage = () => {
     return (
         <>
             <BackArrowHeader title="좋아요" />

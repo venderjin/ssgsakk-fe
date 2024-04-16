@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-
 import Image from "next/image";
+
 import { homeShoppingmallSelectModalData } from "@/libs/homeShoppingmallSelectModalData";
 import SliderModal from "@/components/common/SliderModal";
 import ModalSlider from "@/components/images/ModalSlider";

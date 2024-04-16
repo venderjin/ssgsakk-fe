@@ -34,7 +34,6 @@ const OptionDropBox = ({ optionType, optionList }: Props) => {
                 </div>
             </div>
 
-            {/* 이게 진짜 */}
             <BottomUpBox bottom={isOpen ? 0 : -572} onClickHandler={onClickHandler}>
                 <div className="block relative">
                     <div className="mx-[15px] my-[12px] h-[42px] pr-[40px] pl-[15px] rounded-[5px] font-Pretendard text-left border-[1px] border-[#e5e5e5] leading-10 tracking-normal">

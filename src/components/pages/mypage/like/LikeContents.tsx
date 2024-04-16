@@ -274,15 +274,7 @@ const LikeContents = () => {
                             <div className="flex flex-row h-auto px-3 w-full flex-wrap justify-between">
                                 {likeProductList &&
                                     likeProductList.map((product: LikeProductList, index: number) => (
-                                        <div
-                                            key={product.productSeq}
-                                            className="basis-[48%] relative"
-                                            // className={`flex items-center justify-between mx-[15px] py-5 ${
-                                            //     index !== likeProductList.length - 1 ? "border-b-[1px] border-[#e5e5e5]" : ""
-                                            // }`}
-                                        >
-                                            {/* <div className="absolute z-[100] top-3 left-0">10</div> */}
-
+                                        <div key={product.productSeq} className="basis-[48%] relative">
                                             {likeProductEdit && (
                                                 <div className="absolute z-[100] top-3 left-0">
                                                     <input

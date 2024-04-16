@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BackArrowHeader from "@/components/common/BackArrowHeader";
-import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ShippingFormTextField from "@/components/pages/mypage/shippingList/ShippingFormTextField";
@@ -138,7 +138,7 @@ const ShippingForm = ({
           alert("배송지가 수정되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
             router.push(callbackUrl);
-          else router.push("/mypage/shippingList");
+          else router.replace("/mypage/shippingList");
         } else {
           console.log(response.message);
           alert("배송지 수정에 실패했습니다");
@@ -162,8 +162,8 @@ const ShippingForm = ({
         if (res.ok) {
           alert("배송지가 등록되었습니다.");
           if (callbackUrl && callbackUrl !== "undefined")
-            router.push(`${callbackUrl}?isModalOpen=true`);
-          else router.push("/mypage/shippingList");
+            router.replace(`${callbackUrl}?isModalOpen=true`);
+          else router.replace("/mypage/shippingList");
         } else {
           console.log(response.message);
           alert("배송지 등록에 실패했습니다.");

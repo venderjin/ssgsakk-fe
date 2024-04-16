@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { OrderMemo } from "@/types/orderType";
 import { shippingMemoData } from "@/libs/orderData";
-import { memberOrderState, nonMemberOrderState, shippingMemoState } from "@/recoil/atoms/orderState";
+import { memberOrderState, nonMemberOrderState } from "@/recoil/atoms/orderState";
 import { useRecoilState } from "recoil";
 import Modal from "@/components/common/Modal";
 

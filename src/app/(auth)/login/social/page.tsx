@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import SocialSignIn from "@/components/pages/login/SocialSignIn";
-import LoadMypage from "@/components/pages/login/LoadMypage";
 
 const Page = ({
   params,

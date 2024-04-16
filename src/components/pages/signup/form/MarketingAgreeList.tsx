@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { marketingAgreementData } from "@/libs/agreementData";
 import { MarketingAgreementType, CheckListType } from "@/types/agreementType";
-import CardTtile from "@/components/UI/CardTtile";
 
 type CheckBoxType = {
     [key: string]: boolean;

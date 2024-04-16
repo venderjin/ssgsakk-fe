@@ -115,9 +115,6 @@ const BottomPurchaseOptionBox = ({
         optionStringList.push(`${option.type}:${item.explain2}`);
       else if (idx === 2)
         optionStringList.push(`${option.type}:${item.explain3}`);
-      // if (idx === 0) optionString += `${option.type}:${item.explain} `;
-      // else if (idx === 1) optionString += `${option.type}:${item.explain2}`;
-      // else if (idx === 2) optionString += `${option.type}:${item.explain3}`;
     });
 
     return optionStringList.join("/");

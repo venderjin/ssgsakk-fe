@@ -15,26 +15,6 @@ const NonMemberCard = () => {
           </button>
         </Link>
       </div>
-
-      {/* <div className="my-[11px]">
-        <div className="flex gap-[3px] items-center">
-          <div className="bg-tool-icon bg-[position:-48px_-421px] bg-[size:472px_463px] w-[14px] h-[15px]" />
-          <span className="text-[18px] font-bold text-[#222222]">
-            로그인을 해보세요.
-          </span>
-        </div>
-        <p className="text-[14px] text-[#666666]">
-          로그인을 하시면 담긴 상품이 있는지 바로 확인하실 수 있습니다!
-        </p>
-      </div>
-
-      <div className="mt-[11px]">
-        <Link href={"/login?callbackUrl=cart"}>
-          <button className="w-full h-[37px] border border-[#e5e5e5] text-[13px] text-[#666666]">
-            로그인 하기
-          </button>
-        </Link>
-      </div> */}
     </div>
   );
 };

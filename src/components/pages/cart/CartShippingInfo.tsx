@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import ShippingPoint from "@/components/images/ShippingPoint";
@@ -8,6 +7,7 @@ import SliderModal from "@/components/common/SliderModal";
 import SliderModalHeader from "@/components/common/SliderModalHeader";
 import ModalSlider from "@/components/images/ModalSlider";
 import ShippingInfoBox from "@/components/pages/mypage/shippingList/ShippingInfoBox";
+import { useRouter } from "next/navigation";
 
 const CartShippingInfo = ({
   shippingData,
@@ -16,10 +16,24 @@ const CartShippingInfo = ({
   shippingData: ShippingInfoType[];
   modalOpen: boolean;
 }) => {
+  const router = useRouter();
   const [selectedShipping, setSelectedShipping] =
     useState<ShippingInfoType | null>(null);
   const [checkedAddressId, setCheckedAddressId] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathName = usePathname();
+
+  const addHandler = () => {
+    if (shippingData.length >= 5) {
+      return alert(
+        "배송지는 최대 5개까지 등록 가능합니다. 배송지 관리에서 기존 배송지를 삭제 후 등록해주세요."
+      );
+    }
+    router.push(
+      `/mypage/shippingForm?shippingAddressId=&callbackUrl=${pathName}`
+    );
+  };
+
   const ModalHandler = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -121,13 +135,13 @@ const CartShippingInfo = ({
                   />
                 </li>
               ))}
-            <Link
-              href={`/mypage/shippingForm?shippingAddressId=&callbackUrl=${usePathname()}`}
+
+            <button
+              onClick={addHandler}
+              className="w-full h-[52px] border border-[#d8d8d8] text-[13px] text-[#222]"
             >
-              <button className="w-full h-[52px] border border-[#d8d8d8] text-[13px] text-[#222]">
-                + 주소 추가하기
-              </button>
-            </Link>
+              + 주소 추가하기
+            </button>
           </ul>
           <div className="flex w-full absolute bottom-0">
             <button
