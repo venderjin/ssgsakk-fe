@@ -10,7 +10,7 @@ import ReviewCreateButton from "./ReviewCreateButton";
 
 const DeleteReview = async (reviewSeq: number) => {
   "use server";
-  console.log(reviewSeq);
+
   const token = await useGetServerToken();
   if (!token) return;
   const res = await fetch(
@@ -27,7 +27,6 @@ const DeleteReview = async (reviewSeq: number) => {
 
   if (res.ok) {
     revalidateTag("reviews");
-    console.log(data);
   }
   if (!res.ok) {
     console.log(data);

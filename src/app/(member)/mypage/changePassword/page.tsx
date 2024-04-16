@@ -26,7 +26,6 @@ const ChangePassword = async () => {
 
     const data = await res.json();
     if (res.ok) {
-      console.log(data);
       redirect("/mypage/myInfoManage");
     } else {
       alert(data.message);

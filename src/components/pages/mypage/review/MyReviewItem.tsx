@@ -21,7 +21,7 @@ const MyReviewItem = ({
   const deleteHandler = async () => {
     if (
       confirm(
-        "리뷰를 삭제하시면 재작성이 불가능하며, 작성 시 지급된 포인트가 차감됩니다. 삭제하시겠습니까?"
+        "리뷰를 삭제하시면 작성 시 지급된 포인트가 차감됩니다. 삭제하시겠습니까?"
       )
     ) {
       //리뷰 삭제 fetch
