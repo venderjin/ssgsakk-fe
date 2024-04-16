@@ -339,13 +339,13 @@ export const myPageMenuGroupData: MenuGroupType[] = [
         id: 1,
         name: "회원정보 변경",
         value: "myInfoManage",
-        url: "/mypage/myInfoManage/password",
+        url: "/mypage/myInfoManage/changeInfo",
       },
       {
         id: 2,
         name: "비밀번호 변경",
         value: "changePassword",
-        url: "/mypage/myInfoManage/changePassword",
+        url: "/mypage/changePassword",
       },
       {
         id: 3,
