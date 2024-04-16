@@ -55,15 +55,17 @@ const ReviewPreviewCard = ({
           </button>
         </div>
         {/* 이미지 */}
-        <div className="relative w-[85px] min-h-[80px] my-[10px]">
-          <Image
-            src={reviewData.reviewContentsList[0].contentUrl}
-            alt="첨부이미지"
-            fill={true}
-            sizes="(max-width: 600px) 100vw, 600px"
-            className="rounded-[8px]"
-          />
-        </div>
+        {reviewData.reviewContentsList.length > 1 && (
+          <div className="relative w-[85px] min-h-[80px] my-[10px]">
+            <Image
+              src={reviewData.reviewContentsList[0].contentUrl}
+              alt="첨부이미지"
+              fill={true}
+              sizes="(max-width: 600px) 100vw, 600px"
+              className="rounded-[8px]"
+            />
+          </div>
+        )}
 
         {/* 내용 */}
         <p

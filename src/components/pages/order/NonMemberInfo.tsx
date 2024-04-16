@@ -7,7 +7,6 @@ import Footer from "@/components/layouts/Footer";
 
 import { nonMemberOrderState, shippingMemoState } from "@/recoil/atoms/orderState";
 import { useRecoilState } from "recoil";
-import { set } from "react-hook-form";
 
 interface NonMemberInfo {
     nonMemberName: string;

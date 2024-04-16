@@ -1,8 +1,7 @@
 "use client";
 import Toggle from "@/components/UI/Toggle";
-import { cartState } from "@/recoil/atoms/cartState";
 import { cartSelectedState } from "@/recoil/selectors/cartSortState";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 
 const CartControl = ({
@@ -15,18 +14,11 @@ const CartControl = ({
   deleteCartItem: (cartSeq: number) => void;
 }) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
-  const [cartList, setCartList] = useRecoilState(cartState);
   const selectedItem = useRecoilValue(cartSelectedState);
 
   const deleteHandler = () => {
     if (selectedItem.length === 0) {
       return alert("삭제할 상품을 선택해주세요.");
-      // //품절상품 삭제
-      // if (confirm("품절된 상품을 모두 삭제하시겠습니까?")) {
-      //   //const soldOutItem = cartList.filter((item) => item.stock === 0);
-      //   return;
-      // }
-      // return;
     }
     if (confirm("선택된 상품을 삭제하시겠습니까?")) {
       selectedItem.forEach((item) => {
@@ -37,11 +29,6 @@ const CartControl = ({
 
   useEffect(() => {
     checkAllCartItem(isCheckAll);
-    // setCartList((prev) =>
-    //   prev.map((item) => {
-    //     return { ...item, checkbox: Number(isCheckAll) };
-    //   })
-    // );
   }, [isCheckAll]);
 
   return (

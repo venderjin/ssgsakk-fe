@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShippingInfoBox from "./ShippingInfoBox";
 import { ShippingInfoType } from "@/types/memberInfoType";
-import { useSession } from "next-auth/react";
-import useRevalidateTag from "@/actions/useRevalidateTag";
 
 const ManageShippingList = ({
   shippingData,
@@ -13,7 +11,6 @@ const ManageShippingList = ({
   shippingData: ShippingInfoType[];
   SetDefaultShippingAddress: (checkedAddressId: number) => void;
 }) => {
-  const { data: session } = useSession();
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
 
@@ -26,33 +23,12 @@ const ManageShippingList = ({
     alert("기본 배송지로 설정되었습니다.");
   };
 
-  // const SetDefaultShippingAddress = async () => {
-  //   //기본 배송지 설정 로직
-  //   if (checkedAddressId === null) {
-  //     alert("기본 배송지로 설정할 배송지를 선택해주세요.");
-  //     return;
-  //   }
-
-  //   const res = await fetch(
-  //     `${process.env.BASE_URL}/shipping-addr/${checkedAddressId}/default`,
-  //     {
-  //       method: "PATCH",
-  //       headers: {
-  //         Authorization: session?.user?.token || "",
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   useRevalidateTag("address");
-  //   if (res.ok) {
-  //     alert("기본 배송지로 설정되었습니다.");
-  //   } else {
-  //     alert("기본 배송지 설정에 실패했습니다.");
-  //   }
-  // };
-
   const addHandler = () => {
+    if (shippingData.length >= 5) {
+      return alert(
+        "배송지는 최대 5개까지 등록 가능합니다. 기존 배송지를 삭제 후 등록해주세요."
+      );
+    }
     router.push(`/mypage/shippingForm?shippingAddressId=`);
   };
 

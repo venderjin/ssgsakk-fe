@@ -7,9 +7,6 @@ import CartItemPrice from "@/components/pages/cart/CartItemPrice";
 import CartQunatityHandler from "./CartQunatityHandler";
 import { CartItemType, CartStateType } from "@/types/cartType";
 import { useGetClientToken } from "@/actions/useGetClientToken";
-import SliderModal from "@/components/common/SliderModal";
-import SliderModalHeader from "@/components/common/SliderModalHeader";
-import ModalSlider from "@/components/images/ModalSlider";
 import { useRecoilState } from "recoil";
 import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
 
@@ -32,10 +29,6 @@ const CartItemCard = ({
   const [cartItem, setCartItem] = useState<CartItemType | null>(null);
   const [totalPrice, setTotalPrice] = useRecoilState(cartProductPrice);
   const [discountPrice, setDiscountPrice] = useRecoilState(cartDiscountPrice);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const ModalHandler = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // };
 
   useEffect(() => {
     const getCartItem = async () => {
@@ -81,16 +74,6 @@ const CartItemCard = ({
     getCartItem();
   }, [cartItemState, token]);
 
-  // const onChangeOption = (productOption: string, optionAndStockSeq: number) => {
-  //   if (!cartItem) return;
-  //   setCartItem({
-  //     ...cartItem,
-  //     productOption: productOption,
-  //     optionAndStockSeq: optionAndStockSeq,
-  //   });
-  //   setIsModalOpen(false);
-  // };
-
   const onQuantityChange = (count: number) => {
     if (!cartItem) return;
     updateQuantity(cartItemState.cartSeq, count);
@@ -126,23 +109,6 @@ const CartItemCard = ({
   return (
     cartItem && (
       <>
-        {/* {isModalOpen && (
-          <SliderModal
-            isModalOpen={isModalOpen}
-            onChangeModal={ModalHandler}
-            backgroundClose={true}
-          >
-            <ModalSlider />
-            <SliderModalHeader title="옵션변경" onChangeModal={ModalHandler} />
-            <section className="font-Pretendard h-[75vh] overflow-y-auto">
-              <CartOoptionSelectBox
-                productSeq={cartItem.productSeq}
-                optionAndStockSeq={cartItem.optionAndStockSeq}
-                onChangeOption={onChangeOption}
-              />
-            </section>
-          </SliderModal>
-        )} */}
         <div className="py-[20px] px-[16px] flex font-Pretendard border-b border-b-[#f0f0f0]">
           {/* 썸네일 이미지 */}
           <section className="relative">

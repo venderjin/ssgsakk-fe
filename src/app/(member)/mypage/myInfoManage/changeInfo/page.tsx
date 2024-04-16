@@ -1,7 +1,11 @@
-import React from "react";
+import NotFeature from "@/components/UI/NotFeature";
 
 const ChangeInfo = () => {
-  return <div>page</div>;
+    return (
+        <>
+            <NotFeature />
+        </>
+    );
 };
 
 export default ChangeInfo;

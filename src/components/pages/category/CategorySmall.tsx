@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, Fragment } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 interface SmallCategoryProps {

@@ -5,7 +5,6 @@ import Link from "next/link";
 import CartIcon from "@/components/UI/CartIcon";
 import GoBackIcon from "@/components/UI/GoBackIcon";
 import SearchPage from "@/components/forms/SearchPage";
-import { CartStateType } from "@/types/cartType";
 
 const TopHeaderIncludeIcon = ({ title, icon, fixed }: { title: string; icon: string; fixed?: boolean }) => {
     const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);

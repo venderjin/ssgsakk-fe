@@ -1,10 +1,8 @@
 "use client";
-import Link from "next/link";
+import useRevalidateTag from "@/actions/useRevalidateTag";
 import ReviewSummaryStar from "@/components/UI/ReviewSummaryStar";
 import { WrittenReviewType } from "@/types/reviewType";
 import dateFormatter from "@/utils/dateFormatter";
-import { useRecoilState } from "recoil";
-import { useRouter } from "next/navigation";
 
 //리뷰 별점, 리뷰 내용, 리뷰 작성일
 
@@ -15,12 +13,10 @@ const MyReviewItem = ({
   reviewInfo: WrittenReviewType;
   deleteReview: (reviewSeq: number) => void;
 }) => {
-  const router = useRouter();
-
   const deleteHandler = async () => {
     if (
       confirm(
-        "리뷰를 삭제하시면 재작성이 불가능하며, 작성 시 지급된 포인트가 차감됩니다. 삭제하시겠습니까?"
+        "리뷰를 삭제하시면 작성 시 지급된 포인트가 차감됩니다. 삭제하시겠습니까?"
       )
     ) {
       //리뷰 삭제 fetch

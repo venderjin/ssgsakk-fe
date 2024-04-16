@@ -1,5 +1,6 @@
 import ImageSlider from "@/components/pages/products/detail/ImageSlider";
 import { PoroductReviewType } from "@/types/reviewType";
+import dateFormatter from "@/utils/dateFormatter";
 
 const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
   return (
@@ -22,7 +23,7 @@ const ReviewCard = ({ reviewData }: { reviewData: PoroductReviewType }) => {
 
         {/* 리뷰작성일, 아이디 */}
         <div className="text-[11px] text-[#969696] mb-[20px]">
-          <span>{reviewData.reviewDate}</span>
+          <span>{dateFormatter(reviewData.reviewDate)}</span>
           <span className="border-r border-r-[#e5e5e5] h-[12px] mx-[10px]" />
           <span>{reviewData.userId}</span>
         </div>
