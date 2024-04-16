@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
+import { Suspense } from "react";
 
 const ImageSlider = ({ imageList }: { imageList: ImageType[] }) => {
   SwiperCore.use([Pagination]);

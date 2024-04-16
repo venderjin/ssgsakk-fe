@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import UniverseBanner from "./UniverseBanner";
 import ReviewReference from "./ReviewReference";
@@ -22,12 +21,6 @@ const ProductInformation = ({
       <div className="font-Pretendard block">
         <div className="py-[7px] px-[16px] flex justify-end border-b border-b-[#e5e5e5] ">
           <Share width={24} height={24} />
-          {/* <Image
-            src="https://sui.ssgcdn.com/ui/m_ssg/img/product/svg/ic_share24.svg"
-            alt="상품 공유하기"
-            width={24}
-            height={24}
-          ></Image> */}
         </div>
 
         <div className="my-[15px] px-[16px]">
