@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShippingInfoBox from "./ShippingInfoBox";
 import { ShippingInfoType } from "@/types/memberInfoType";
-import { useSession } from "next-auth/react";
 
 const ManageShippingList = ({
   shippingData,
@@ -12,7 +11,6 @@ const ManageShippingList = ({
   shippingData: ShippingInfoType[];
   SetDefaultShippingAddress: (checkedAddressId: number) => void;
 }) => {
-  const { data: session } = useSession();
   const [checkedAddressId, setCheckedAddressId] = useState<number | null>(null);
   const router = useRouter();
 

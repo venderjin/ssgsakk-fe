@@ -1,15 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import {
-  cartDiscountPrice,
-  cartProductPrice,
-  cartState,
-} from "@/recoil/atoms/cartState";
+import { cartDiscountPrice, cartProductPrice } from "@/recoil/atoms/cartState";
 import { cartSelectedState } from "@/recoil/selectors/cartSortState";
 import { useRecoilValue, useRecoilState } from "recoil";
 
 const CartToolBar = () => {
-  const [cartList, setCartList] = useRecoilState(cartState);
   const selectedItem = useRecoilValue(cartSelectedState);
   const cartTotalPrice = useRecoilValue(cartProductPrice);
   const cartTotalDiscount = useRecoilValue(cartDiscountPrice);
@@ -23,7 +18,7 @@ const CartToolBar = () => {
   }, [selectedItem]);
 
   const orderHandler = () => {
-    console.log(selectedItem);
+    alert("서비스 준비중입니다.");
   };
 
   return (
